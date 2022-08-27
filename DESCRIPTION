@@ -1,0 +1,23 @@
+Package: mbma
+Type: Package
+Title: TODO
+Version: 0.0.1
+Authors@R: c(
+  person("Mika", "Braginsky", email = "mika.br@gmail.com", role = c("aut", "cre")),
+  person("Maya", "Mathur", email = "mmathur@stanford.edu", role = c("aut")))
+Maintainer: Mika Braginsky <mika.br@gmail.com>
+Description: TODO. TODO. TODO.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Depends:
+    R (>= 3.4.0)
+Imports: 
+    dplyr,
+    metafor,
+    purrr,
+    Rdpack,
+    rlang,
+    robumeta
+RoxygenNote: 7.2.0
+RdMacros: Rdpack
