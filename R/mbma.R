@@ -7,10 +7,10 @@
 #'   (Only one of \code{vi} or \code{sei} needs to be specified).
 #' @param selection_ratio Ratio by which publication bias favors affirmative
 #'   studies.
-#' @param bias_affirmative Mean internal bias among published affirmative
-#'   studies.
-#' @param bias_nonaffirmative Mean internal bias among published nonaffirmative
-#'   studies.
+#' @param bias_affirmative Mean internal bias, on the additive scale, among published affirmative
+#'   studies. The bias has the same units as \code{yi}.
+#' @param bias_nonaffirmative Mean internal bias, on the additive scale, among published nonaffirmative
+#'   studies. The bias has the same units as \code{yi}.
 #' @param cluster Vector of the same length as the number of rows in the data,
 #'   indicating which cluster each study should be considered part of (defaults
 #'   to each study being in its own cluster).
@@ -91,7 +91,7 @@ corrected_meta_mbma <- function(yi,
   tcrit <- qnorm(1 - alpha_select / 2)
 
   dat <- tibble(yi = yi, vi = vi, sei = sei, biased = biased, cluster = cluster) |>
-    mutate(affirmative = (.data$yi / .data$sei) > tcrit) # TODO MM: double check this is right
+    mutate(affirmative = (.data$yi / .data$sei) > tcrit)
 
   p_affirm_pub <- dat |> filter(.data$biased) |> pull(.data$affirmative) |> mean()
   p_nonaffirm_pub <- 1 - p_affirm_pub
@@ -116,10 +116,9 @@ corrected_meta_mbma <- function(yi,
 
   alpha <- 1 - ci_level
   stats <- meta_mbma$reg_table |>
-    # TODO MM: double check this is right
-    mutate(ci = qt(1 - alpha / 2, .data$dfs) * .data$SE,
-           ci_lower = .data$b.r - .data$ci,
-           ci_upper = .data$b.r + .data$ci) |>
+    mutate(ci_width = qt(1 - alpha / 2, .data$dfs) * .data$SE,
+           ci_lower = .data$b.r - .data$ci_width,
+           ci_upper = .data$b.r + .data$ci_width) |>
     select(mu_hat = .data$b.r, .data$ci_lower, .data$ci_upper, p_value = .data$prob)
 
   vals <- list(selection_ratio = selection_ratio,
@@ -143,10 +142,9 @@ corrected_meta_mbma <- function(yi,
 #' @param q The attenuated value to which to shift the point estimate or CI.
 #'   Should be specified on the same scale as \code{dat$yi} (e.g., if
 #'   \code{dat$yi} is on the log-RR scale, then \code{q} should be as well).
-#' @param bias_grid_hi The largest value of \code{bias} that should be included
-#'   in the grid search. (TODO MM: clarify that magnitude depends on the scale
-#'   of the outcome measure)
-#' @param evalue_transformation TODO MM
+#' @param bias_grid_hi The largest value of \code{bias}, on the additive scale, that should be included
+#'   in the grid search. The bias has the same units as \code{yi}.
+#' @param evalue_transformation TODO MM: Please see multi_evalue_example.R
 #'
 #' @return
 #' @export
@@ -199,6 +197,7 @@ evalue_mbma <- function(yi,
   }
 
   bias_est <- compute_eb("mu_hat")
+  # MM: Below, we'd call multi_evalue instead of evalue_transformation
   evalue_est <- evalue_transformation(exp(bias_est))
 
   bias_ci <- compute_eb("ci_lower")
