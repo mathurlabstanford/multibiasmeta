@@ -29,20 +29,21 @@ the point estimates.}
 (Only one of \code{vi} or \code{sei} needs to be specified).}
 
 \item{selection_ratio}{Ratio by which publication bias favors affirmative
-studies.}
+studies (i.e., studies with p-values less than \code{alpha_select} and estimates
+in the direction indicated by \code{favor_positive}).}
 
-\item{bias_affirmative}{Mean internal bias among published affirmative
-studies.}
+\item{bias_affirmative}{Mean internal bias, on the additive scale, among published affirmative
+studies. The bias has the same units as \code{yi}.}
 
-\item{bias_nonaffirmative}{Mean internal bias among published nonaffirmative
-studies.}
+\item{bias_nonaffirmative}{Mean internal bias, on the additive scale, among published nonaffirmative
+studies. The bias has the same units as \code{yi}.}
 
 \item{cluster}{Vector of the same length as the number of rows in the data,
 indicating which cluster each study should be considered part of (defaults
-to each study being in its own cluster).}
+to treating studies as independent; i.e., each study is in its own cluster).}
 
 \item{biased}{Boolean indicating whether each study is considered internally
-biased, either single value used for all studies or a vector the same
+biased; either single value used for all studies or a vector the same
 length as the number of rows in the data (defaults to all studies).}
 
 \item{favor_positive}{\code{TRUE} if publication bias are
@@ -50,7 +51,7 @@ assumed to favor significant positive estimates; \code{FALSE} if assumed to
 favor significant negative estimates.}
 
 \item{alpha_select}{Alpha level at which an estimate's probability of being
-favored by p-hacking and/or by publication bias is assumed to change (i.e.,
+favored by publication bias is assumed to change (i.e.,
 the threshold at which study investigators, journal editors, etc., consider
 an estimate to be significant).}
 
@@ -65,7 +66,7 @@ always using \code{TRUE}.}
 Correction for meta-analysis with multiple biases
 }
 \examples{
-# no internal bias
+# publication bias without internal bias
 corrected_meta_mbma(yi = meta_meat$yi,
                     vi = meta_meat$vi,
                     bias_affirmative = 0,
@@ -73,7 +74,7 @@ corrected_meta_mbma(yi = meta_meat$yi,
                     selection_ratio = 4,
                     biased = !meta_meat$randomized)
 
-# internal bias
+# publication bias and internal bias in the non-randomized studies
 corrected_meta_mbma(yi = meta_meat$yi,
                     vi = meta_meat$vi,
                     bias_affirmative = log(1.5),

@@ -5,9 +5,9 @@
 #'
 #' @format A data frame with 100 rows and 4 columns:
 #' \describe{
-#'   \item{yi}{Point estimate} # TODO MM: on what scale
+#'   \item{yi}{Point estimate on log-risk ratio scale}
 #'   \item{vi}{Variance of point estimate}
-#'   \item{cluster}{Paper from which estimate comes}
+#'   \item{cluster}{Paper that contributed the point estimate}
 #'   \item{randomized}{Logical indicating whether study was randomized}
 #' }
 #'

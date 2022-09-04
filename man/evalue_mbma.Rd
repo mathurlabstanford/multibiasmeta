@@ -30,7 +30,8 @@ the point estimates.}
 (Only one of \code{vi} or \code{sei} needs to be specified).}
 
 \item{selection_ratio}{Ratio by which publication bias favors affirmative
-studies.}
+studies (i.e., studies with p-values less than \code{alpha_select} and estimates
+in the direction indicated by \code{favor_positive}).}
 
 \item{q}{The attenuated value to which to shift the point estimate or CI.
 Should be specified on the same scale as \code{dat$yi} (e.g., if
@@ -38,10 +39,10 @@ Should be specified on the same scale as \code{dat$yi} (e.g., if
 
 \item{cluster}{Vector of the same length as the number of rows in the data,
 indicating which cluster each study should be considered part of (defaults
-to each study being in its own cluster).}
+to treating studies as independent; i.e., each study is in its own cluster).}
 
 \item{biased}{Boolean indicating whether each study is considered internally
-biased, either single value used for all studies or a vector the same
+biased; either single value used for all studies or a vector the same
 length as the number of rows in the data (defaults to all studies).}
 
 \item{favor_positive}{\code{TRUE} if publication bias are
@@ -49,7 +50,7 @@ assumed to favor significant positive estimates; \code{FALSE} if assumed to
 favor significant negative estimates.}
 
 \item{alpha_select}{Alpha level at which an estimate's probability of being
-favored by p-hacking and/or by publication bias is assumed to change (i.e.,
+favored by publication bias is assumed to change (i.e.,
 the threshold at which study investigators, journal editors, etc., consider
 an estimate to be significant).}
 
@@ -60,11 +61,10 @@ estimate will be calculated from \code{ci_level}.)}
 \item{small}{Should inference allow for a small meta-analysis? We recommend
 always using \code{TRUE}.}
 
-\item{bias_grid_hi}{The largest value of \code{bias} that should be included
-in the grid search. (TODO MM: clarify that magnitude depends on the scale
-of the outcome measure)}
+\item{bias_grid_hi}{The largest value of \code{bias}, on the additive scale, that should be included
+in the grid search. The bias has the same units as \code{yi}.}
 
-\item{evalue_transformation}{TODO MM}
+\item{evalue_transformation}{TODO MM: Please see multi_evalue_example.R}
 }
 \description{
 E-value for meta-analysis with multiple biases
