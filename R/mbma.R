@@ -166,7 +166,7 @@ evalue_mbma <- function(yi,
                         ci_level = 0.95,
                         small = TRUE,
                         bias_grid_hi = 20,
-                        # TODO MM: input string of bias type, map to corresponding transformation from evalue package
+                        # TODO MM: Please see multi_evalue_example.R
                         evalue_transformation = function(b) b + sqrt(b ^ 2 - b)) {
 
 
@@ -187,7 +187,7 @@ evalue_mbma <- function(yi,
                                  alpha_select = alpha_select,
                                  ci_level = ci_level,
                                  small = small)
-      return(abs(corrected$stats[[opt_col]] - q)) # TODO MM: is this wrong for favor_positive = FALSE?
+      return(abs(corrected$stats[[opt_col]] - q))
     }
 
     opt <- optimize(f = bias_factor, interval = c(0, bias_grid_hi))
