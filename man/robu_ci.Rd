@@ -2,11 +2,11 @@
 % Please edit documentation in R/mbma.R
 \name{robu_ci}
 \alias{robu_ci}
-\title{Add custom CI to robumeta::robu() reg_table output}
+\title{Add CI with specified ci_level to reg_table output from robumeta::robu()}
 \usage{
 robu_ci(reg_table, ci_level)
 }
 \description{
-Add custom CI to robumeta::robu() reg_table output
+Add CI with specified ci_level to reg_table output from robumeta::robu()
 }
 \keyword{internal}

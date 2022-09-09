@@ -17,7 +17,7 @@ multibias_evalue(
   ci_level = 0.95,
   small = TRUE,
   bias_grid_hi = 20,
-  evalue_transformation = function(b) b + sqrt(b^2 - b)
+  internal_biases = list(EValue::confounding())
 )
 }
 \arguments{
@@ -65,7 +65,13 @@ always using \code{TRUE}.}
 that should be included in the grid search. The bias has the same units as
 \code{yi}.}
 
-\item{evalue_transformation}{TODO MM: Please see multi_evalue_example.R}
+\item{internal_biases}{List of biases to consider for computing evalues
+(objects of \code{bias} as returned by \code{EValue::confounding()},
+\code{EValue::selection()}, \code{EValue::misclassification()}) (defaults
+to \code{EValue::confounding()}). If any biases other than the default are
+specified, the \code{yi} argument must be on the log-RR scale (if \code{yi}
+is not already on that scale, use \code{EValue::convert_measures()} to make
+it so).}
 }
 \description{
 E-value for meta-analysis with multiple biases
@@ -75,4 +81,11 @@ multibias_evalue(yi = meta_meat$yi,
                  vi = meta_meat$vi,
                  selection_ratio = 4,
                  biased = !meta_meat$randomized)
+
+# consider outcome misclassification as internal bias (rather than confounding)
+multibias_evalue(yi = meta_meat$yi,
+                 vi = meta_meat$vi,
+                 selection_ratio = 4,
+                 biased = !meta_meat$randomized,
+                 internal_bias = list(EValue::misclassification("outcome")))
 }

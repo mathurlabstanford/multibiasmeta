@@ -1,4 +1,5 @@
-#' Add custom CI to robumeta::robu() reg_table output
+#' Add CI with specified ci_level to reg_table output from robumeta::robu()
+#'
 #' @keywords internal
 robu_ci <- function(reg_table, ci_level) {
   alpha <- 1 - ci_level
@@ -33,12 +34,14 @@ multibias_fun <- function(yi,
                ci_level = ci_level,
                small = small)
 
+  # validate inputs
   stopifnot(selection_ratio >= 1)
   stopifnot(length(bias_affirmative) == 1)
   stopifnot(length(bias_nonaffirmative) == 1)
   stopifnot(length(cluster) == length(yi))
   stopifnot(length(biased) == 1 || length(biased) == length(yi))
 
+  # resolve vi and sei
   if (missing(vi) & missing(sei)) stop("Must specify 'vi' or 'sei' argument.")
   if (missing(vi)) vi <- sei ^ 2
   if (missing(sei)) sei <- sqrt(vi)
@@ -47,27 +50,29 @@ multibias_fun <- function(yi,
   )
   if (any(sei < 0)) stop("vi or sei should never be negative.")
 
+  # flip yi if not favor_positive
   if (!favor_positive) yi <- -yi
 
+  # combine data vectors and get each study's affirmative status
   tcrit <- qnorm(1 - alpha_select / 2)
-
   dat <- tibble(yi, vi, sei, biased, cluster) |>
     mutate(affirmative = (.data$yi / .data$sei) > tcrit)
 
+  # adjust yi values based on biases and selection ratio
   p_affirm_pub <- dat |> filter(.data$biased) |> pull(.data$affirmative) |> mean()
   p_nonaffirm_pub <- 1 - p_affirm_pub
   denominator <- p_affirm_pub + selection_ratio * p_nonaffirm_pub
   mhat_b <- (p_nonaffirm_pub * selection_ratio * bias_nonaffirmative +
                p_affirm_pub * bias_affirmative ) / denominator
-
   dat <- dat |> mutate(yi_adj = .data$yi - .data$biased * mhat_b)
 
+  # compute weights
   tau2 <- metafor::rma.uni(yi = dat$yi_adj, vi = dat$vi)$tau2
-
   dat <- dat |>
     mutate(weight = if_else(.data$affirmative, 1, selection_ratio),
            userweight = .data$weight / (.data$vi + tau2))
 
+  # fit meta analysis using adjusted yi values and weights
   meta_mbma <- robumeta::robu(yi_adj ~ 1,
                               data = dat,
                               studynum = cluster,
@@ -75,17 +80,9 @@ multibias_fun <- function(yi,
                               userweights = dat$userweight,
                               small = small)
 
+  # extract stats from meta analysis
   stats <- robu_ci(meta_mbma$reg_table, ci_level) |>
     mutate(model = model_label, .before = everything())
-
-  # alpha <- 1 - ci_level
-  # stats <- meta_mbma$reg_table |>
-  #   mutate(ci_width = qt(1 - alpha / 2, .data$dfs) * .data$SE,
-  #          ci_lower = .data$b.r - .data$ci_width,
-  #          ci_upper = .data$b.r + .data$ci_width,
-  #          model = model_label) |>
-  #   select(model, mu_hat = .data$b.r, .data$ci_lower, .data$ci_upper,
-  #          p_value = .data$prob)
 
   fit <- list()
   fit[[model_label]] <- meta_mbma
@@ -178,10 +175,10 @@ multibias_corrected_meta <- function(yi,
   args <- as.list(environment())
   args <- args |> discard(\(a) class(a) == "name")
 
-  # get multibias corrected meta
+  # get meta corrected for multibias for internal bias and publication bias
   meta_multibias <- exec(multibias_fun, !!!args, model_label = "multibias")
 
-  # get no internal bias (only publication bias) corrected meta
+  # get meta corrected for only publication bias (no internal bias)
   if (return_pubbias_meta) {
     pubbias_args <- args
     pubbias_args[c("bias_affirmative", "bias_nonaffirmative")] <- 0
@@ -220,7 +217,13 @@ multibias_corrected_meta <- function(yi,
 #' @param bias_grid_hi The largest value of \code{bias}, on the additive scale,
 #'   that should be included in the grid search. The bias has the same units as
 #'   \code{yi}.
-#' @param evalue_transformation TODO MM: Please see multi_evalue_example.R
+#' @param internal_biases List of biases to consider for computing evalues
+#'   (objects of \code{bias} as returned by \code{EValue::confounding()},
+#'   \code{EValue::selection()}, \code{EValue::misclassification()}) (defaults
+#'   to \code{EValue::confounding()}). If any biases other than the default are
+#'   specified, the \code{yi} argument must be on the log-RR scale (if \code{yi}
+#'   is not already on that scale, use \code{EValue::convert_measures()} to make
+#'   it so).
 #'
 #' @return
 #' @export
@@ -230,6 +233,13 @@ multibias_corrected_meta <- function(yi,
 #'                  vi = meta_meat$vi,
 #'                  selection_ratio = 4,
 #'                  biased = !meta_meat$randomized)
+#'
+#' # consider outcome misclassification as internal bias (rather than confounding)
+#' multibias_evalue(yi = meta_meat$yi,
+#'                  vi = meta_meat$vi,
+#'                  selection_ratio = 4,
+#'                  biased = !meta_meat$randomized,
+#'                  internal_bias = list(EValue::misclassification("outcome")))
 multibias_evalue <- function(yi,
                              vi,
                              sei,
@@ -242,15 +252,17 @@ multibias_evalue <- function(yi,
                              ci_level = 0.95,
                              small = TRUE,
                              bias_grid_hi = 20,
-                             # TODO MM: Please see multi_evalue_example.R
-                             evalue_transformation = function(b) b + sqrt(b ^ 2 - b)) {
+                             internal_biases = list(EValue::confounding())) {
 
-
+  # set up multibias_corrected_meta with either vi or sei passed
   if (missing(vi) & missing(sei)) stop("Must specify 'vi' or 'sei' argument.")
   if (missing(sei)) corrected_fun <- partial(multibias_corrected_meta, vi = vi)
   else corrected_fun <- partial(multibias_corrected_meta, sei = sei)
 
-  compute_eb <- function(opt_col, tolerance = 0.0001) {
+  # compute expectation of bias for parameter (mu_hat or ci_lower)
+  compute_eb <- function(param, tolerance = 0.0001) {
+
+    # function to optimize: multibias_corrected_meta for a given bias
     bias_factor <- function(bias_shared) {
       # all arguments passed through except biases being set to bias_shared
       corrected <- corrected_fun(yi = yi,
@@ -263,21 +275,30 @@ multibias_evalue <- function(yi,
                                  alpha_select = alpha_select,
                                  ci_level = ci_level,
                                  small = small)
-      return(abs(corrected$stats[[opt_col]] - q))
+      # difference between parameter estimate and q
+      return(abs(corrected$stats[[param]] - q))
     }
 
+    # optimize to find smallest difference
     opt <- optimize(f = bias_factor, interval = c(0, bias_grid_hi))
+    # check that search stayed within bounds
     if (abs(opt$minimum - bias_grid_hi) < tolerance & opt$objective > tolerance)
       return(paste(">", bias_grid_hi))
     return(opt$minimum)
   }
 
-  bias_est <- compute_eb("mu_hat")
-  # MM: Below, we'd call multi_evalue instead of evalue_transformation
-  evalue_est <- evalue_transformation(exp(bias_est))
+  # turn list of internal biases into EValue::multi_bias object
+  biases <- exec(EValue::multi_bias, !!!internal_biases)
 
+  # find bias for mu_hat, convert to evalue
+  bias_est <- compute_eb("mu_hat")
+  evalue_est <- summary(EValue::multi_evalue(est = EValue::RR(exp(bias_est)),
+                                             biases = biases))
+
+  # find bias for ci_lower, convert to evalue
   bias_ci <- compute_eb("ci_lower")
-  evalue_ci <- evalue_transformation(exp(bias_ci))
+  evalue_ci <- summary(EValue::multi_evalue(est = EValue::RR(exp(bias_ci)),
+                                            biases = biases))
 
   stats <- list(bias_est = bias_est, bias_ci = bias_ci,
                 evalue_est = evalue_est, evalue_ci = evalue_ci)
