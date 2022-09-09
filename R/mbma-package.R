@@ -1,4 +1,14 @@
 #' @keywords internal
+#' @references
+#' \insertRef{mathur2022}{mbma}
+#'
+#' \insertRef{ding2016}{mbma}
+#'
+#' \insertRef{smith2019}{mbma}
+#'
+#' \insertRef{vanderweele2019}{mbma}
+#'
+#' \insertRef{mathur2021}{mbma}
 "_PACKAGE"
 
 ## usethis namespace: start

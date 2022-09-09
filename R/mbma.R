@@ -131,8 +131,11 @@ multibias_fun <- function(yi,
 #'   but not for confounding be returned?
 #'
 #' @return
-#' @export
 #'
+#' @references
+#' \insertRef{mathur2022}{mbma}
+#'
+#' @export
 #' @examples
 #' # publication bias without internal bias
 #' multibias_corrected_meta(yi = meta_meat$yi,
@@ -226,8 +229,21 @@ multibias_corrected_meta <- function(yi,
 #'   it so).
 #'
 #' @return
-#' @export
 #'
+#' @details For more on the functions passed as \code{internal_biases}, see the
+#'   EValue package vignette on multiple biases:
+#'   <https://cran.r-project.org/web/packages/EValue/vignettes/multiple-bias.html>.
+#'
+#' @references
+#' \insertRef{mathur2022}{mbma}
+#'
+#' \insertRef{ding2016}{mbma}
+#'
+#' \insertRef{smith2019}{mbma}
+#'
+#' \insertRef{vanderweele2019}{mbma}
+#'
+#' @export
 #' @examples
 #' multibias_evalue(yi = meta_meat$yi,
 #'                  vi = meta_meat$vi,

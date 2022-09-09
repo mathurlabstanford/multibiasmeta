@@ -92,3 +92,6 @@ multibias_corrected_meta(yi = meta_meat$yi,
 
 # treat all studies as biased, not just non-randomized ones
 }
+\references{
+\insertRef{mathur2022}{mbma}
+}

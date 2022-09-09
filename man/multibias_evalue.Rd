@@ -76,6 +76,11 @@ it so).}
 \description{
 E-value for meta-analysis with multiple biases
 }
+\details{
+For more on the functions passed as \code{internal_biases}, see the
+  EValue package vignette on multiple biases:
+  <https://cran.r-project.org/web/packages/EValue/vignettes/multiple-bias.html>.
+}
 \examples{
 multibias_evalue(yi = meta_meat$yi,
                  vi = meta_meat$vi,
@@ -88,4 +93,13 @@ multibias_evalue(yi = meta_meat$yi,
                  selection_ratio = 4,
                  biased = !meta_meat$randomized,
                  internal_bias = list(EValue::misclassification("outcome")))
+}
+\references{
+\insertRef{mathur2022}{mbma}
+
+\insertRef{ding2016}{mbma}
+
+\insertRef{smith2019}{mbma}
+
+\insertRef{vanderweele2019}{mbma}
 }
