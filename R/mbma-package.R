@@ -2,8 +2,9 @@
 "_PACKAGE"
 
 ## usethis namespace: start
-#' @importFrom dplyr across filter everything if_else mutate pull select tibble
-#' @importFrom rlang .data
+#' @importFrom dplyr across bind_rows filter everything if_else mutate pull select tibble
+#' @importFrom purrr discard partial
+#' @importFrom rlang .data exec
 #' @importFrom Rdpack reprompt
 #' @importFrom stats optimize qnorm qt
 ## usethis namespace: end
