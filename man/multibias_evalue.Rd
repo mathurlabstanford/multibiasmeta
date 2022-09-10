@@ -16,8 +16,8 @@ multibias_evalue(
   alpha_select = 0.05,
   ci_level = 0.95,
   small = TRUE,
-  bias_grid_hi = 20,
-  internal_biases = list(EValue::confounding())
+  bias_max = 20,
+  internal_biases = NULL
 )
 }
 \arguments{
@@ -61,17 +61,17 @@ estimate will be calculated from \code{ci_level}.)}
 \item{small}{Should inference allow for a small meta-analysis? We recommend
 always using \code{TRUE}.}
 
-\item{bias_grid_hi}{The largest value of \code{bias}, on the additive scale,
+\item{bias_max}{The largest value of \code{bias}, on the additive scale,
 that should be included in the grid search. The bias has the same units as
 \code{yi}.}
 
 \item{internal_biases}{List of biases to consider for computing evalues
 (objects of \code{bias} as returned by \code{EValue::confounding()},
 \code{EValue::selection()}, \code{EValue::misclassification()}) (defaults
-to \code{EValue::confounding()}). If any biases other than the default are
-specified, the \code{yi} argument must be on the log-RR scale (if \code{yi}
-is not already on that scale, use \code{EValue::convert_measures()} to make
-it so).}
+to NULL, i.e. agnostic as to the nature of the internal bias). If not NULL,
+the \code{yi} argument must be on the log-RR scale (if \code{yi} is not
+already on that scale, use \code{EValue::convert_measures()} to make it
+so).}
 }
 \description{
 E-value for meta-analysis with multiple biases
@@ -87,12 +87,12 @@ multibias_evalue(yi = meta_meat$yi,
                  selection_ratio = 4,
                  biased = !meta_meat$randomized)
 
-# consider outcome misclassification as internal bias (rather than confounding)
+# specify confounding as internal bias
 multibias_evalue(yi = meta_meat$yi,
                  vi = meta_meat$vi,
                  selection_ratio = 4,
                  biased = !meta_meat$randomized,
-                 internal_bias = list(EValue::misclassification("outcome")))
+                 internal_bias = list(EValue::classification))
 }
 \references{
 \insertRef{mathur2022}{mbma}

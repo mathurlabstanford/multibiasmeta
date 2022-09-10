@@ -217,16 +217,16 @@ multibias_corrected_meta <- function(yi,
 #' @param q The attenuated value to which to shift the point estimate or CI.
 #'   Should be specified on the same scale as \code{dat$yi} (e.g., if
 #'   \code{dat$yi} is on the log-RR scale, then \code{q} should be as well).
-#' @param bias_grid_hi The largest value of \code{bias}, on the additive scale,
+#' @param bias_max The largest value of \code{bias}, on the additive scale,
 #'   that should be included in the grid search. The bias has the same units as
 #'   \code{yi}.
 #' @param internal_biases List of biases to consider for computing evalues
 #'   (objects of \code{bias} as returned by \code{EValue::confounding()},
 #'   \code{EValue::selection()}, \code{EValue::misclassification()}) (defaults
-#'   to \code{EValue::confounding()}). If any biases other than the default are
-#'   specified, the \code{yi} argument must be on the log-RR scale (if \code{yi}
-#'   is not already on that scale, use \code{EValue::convert_measures()} to make
-#'   it so).
+#'   to NULL, i.e. agnostic as to the nature of the internal bias). If not NULL,
+#'   the \code{yi} argument must be on the log-RR scale (if \code{yi} is not
+#'   already on that scale, use \code{EValue::convert_measures()} to make it
+#'   so).
 #'
 #' @return
 #'
@@ -250,12 +250,12 @@ multibias_corrected_meta <- function(yi,
 #'                  selection_ratio = 4,
 #'                  biased = !meta_meat$randomized)
 #'
-#' # consider outcome misclassification as internal bias (rather than confounding)
+#' # specify confounding as internal bias
 #' multibias_evalue(yi = meta_meat$yi,
 #'                  vi = meta_meat$vi,
 #'                  selection_ratio = 4,
 #'                  biased = !meta_meat$randomized,
-#'                  internal_bias = list(EValue::misclassification("outcome")))
+#'                  internal_bias = list(EValue::))
 multibias_evalue <- function(yi,
                              vi,
                              sei,
@@ -267,8 +267,8 @@ multibias_evalue <- function(yi,
                              alpha_select = 0.05,
                              ci_level = 0.95,
                              small = TRUE,
-                             bias_grid_hi = 20,
-                             internal_biases = list(EValue::confounding())) {
+                             bias_max = 20,
+                             internal_biases = NULL) {
 
   # set up multibias_corrected_meta with either vi or sei passed
   if (missing(vi) & missing(sei)) stop("Must specify 'vi' or 'sei' argument.")
@@ -296,25 +296,28 @@ multibias_evalue <- function(yi,
     }
 
     # optimize to find smallest difference
-    opt <- optimize(f = bias_factor, interval = c(0, bias_grid_hi))
+    opt <- optimize(f = bias_factor, interval = c(0, bias_max))
     # check that search stayed within bounds
-    if (abs(opt$minimum - bias_grid_hi) < tolerance & opt$objective > tolerance)
-      return(paste(">", bias_grid_hi))
+    if (abs(opt$minimum - bias_max) < tolerance & opt$objective > tolerance)
+      return(paste(">", bias_max))
     return(opt$minimum)
   }
 
-  # turn list of internal biases into EValue::multi_bias object
-  biases <- exec(EValue::multi_bias, !!!internal_biases)
-
-  # find bias for mu_hat, convert to evalue
+  # find biases for mu_hat and ci_lower
   bias_est <- compute_eb("mu_hat")
-  evalue_est <- summary(EValue::multi_evalue(est = EValue::RR(exp(bias_est)),
-                                             biases = biases))
-
-  # find bias for ci_lower, convert to evalue
   bias_ci <- compute_eb("ci_lower")
-  evalue_ci <- summary(EValue::multi_evalue(est = EValue::RR(exp(bias_ci)),
-                                            biases = biases))
+
+  if (is.null(internal_biases)) {
+    evalue_est <- evalue_ci <- NULL
+  } else {
+    # turn list of internal biases into EValue::multi_bias object
+    biases <- exec(EValue::multi_bias, !!!internal_biases)
+    evalue_est <- summary(EValue::multi_evalue(est = EValue::RR(exp(bias_est)),
+                                               biases = biases))
+    # convert biases to evalues
+    evalue_ci <- summary(EValue::multi_evalue(est = EValue::RR(exp(bias_ci)),
+                                              biases = biases))
+  }
 
   stats <- list(bias_est = bias_est, bias_ci = bias_ci,
                 evalue_est = evalue_est, evalue_ci = evalue_ci)
@@ -325,7 +328,7 @@ multibias_evalue <- function(yi,
                ci_level = ci_level,
                small = small,
                q = q,
-               bias_grid_hi = bias_grid_hi)
+               bias_max = bias_max)
 
   results <- list(data = NULL, values = vals, stats = stats, fit = list())
   class(results) <- "metabias"
