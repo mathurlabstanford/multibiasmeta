@@ -11,20 +11,20 @@ robu_ci <- function(reg_table, ci_level) {
 }
 
 #' @keywords internal
-multibias_fun <- function(yi,
-                          vi,
-                          sei,
-                          selection_ratio,
-                          bias_affirmative,
-                          bias_nonaffirmative,
-                          cluster = 1:length(yi),
-                          biased = TRUE,
-                          favor_positive = TRUE,
-                          alpha_select = 0.05,
-                          ci_level = 0.95,
-                          small = TRUE,
-                          model_label,
-                          ...) {
+get_multibias_meta <- function(yi,
+                               vi,
+                               sei,
+                               selection_ratio,
+                               bias_affirmative,
+                               bias_nonaffirmative,
+                               cluster = 1:length(yi),
+                               biased = TRUE,
+                               favor_positive = TRUE,
+                               alpha_select = 0.05,
+                               ci_level = 0.95,
+                               small = TRUE,
+                               model_label,
+                               ...) {
 
   vals <- list(selection_ratio = selection_ratio,
                bias_affirmative = bias_affirmative,
@@ -100,6 +100,12 @@ multibias_fun <- function(yi,
 #'   the point estimates.
 #' @param sei A vector of estimated standard errors for the point estimates.
 #'   (Only one of \code{vi} or \code{sei} needs to be specified).
+#' @param cluster Vector of the same length as the number of rows in the data,
+#'   indicating which cluster each study should be considered part of (defaults
+#'   to treating studies as independent; i.e., each study is in its own cluster).
+#' @param biased Boolean indicating whether each study is considered internally
+#'   biased; either single value used for all studies or a vector the same
+#'   length as the number of rows in the data (defaults to all studies).
 #' @param selection_ratio Ratio by which publication bias favors affirmative
 #'   studies (i.e., studies with p-values less than \code{alpha_select} and
 #'   estimates in the direction indicated by \code{favor_positive}).
@@ -107,12 +113,6 @@ multibias_fun <- function(yi,
 #'   published affirmative studies. The bias has the same units as \code{yi}.
 #' @param bias_nonaffirmative Mean internal bias, on the additive scale, among
 #'   published nonaffirmative studies. The bias has the same units as \code{yi}.
-#' @param cluster Vector of the same length as the number of rows in the data,
-#'   indicating which cluster each study should be considered part of (defaults
-#'   to treating studies as independent; i.e., each study is in its own cluster).
-#' @param biased Boolean indicating whether each study is considered internally
-#'   biased; either single value used for all studies or a vector the same
-#'   length as the number of rows in the data (defaults to all studies).
 #' @param favor_positive \code{TRUE} if publication bias are
 #'   assumed to favor significant positive estimates; \code{FALSE} if assumed to
 #'   favor significant negative estimates.
@@ -140,35 +140,37 @@ multibias_fun <- function(yi,
 #' # publication bias without internal bias
 #' multibias_corrected_meta(yi = meta_meat$yi,
 #'                          vi = meta_meat$vi,
+#'                          biased = !meta_meat$randomized,
 #'                          selection_ratio = 4,
 #'                          bias_affirmative = 0,
-#'                          bias_nonaffirmative = 0,
-#'                          biased = !meta_meat$randomized)
+#'                          bias_nonaffirmative = 0)
 #'
 #' # publication bias and internal bias in the non-randomized studies
 #' multibias_corrected_meta(yi = meta_meat$yi,
 #'                          vi = meta_meat$vi,
+#'                          biased = !meta_meat$randomized,
 #'                          selection_ratio = 4,
 #'                          bias_affirmative = log(1.5),
-#'                          bias_nonaffirmative = log(1.1),
-#'                          biased = !meta_meat$randomized)
+#'                          bias_nonaffirmative = log(1.1))
 #'
 #' # treat all studies as biased, not just non-randomized ones
-# multibias_corrected_meta(yi = meta_meat$yi,
-#                          vi = meta_meat$vi,
-#                          selection_ratio = 4,
-#                          bias_affirmative = log(1.5),
-#                          bias_nonaffirmative = log(1.1),
-#                          biased = TRUE)
-multibias_corrected_meta <- function(yi,
+#' multibias_corrected_meta(yi = meta_meat$yi,
+#'                          vi = meta_meat$vi,
+#'                          biased = TRUE,
+#'                          selection_ratio = 4,
+#'                          bias_affirmative = log(1.5),
+#'                          bias_nonaffirmative = log(1.1))
+multibias_corrected_meta <- function(yi, # data
                                      vi,
                                      sei,
-                                     selection_ratio,
-                                     bias_affirmative,
-                                     bias_nonaffirmative,
                                      cluster = 1:length(yi),
                                      biased = TRUE,
-                                     favor_positive = TRUE,
+
+                                     selection_ratio, # params
+                                     bias_affirmative,
+                                     bias_nonaffirmative,
+
+                                     favor_positive = TRUE, # opts
                                      alpha_select = 0.05,
                                      ci_level = 0.95,
                                      small = TRUE,
@@ -179,13 +181,13 @@ multibias_corrected_meta <- function(yi,
   args <- args |> discard(\(a) class(a) == "name")
 
   # get meta corrected for multibias for internal bias and publication bias
-  meta_multibias <- exec(multibias_fun, !!!args, model_label = "multibias")
+  meta_multibias <- exec(get_multibias_meta, !!!args, model_label = "multibias")
 
   # get meta corrected for only publication bias (no internal bias)
   if (return_pubbias_meta) {
     pubbias_args <- args
     pubbias_args[c("bias_affirmative", "bias_nonaffirmative")] <- 0
-    meta_pubbias <- exec(multibias_fun, !!!pubbias_args, model_label = "pubbias")
+    meta_pubbias <- exec(get_multibias_meta, !!!pubbias_args, model_label = "pubbias")
 
     meta_multibias$stats <- bind_rows(meta_multibias$stats, meta_pubbias$stats)
     meta_multibias$fit <- append(meta_multibias$fit, meta_pubbias$fit)
@@ -256,19 +258,21 @@ multibias_corrected_meta <- function(yi,
 #'                  selection_ratio = 4,
 #'                  biased = !meta_meat$randomized,
 #'                  internal_bias = list(EValue::))
-multibias_evalue <- function(yi,
+multibias_evalue <- function(yi, # data
                              vi,
                              sei,
-                             selection_ratio,
-                             q = 0,
                              cluster = 1:length(yi),
                              biased = TRUE,
-                             favor_positive = TRUE,
+
+                             selection_ratio, # params
+                             q = 0,
+
+                             favor_positive = TRUE, # opts
                              alpha_select = 0.05,
                              ci_level = 0.95,
                              small = TRUE,
                              bias_max = 20,
-                             internal_biases = NULL) {
+                             internal_biases = NULL) { # TODO: clearer default
 
   # set up multibias_corrected_meta with either vi or sei passed
   if (missing(vi) & missing(sei)) stop("Must specify 'vi' or 'sei' argument.")
