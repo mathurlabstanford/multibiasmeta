@@ -50,6 +50,11 @@ get_multibias_meta <- function(yi,
   )
   if (any(sei < 0)) stop("vi or sei should never be negative.")
 
+  # warn if naive estimate is in opposite direction than favor_positive
+  naive_pos <- metafor::rma(yi, vi, method = "FE")$beta > 0
+  if (naive_pos != favor_positive)
+    warning("Favored direction is opposite of the pooled estimate.")
+
   # flip yi if not favor_positive
   if (!favor_positive) yi <- -yi
 
@@ -257,7 +262,7 @@ multibias_corrected_meta <- function(yi, # data
 #'                  vi = meta_meat$vi,
 #'                  selection_ratio = 4,
 #'                  biased = !meta_meat$randomized,
-#'                  internal_bias = list(EValue::))
+#'                  internal_bias = list(EValue::confounding()))
 multibias_evalue <- function(yi, # data
                              vi,
                              sei,
@@ -274,6 +279,11 @@ multibias_evalue <- function(yi, # data
                              bias_max = 20,
                              internal_biases = NULL) { # TODO: clearer default
 
+  # warn if naive estimate is in opposite direction than favor_positive
+  naive_pos <- metafor::rma(yi, vi, method = "FE")$beta > 0
+  if (naive_pos != favor_positive)
+    warning("Favored direction is opposite of the pooled estimate.")
+
   # set up multibias_corrected_meta with either vi or sei passed
   if (missing(vi) & missing(sei)) stop("Must specify 'vi' or 'sei' argument.")
   if (missing(sei)) corrected_fun <- partial(multibias_corrected_meta, vi = vi)
@@ -285,16 +295,17 @@ multibias_evalue <- function(yi, # data
     # function to optimize: multibias_corrected_meta for a given bias
     bias_factor <- function(bias_shared) {
       # all arguments passed through except biases being set to bias_shared
-      corrected <- corrected_fun(yi = yi,
-                                 bias_affirmative = bias_shared,
-                                 bias_nonaffirmative = bias_shared,
-                                 selection_ratio = selection_ratio,
-                                 cluster = cluster,
-                                 biased = biased,
-                                 favor_positive = favor_positive,
-                                 alpha_select = alpha_select,
-                                 ci_level = ci_level,
-                                 small = small)
+      corrected <- suppressWarnings(
+        corrected_fun(yi = yi,
+                      bias_affirmative = bias_shared,
+                      bias_nonaffirmative = bias_shared,
+                      selection_ratio = selection_ratio,
+                      cluster = cluster,
+                      biased = biased,
+                      favor_positive = favor_positive,
+                      alpha_select = alpha_select,
+                      ci_level = ci_level,
+                      small = small))
       # difference between parameter estimate and q
       return(abs(corrected$stats[[param]] - q))
     }
@@ -323,6 +334,7 @@ multibias_evalue <- function(yi, # data
                                               biases = biases))
   }
 
+  dat <- tibble(yi, vi, sei, cluster, biased)
   stats <- list(bias_est = bias_est, bias_ci = bias_ci,
                 evalue_est = evalue_est, evalue_ci = evalue_ci)
 
@@ -334,7 +346,7 @@ multibias_evalue <- function(yi, # data
                q = q,
                bias_max = bias_max)
 
-  results <- list(data = NULL, values = vals, stats = stats, fit = list())
+  results <- list(data = dat, values = vals, stats = stats, fit = list())
   class(results) <- "metabias"
   return(results)
 
