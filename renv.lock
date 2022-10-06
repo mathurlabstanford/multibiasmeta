@@ -60,16 +60,20 @@
     },
     "PublicationBias": {
       "Package": "PublicationBias",
-      "Version": "2.2.0",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "39215eb7ef0fd8a4b72456be8f7b301f",
+      "Version": "2.2.0.9000",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "PublicationBias",
+      "RemoteUsername": "mayamathur",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "765d91aae38888c04e8388a8321693ac3b9095ba",
+      "Hash": "6e2baea63290bbf3f66f17288331f836",
       "Requirements": [
-        "MetaUtility",
-        "Rdpack",
         "dplyr",
         "ggplot2",
         "metafor",
+        "rlang",
         "robumeta"
       ]
     },

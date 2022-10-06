@@ -1,4 +1,4 @@
-Package: mbma
+Package: multibiasmeta
 Type: Package
 Title: Sensitivity analysis for the interactive effects of internal bias and
   publication bias in meta-analyses
@@ -22,7 +22,7 @@ Encoding: UTF-8
 LazyData: true
 Depends:
     R (>= 4.1.0)
-Imports: 
+Imports:
     dplyr,
     EValue,
     metafor,
@@ -32,6 +32,7 @@ Imports:
     robumeta
 RoxygenNote: 7.2.1
 RdMacros: Rdpack
-Suggests: 
+Suggests:
+    PublicationBias,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
