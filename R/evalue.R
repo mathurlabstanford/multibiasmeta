@@ -1,23 +1,21 @@
 #' E-value for meta-analysis with multiple biases
 #'
+#' @inheritParams metabias::params
 #' @inheritParams multibias_meta
-#' @param q The attenuated value to which to shift the point estimate or CI.
-#'   Should be specified on the same scale as \code{dat$yi} (e.g., if
-#'   \code{dat$yi} is on the log-RR scale, then \code{q} should be as well).
-#' @param bias_max The largest value of \code{bias}, on the additive scale,
+#' @param bias_max The largest value of `bias`, on the additive scale,
 #'   that should be included in the grid search. The bias has the same units as
-#'   \code{yi}.
+#'   `yi`.
 #' @param assumed_bias_type List of biases to consider for computing evalues
-#'   (objects of \code{bias} as returned by \code{EValue::confounding()},
-#'   \code{EValue::selection()}, \code{EValue::misclassification()}) (defaults
+#'   (objects of `bias` as returned by `EValue::confounding()`,
+#'   `EValue::selection()`, `EValue::misclassification()`) (defaults
 #'   to NULL, i.e. agnostic as to the nature of the internal bias). If not NULL,
-#'   the \code{yi} argument must be on the log-RR scale (if \code{yi} is not
-#'   already on that scale, use \code{EValue::convert_measures()} to make it
+#'   the `yi` argument must be on the log-RR scale (if `yi` is not
+#'   already on that scale, use `EValue::convert_measures()` to make it
 #'   so).
 #'
 #' @return
 #'
-#' @details For more on the functions passed as \code{assumed_bias_type}, see the
+#' @details For more on the functions passed as `assumed_bias_type`, see the
 #'   EValue package vignette on multiple biases:
 #'   <https://cran.r-project.org/web/packages/EValue/vignettes/multiple-bias.html>.
 #'
@@ -31,18 +29,7 @@
 #' \insertRef{vanderweele2019}{multibiasmeta}
 #'
 #' @export
-#' @examples
-#' multibias_evalue(yi = meta_meat$yi,
-#'                  vi = meta_meat$vi,
-#'                  selection_ratio = 4,
-#'                  biased = !meta_meat$randomized)
-#'
-#' # specify confounding as internal bias
-#' multibias_evalue(yi = meta_meat$yi,
-#'                  vi = meta_meat$vi,
-#'                  selection_ratio = 4,
-#'                  biased = !meta_meat$randomized,
-#'                  assumed_bias_type = list(EValue::confounding()))
+#' @example inst/examples/multibias_evalue.R
 multibias_evalue <- function(yi, # data
                              vi,
                              sei,
@@ -63,6 +50,9 @@ multibias_evalue <- function(yi, # data
   naive_pos <- metafor::rma(yi, vi, method = "FE")$beta > 0
   if (naive_pos != favor_positive)
     warning("Favored direction is opposite of the pooled estimate.")
+
+  # flip yi if not favor_positive
+  if (!favor_positive) yi <- -yi
 
   # set up multibias_meta with either vi or sei passed
   # if (missing(vi) & missing(sei)) stop("Must specify 'vi' or 'sei' argument.")
@@ -125,11 +115,11 @@ multibias_evalue <- function(yi, # data
                 evalue_est = evalue_est, evalue_ci = evalue_ci)
 
   vals <- list(selection_ratio = selection_ratio,
+               q = q,
                favor_positive = favor_positive,
                alpha_select = alpha_select,
                ci_level = ci_level,
                small = small,
-               q = q,
                bias_max = bias_max)
 
   results <- list(data = dat, values = vals, stats = stats, fit = list())

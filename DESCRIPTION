@@ -25,6 +25,7 @@ Depends:
 Imports:
     dplyr,
     EValue,
+    metabias,
     metafor,
     purrr,
     Rdpack,
@@ -36,3 +37,4 @@ Suggests:
     PublicationBias,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
+Roxygen: list(markdown = TRUE)
