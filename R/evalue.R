@@ -2,22 +2,20 @@
 #'
 #' @inheritParams metabias::params
 #' @inheritParams multibias_meta
-#' @param bias_max The largest value of `bias`, on the additive scale,
-#'   that should be included in the grid search. The bias has the same units as
-#'   `yi`.
+#' @param bias_max The largest value of `bias`, on the additive scale, that
+#'   should be included in the grid search. The bias has the same units as `yi`.
 #' @param assumed_bias_type List of biases to consider for computing evalues
-#'   (objects of `bias` as returned by `EValue::confounding()`,
-#'   `EValue::selection()`, `EValue::misclassification()`) (defaults
-#'   to NULL, i.e. agnostic as to the nature of the internal bias). If not NULL,
-#'   the `yi` argument must be on the log-RR scale (if `yi` is not
-#'   already on that scale, use `EValue::convert_measures()` to make it
-#'   so).
+#'   (objects of `bias` as returned by [EValue::confounding()],
+#'   [EValue::selection()], [EValue::misclassification()]) (defaults to NULL,
+#'   i.e. agnostic as to the nature of the internal bias). If not NULL, the `yi`
+#'   argument must be on the log-RR scale (if `yi` is not already on that scale,
+#'   use [EValue::convert_measures()] to make it so).
 #'
-#' @return
+#' @return An object of class [metabias::metabias()].
 #'
 #' @details For more on the functions passed as `assumed_bias_type`, see the
-#'   EValue package vignette on multiple biases:
-#'   <https://cran.r-project.org/web/packages/EValue/vignettes/multiple-bias.html>.
+#'   `EValue` package multiple-bias vignette:
+#'   `vignette("multiple-bias", package = "EValue")`
 #'
 #' @references
 #' \insertRef{mathur2022}{multibiasmeta}
@@ -54,13 +52,8 @@ multibias_evalue <- function(yi, # data
   # flip yi if not favor_positive
   if (!favor_positive) yi <- -yi
 
-  # set up multibias_meta with either vi or sei passed
-  # if (missing(vi) & missing(sei)) stop("Must specify 'vi' or 'sei' argument.")
-  # if (missing(sei)) corrected_fun <- partial(multibias_meta, vi = vi)
-  # else corrected_fun <- partial(multibias_meta, sei = sei)
-
   # resolve vi and sei
-  if (missing(vi) & missing(sei)) stop("Must specify 'vi' or 'sei' argument.")
+  if (missing(vi) && missing(sei)) stop("Must specify 'vi' or 'sei' argument.")
   if (missing(vi)) vi <- sei ^ 2
   if (missing(sei)) sei <- sqrt(vi)
 
@@ -89,7 +82,7 @@ multibias_evalue <- function(yi, # data
     # optimize to find smallest difference
     opt <- optimize(f = bias_factor, interval = c(0, bias_max))
     # check that search stayed within bounds
-    if (abs(opt$minimum - bias_max) < tolerance & opt$objective > tolerance)
+    if (abs(opt$minimum - bias_max) < tolerance && opt$objective > tolerance)
       return(paste(">", bias_max))
     return(opt$minimum)
   }
@@ -111,8 +104,8 @@ multibias_evalue <- function(yi, # data
   }
 
   dat <- tibble(yi, vi, sei, cluster, biased)
-  stats <- list(bias_est = bias_est, bias_ci = bias_ci,
-                evalue_est = evalue_est, evalue_ci = evalue_ci)
+  stats <- tibble(bias_est = bias_est, bias_ci = bias_ci,
+                  evalue_est = evalue_est, evalue_ci = evalue_ci)
 
   vals <- list(selection_ratio = selection_ratio,
                q = q,
@@ -122,8 +115,6 @@ multibias_evalue <- function(yi, # data
                small = small,
                bias_max = bias_max)
 
-  results <- list(data = dat, values = vals, stats = stats, fit = list())
-  class(results) <- "metabias"
-  return(results)
+  metabias::metabias(data = dat, values = vals, stats = stats, fits = list())
 
 }

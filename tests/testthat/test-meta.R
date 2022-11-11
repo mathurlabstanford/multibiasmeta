@@ -14,7 +14,7 @@ test_that("compare with direct calculation", {
 
   calculated_estimate <- sum(meta_data$yi_adj *
                                (meta_data$weight / (meta_data$vi + t2hat))) /
-    sum( meta_data$weight / (meta_data$vi + t2hat))
+    sum(meta_data$weight / (meta_data$vi + t2hat))
 
   expect_equal(meta_estimate, calculated_estimate)
 })

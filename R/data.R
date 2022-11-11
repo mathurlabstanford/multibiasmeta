@@ -3,6 +3,8 @@
 #' Meta-analysis of the effectiveness of educational behavior interventions that
 #' attempt to reduce meat consumption by appealing to animal welfare.
 #'
+#' @docType data
+#'
 #' @format A data frame with 100 rows and 4 columns:
 #' \describe{
 #'   \item{yi}{Point estimate on log-risk ratio scale}

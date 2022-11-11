@@ -11,8 +11,7 @@ test_that("correct output structure for multibias_meta", {
                     return_worst_meta = TRUE, return_pubbias_meta = TRUE)
 
   expect_s3_class(mm, "metabias")
-  expect_length(mm, 4)
-  expect_named(mm, c("data", "values", "stats", "fit"))
+  expect_named(mm, c("data", "values", "stats", "fits"))
 
   expect_s3_class(mm$data, "data.frame")
   expect_equal(nrow(mm$data), nrow(meta_meat))
@@ -26,7 +25,8 @@ test_that("correct output structure for multibias_meta", {
 
   expect_s3_class(mm$stats, "data.frame")
   expect_equal(nrow(mm$stats), 3)
-  expect_named(mm$stats, c("model", "mu_hat", "se", "ci_lower", "ci_upper", "p_value"))
+  expect_named(mm$stats, c("model", "mu_hat", "se", "ci_lower", "ci_upper",
+                           "p_value"))
   expect_true(all(mm$stats$se < 1))
   expect_true(all(mm$stats$ci_lower < mm$stats$mu_hat))
   expect_true(all(mm$stats$ci_upper > mm$stats$mu_hat))
@@ -53,8 +53,7 @@ test_that("correct output structure for evalue", {
                     assumed_bias_type = list(EValue::confounding()))
 
   expect_s3_class(ev, "metabias")
-  expect_length(ev, 4)
-  expect_named(ev, c("data", "values", "stats", "fit"))
+  expect_named(ev, c("data", "values", "stats", "fits"))
 
   expect_s3_class(ev$data, "data.frame")
   expect_equal(nrow(ev$data), nrow(meta_meat))

@@ -30,7 +30,7 @@ get_multibias_meta <- function(yi,
   stopifnot(length(biased) == 1 || length(biased) == length(yi))
 
   # resolve vi and sei
-  if (missing(vi) & missing(sei)) stop("Must specify 'vi' or 'sei' argument.")
+  if (missing(vi) && missing(sei)) stop("Must specify 'vi' or 'sei' argument.")
   if (missing(vi)) vi <- sei ^ 2
   if (missing(sei)) sei <- sqrt(vi)
   if (length(sei) != length(yi)) stop(
@@ -54,11 +54,13 @@ get_multibias_meta <- function(yi,
     mutate(affirmative = (.data$yi / .data$sei) > tcrit)
 
   # adjust yi values based on biases and selection ratio
-  p_affirm_pub <- dat |> filter(.data$biased) |> pull(.data$affirmative) |> mean()
+  p_affirm_pub <- dat |>
+    filter(.data$biased) |>
+    pull(.data$affirmative) |> mean()
   p_nonaffirm_pub <- 1 - p_affirm_pub
   denominator <- p_affirm_pub + selection_ratio * p_nonaffirm_pub
   mhat_b <- (p_nonaffirm_pub * selection_ratio * bias_nonaffirmative +
-               p_affirm_pub * bias_affirmative ) / denominator
+               p_affirm_pub * bias_affirmative) / denominator
   dat <- dat |> mutate(yi_adj = .data$yi - .data$biased * mhat_b)
 
   # compute weights
@@ -81,9 +83,8 @@ get_multibias_meta <- function(yi,
 
   fit <- list()
   fit[[model_label]] <- meta_multibias
-  results <- list(data = dat, values = vals, stats = stats, fit = fit)
-  class(results) <- "metabias"
-  return(results)
+
+  metabias::metabias(data = dat, values = vals, stats = stats, fits = fit)
 
 }
 
@@ -98,15 +99,14 @@ get_multibias_meta <- function(yi,
 #'   published affirmative studies. The bias has the same units as `yi`.
 #' @param bias_nonaffirmative Mean internal bias, on the additive scale, among
 #'   published nonaffirmative studies. The bias has the same units as `yi`.
-#' @param return_worst_meta Should the worst-case meta-analysis of only the
-#'   nonaffirmative studies be returned?
-#' @param return_pubbias_meta Should a meta-analysis correcting for publication
-#'   but not for confounding be returned?
+#' @param return_worst_meta Boolean indicating whether the worst-case
+#'   meta-analysis of only the nonaffirmative studies be returned.
+#' @param return_pubbias_meta Boolean indicating whether a meta-analysis
+#'   correcting for publication but not for confounding be returned.
 #'
-#' @return
+#' @return An object of class [metabias::metabias()].
 #'
-#' @references
-#' \insertRef{mathur2022}{multibiasmeta}
+#' @references \insertRef{mathur2022}{multibiasmeta}
 #'
 #' @export
 #' @example inst/examples/multibias_meta.R
@@ -137,10 +137,11 @@ multibias_meta <- function(yi, # data
   if (return_pubbias_meta) {
     pubbias_args <- args
     pubbias_args[c("bias_affirmative", "bias_nonaffirmative")] <- 0
-    meta_pubbias <- exec(get_multibias_meta, !!!pubbias_args, model_label = "pubbias")
+    meta_pubbias <- exec(get_multibias_meta, !!!pubbias_args,
+                         model_label = "pubbias")
 
     meta_multibias$stats <- bind_rows(meta_multibias$stats, meta_pubbias$stats)
-    meta_multibias$fit <- append(meta_multibias$fit, meta_pubbias$fit)
+    meta_multibias$fits <- append(meta_multibias$fit, meta_pubbias$fit)
   }
 
   # get worst case meta
@@ -157,7 +158,7 @@ multibias_meta <- function(yi, # data
       mutate(model = worst_label, .before = everything())
 
     meta_multibias$stats <- bind_rows(meta_multibias$stats, worst_stats)
-    meta_multibias$fit[[worst_label]] <- meta_worst
+    meta_multibias$fits[[worst_label]] <- meta_worst
   }
 
   return(meta_multibias)
