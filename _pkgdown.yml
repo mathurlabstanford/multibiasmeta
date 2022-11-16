@@ -1,0 +1,5 @@
+url: http://mikabr.io/multibiasmeta/
+template:
+  bootstrap: 5
+  bootswatch: flatly
+

@@ -29,6 +29,13 @@ Meta-analyses can be compromised by studies' internal biases (e.g.,
 
 \insertRef{mathur2021}{multibiasmeta}
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{http://mikabr.io/multibiasmeta/}
+}
+
+}
 \author{
 \strong{Maintainer}: Mika Braginsky \email{mika.br@gmail.com}
 
