@@ -21,6 +21,6 @@ Meta-analysis of the effectiveness of educational behavior interventions that
 attempt to reduce meat consumption by appealing to animal welfare.
 }
 \references{
-\insertRef{mathur2021}{multibiasmeta}
+\insertRef{mathur2021}{metabias}
 }
 \keyword{datasets}

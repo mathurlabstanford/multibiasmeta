@@ -14,5 +14,5 @@
 #' }
 #'
 #' @references
-#' \insertRef{mathur2021}{multibiasmeta}
+#' \insertRef{mathur2021}{metabias}
 "meta_meat"

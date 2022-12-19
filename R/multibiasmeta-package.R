@@ -1,14 +1,14 @@
 #' @keywords internal
 #' @references
-#' \insertRef{mathur2022}{multibiasmeta}
+#' \insertRef{mathur2022multibias}{metabias}
 #'
-#' \insertRef{ding2016}{multibiasmeta}
+#' \insertRef{ding2016}{metabias}
 #'
-#' \insertRef{smith2019}{multibiasmeta}
+#' \insertRef{smith2019}{metabias}
 #'
-#' \insertRef{vanderweele2019}{multibiasmeta}
+#' \insertRef{vanderweele2019}{metabias}
 #'
-#' \insertRef{mathur2021}{multibiasmeta}
+#' \insertRef{mathur2021}{metabias}
 "_PACKAGE"
 
 ## usethis namespace: start

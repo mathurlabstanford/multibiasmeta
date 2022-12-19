@@ -106,7 +106,7 @@ get_multibias_meta <- function(yi,
 #'
 #' @return An object of class [metabias::metabias()].
 #'
-#' @references \insertRef{mathur2022}{multibiasmeta}
+#' @references \insertRef{mathur2022multibias}{metabias}
 #'
 #' @export
 #' @example inst/examples/multibias_meta.R

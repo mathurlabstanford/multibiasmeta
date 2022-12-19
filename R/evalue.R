@@ -18,13 +18,13 @@
 #'   `vignette("multiple-bias", package = "EValue")`
 #'
 #' @references
-#' \insertRef{mathur2022}{multibiasmeta}
+#' \insertRef{mathur2022multibias}{metabias}
 #'
-#' \insertRef{ding2016}{multibiasmeta}
+#' \insertRef{ding2016}{metabias}
 #'
-#' \insertRef{smith2019}{multibiasmeta}
+#' \insertRef{smith2019}{metabias}
 #'
-#' \insertRef{vanderweele2019}{multibiasmeta}
+#' \insertRef{vanderweele2019}{metabias}
 #'
 #' @export
 #' @example inst/examples/multibias_evalue.R
