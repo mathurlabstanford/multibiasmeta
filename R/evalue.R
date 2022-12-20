@@ -11,7 +11,13 @@
 #'   argument must be on the log-RR scale (if `yi` is not already on that scale,
 #'   use [EValue::convert_measures()] to make it so).
 #'
-#' @return An object of class [metabias::metabias()].
+#' @return An object of class [metabias::metabias()], a list containing:
+#' \describe{
+#'   \item{data}{A tibble with one row per study and the columns
+#'               `r evalue_names_str("data")`.}
+#'   \item{values}{A list with the elements `r evalue_names_str("values")`.}
+#'   \item{stats}{A tibble with the columns `r evalue_names_str("stats")`.}
+#' }
 #'
 #' @details For more on the functions passed as `assumed_bias_type`, see the
 #'   `EValue` package multiple-bias vignette:
@@ -88,7 +94,7 @@ multibias_evalue <- function(yi, # data
   }
 
   # find biases for mu_hat and ci_lower
-  bias_est <- compute_eb("mu_hat")
+  bias_est <- compute_eb("estimate")
   bias_ci <- compute_eb("ci_lower")
 
   if (is.null(assumed_bias_type)) {

@@ -71,7 +71,14 @@ meta-analysis of only the nonaffirmative studies be returned.}
 correcting for publication but not for confounding be returned.}
 }
 \value{
-An object of class \code{\link[metabias:metabias-class]{metabias::metabias()}}.
+An object of class \code{\link[metabias:metabias-class]{metabias::metabias()}}, a list containing:
+\describe{
+\item{data}{A tibble with one row per study and the columns
+\code{yi}, \code{vi}, \code{sei}, \code{biased}, \code{cluster}, \code{affirmative}, \code{yi_adj}, \code{weight}, \code{userweight}.}
+\item{values}{A list with the elements \code{selection_ratio}, \code{bias_affirmative}, \code{bias_nonaffirmative}, \code{favor_positive}, \code{alpha_select}, \code{ci_level}, \code{small}.}
+\item{stats}{A tibble with the columns \code{model}, \code{estimate}, \code{se}, \code{ci_lower}, \code{ci_upper}, \code{p_value}.}
+\item{fit}{A list of fitted models.}
+}
 }
 \description{
 Correction for meta-analysis with multiple biases

@@ -72,7 +72,13 @@ argument must be on the log-RR scale (if \code{yi} is not already on that scale,
 use \code{\link[EValue:convert_measures]{EValue::convert_measures()}} to make it so).}
 }
 \value{
-An object of class \code{\link[metabias:metabias-class]{metabias::metabias()}}.
+An object of class \code{\link[metabias:metabias-class]{metabias::metabias()}}, a list containing:
+\describe{
+\item{data}{A tibble with one row per study and the columns
+\code{yi}, \code{vi}, \code{sei}, \code{cluster}, \code{biased}.}
+\item{values}{A list with the elements \code{selection_ratio}, \code{q}, \code{favor_positive}, \code{alpha_select}, \code{ci_level}, \code{small}, \code{bias_max}.}
+\item{stats}{A tibble with the columns \code{bias_est}, \code{bias_ci}, \code{evalue_est}, \code{evalue_ci}.}
+}
 }
 \description{
 E-value for meta-analysis with multiple biases

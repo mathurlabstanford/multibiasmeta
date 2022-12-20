@@ -104,7 +104,14 @@ get_multibias_meta <- function(yi,
 #' @param return_pubbias_meta Boolean indicating whether a meta-analysis
 #'   correcting for publication but not for confounding be returned.
 #'
-#' @return An object of class [metabias::metabias()].
+#' @return An object of class [metabias::metabias()], a list containing:
+#' \describe{
+#'   \item{data}{A tibble with one row per study and the columns
+#'               `r meta_names_str("data")`.}
+#'   \item{values}{A list with the elements `r meta_names_str("values")`.}
+#'   \item{stats}{A tibble with the columns `r meta_names_str("stats")`.}
+#'   \item{fit}{A list of fitted models.}
+#' }
 #'
 #' @references \insertRef{mathur2022multibias}{metabias}
 #'

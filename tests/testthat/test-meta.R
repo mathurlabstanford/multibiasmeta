@@ -8,7 +8,7 @@ test_that("compare with direct calculation", {
                          bias_affirmative = log(1.5),
                          bias_nonaffirmative = log(1.1))
 
-  meta_estimate <- meta$stats$mu_hat
+  meta_estimate <- meta$stats$estimate
   meta_data <- meta$data
   t2hat <- metafor::rma.uni(yi = meta_data$yi_adj, vi = meta_data$vi)$tau2
 
@@ -36,7 +36,7 @@ test_that("compare to to pubbias", {
                                                 cluster = meta_meat$cluster,
                                                 selection_ratio = 4)
 
-  expect_equal(meta$stats$mu_hat, meta_pubbias$stats$estimate)
+  expect_equal(meta$stats$estimate, meta_pubbias$stats$estimate)
   expect_equal(meta$stats$se, meta_pubbias$stats$se)
   expect_equal(meta$stats$ci_lower, meta_pubbias$stats$ci_lower)
   expect_equal(meta$stats$ci_upper, meta_pubbias$stats$ci_upper)
@@ -61,7 +61,7 @@ test_that("compare estimate to evalue for all confounded", {
                              selection_ratio = 4,
                              biased = TRUE)
 
-  expect_equal(meta$stats$mu_hat, evalue$stats$bias_est, tolerance = 0.001)
+  expect_equal(meta$stats$estimate, evalue$stats$bias_est, tolerance = 0.001)
   expect_equal(meta$stats$ci_lower, evalue$stats$bias_ci, tolerance = 0.001)
 
 })
