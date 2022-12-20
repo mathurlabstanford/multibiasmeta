@@ -33,6 +33,7 @@ Imports:
     robumeta
 Remotes:
     mikabr/metabias
+    mayamathur/PublicationBias
 RoxygenNote: 7.2.3
 RdMacros: Rdpack
 Suggests:
