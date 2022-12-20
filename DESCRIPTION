@@ -31,6 +31,8 @@ Imports:
     Rdpack,
     rlang,
     robumeta
+Remotes:
+    mikabr/metabias
 RoxygenNote: 7.2.3
 RdMacros: Rdpack
 Suggests:
