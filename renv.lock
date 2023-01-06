@@ -62,16 +62,20 @@
       "Package": "PublicationBias",
       "Version": "2.2.0.9000",
       "Source": "GitHub",
+      "Remotes": "mikabr/metabias",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
       "RemoteRepo": "PublicationBias",
       "RemoteUsername": "mayamathur",
       "RemoteRef": "HEAD",
-      "RemoteSha": "765d91aae38888c04e8388a8321693ac3b9095ba",
-      "Hash": "6e2baea63290bbf3f66f17288331f836",
+      "RemoteSha": "32e68f2c0b7601e32ea140f68d10e700384e2805",
+      "Hash": "91ccc91d08cc0f3419ca12af9d93cf76",
       "Requirements": [
+        "Rdpack",
         "dplyr",
         "ggplot2",
+        "glue",
+        "metabias",
         "metafor",
         "rlang",
         "robumeta"
@@ -175,10 +179,10 @@
     },
     "cli": {
       "Package": "cli",
-      "Version": "3.4.0",
+      "Version": "3.5.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "78003c09d258968a4d28107e779edb10",
+      "Hash": "eb9fc121ad9a1075c471107ef185be46",
       "Requirements": []
     },
     "colorspace": {
@@ -341,20 +345,22 @@
     },
     "ggplot2": {
       "Package": "ggplot2",
-      "Version": "3.3.6",
+      "Version": "3.4.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "0fb26d0674c82705c6b701d1a61e02ea",
+      "Hash": "fd2aab12f54400c6bca43687231e246b",
       "Requirements": [
         "MASS",
-        "digest",
+        "cli",
         "glue",
         "gtable",
         "isoband",
+        "lifecycle",
         "mgcv",
         "rlang",
         "scales",
         "tibble",
+        "vctrs",
         "withr"
       ]
     },
@@ -413,10 +419,10 @@
     },
     "isoband": {
       "Package": "isoband",
-      "Version": "0.2.5",
+      "Version": "0.2.7",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "7ab57a6de7f48a8dc84910d1eca42883",
+      "Hash": "0080607b4a1a7b28979aecef976d8bc2",
       "Requirements": []
     },
     "jquerylib": {
@@ -469,11 +475,12 @@
     },
     "lifecycle": {
       "Package": "lifecycle",
-      "Version": "1.0.2",
+      "Version": "1.0.3",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "25f74670fa7d3277fe3ad8c1712a699f",
+      "Hash": "001cecbeac1cff9301bdc3775ee46a86",
       "Requirements": [
+        "cli",
         "glue",
         "rlang"
       ]
@@ -511,11 +518,11 @@
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteUsername": "mikabr",
       "RemoteRepo": "metabias",
-      "RemoteRef": "main",
-      "RemoteSha": "b5b127a32983a381092c6c9bc8d13b11b9c3e2c0",
-      "Hash": "18f5931bd2a9417abe359ab4ddfef86c",
+      "RemoteUsername": "mikabr",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "2689f22832e2084ec7aa78202acf7c4a74c74ca4",
+      "Hash": "34add8c990977e62ab7c839d305b1034",
       "Requirements": [
         "Rdpack"
       ]
@@ -595,10 +602,10 @@
     },
     "pbapply": {
       "Package": "pbapply",
-      "Version": "1.5-0",
+      "Version": "1.6-0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "11359a5bb73622ab3f4136bf57108b64",
+      "Hash": "77caedbd6227e10924d1ed2eaa3d53ce",
       "Requirements": []
     },
     "pillar": {
@@ -730,10 +737,10 @@
     },
     "rbibutils": {
       "Package": "rbibutils",
-      "Version": "2.2.9",
+      "Version": "2.2.11",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "4325b80df05dea1f87a5b56562a510d7",
+      "Hash": "d7dce4b739dfd1a3824be3d3979783c1",
       "Requirements": []
     },
     "rematch2": {
@@ -943,16 +950,17 @@
     },
     "tidyselect": {
       "Package": "tidyselect",
-      "Version": "1.1.2",
+      "Version": "1.2.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "17f6da8cfd7002760a859915ce7eef8f",
+      "Hash": "79540e5fcd9e0435af547d885f184fd5",
       "Requirements": [
-        "ellipsis",
+        "cli",
         "glue",
-        "purrr",
+        "lifecycle",
         "rlang",
-        "vctrs"
+        "vctrs",
+        "withr"
       ]
     },
     "tinytex": {
@@ -975,13 +983,14 @@
     },
     "vctrs": {
       "Package": "vctrs",
-      "Version": "0.4.1",
+      "Version": "0.5.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "8b54f22e2a58c4f275479c92ce041a57",
+      "Hash": "970324f6572b4fd81db507b5d4062cb0",
       "Requirements": [
         "cli",
         "glue",
+        "lifecycle",
         "rlang"
       ]
     },
