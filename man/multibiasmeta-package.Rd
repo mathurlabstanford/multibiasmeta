@@ -32,6 +32,7 @@ Meta-analyses can be compromised by studies' internal biases (e.g.,
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://github.com/mikabr/multibiasmeta}
   \item \url{http://mikabr.io/multibiasmeta/}
 }
 

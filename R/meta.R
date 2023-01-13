@@ -79,6 +79,7 @@ get_multibias_meta <- function(yi,
 
   # extract stats from meta analysis
   stats <- metabias::robu_ci(meta_multibias, ci_level) |>
+    select(-param) |>
     mutate(model = model_label, .before = everything())
 
   fit <- list()

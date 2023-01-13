@@ -87,7 +87,6 @@ Correction for meta-analysis with multiple biases
 # publication bias without internal bias
 multibias_meta(yi = meta_meat$yi,
                vi = meta_meat$vi,
-               biased = !meta_meat$randomized,
                selection_ratio = 4,
                bias_affirmative = 0,
                bias_nonaffirmative = 0)
