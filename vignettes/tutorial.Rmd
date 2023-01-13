@@ -1,0 +1,350 @@
+---
+title: "Metabias packages tutorial"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{tutorial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  error = FALSE,
+  warning = FALSE,
+  message = FALSE,
+  collapse = TRUE,
+  comment = "#>"
+)
+options(digits = 2)
+```
+
+This is a tutorial on how to use the packages `PublicationBias`, `phacking`, and
+`multibiasmeta`. Each package provides functions for:
+
+1. meta-analysis with a correction for one or more within-study or across-study
+   biases: `PublicationBias::pubbias_meta()`, `phacking::phacking_meta()`,
+   `multibiasmeta::multibias_meta()`
+2. sensitivity analysis for meta-analyses with respect to these biases:
+   `PublicationBias::svalue()`, `multibiasmeta::evalue()`
+
+Each of these functions returns an object of class `metabias`, which consists of
+a list with four elements: `data`, `values`, `stats`, `fits`.
+
+- `data`: Dataframe containing data used to fit the model(s), with added
+  columns for any values computed during model fitting.
+- `values`: List of values of arguments passed to the function.
+- `stats`: Dataframe of summary statistics from the model fit(s).
+- `fits`: List of fitted objects (which have a class that depends on the
+  underlying fitting methods, e.g. `robumeta::robu` or `rstan::stanfit`).
+
+
+```{r setup}
+library(PublicationBias)
+library(phacking)
+library(multibiasmeta)
+```
+
+Example dataset: meta-analysis of the effectiveness of educational behavior interventions that attempt to reduce meat consumption by appealing to animal welfare
+
+Explanation of data structure and source for meat meta-analysis
+
+```{r}
+meta_meat
+```
+
+Naive point estimate:
+```{r}
+metafor::rma(yi, vi, data = meta_meat, method = "FE")
+```
+
+Naive point estimate with robust specification:
+```{r}
+robumeta::robu(yi ~ 1, data = meta_meat, studynum = cluster, var.eff.size = vi)
+```
+
+
+## Publication bias
+
+Overview of what publication bias is, how publication bias correction works,
+how to choose selection_ratio, what s-value is, how to choose q
+
+### Correction
+
+For a chosen ratio of publication probabilities, `selection_ratio`, estimates
+a publication bias-corrected pooled point estimate and confidence interval
+per \insertCite{mathur2020;textual}{metabias}. Model options include
+fixed-effects (a.k.a. "common-effect"), robust independent, and robust
+clustered specifications.
+
+passing selection_ratio = 1 (no publication bias) yields the naive point estimate
+```{r}
+pubbias_meat_1 <- pubbias_meta(meta_meat$yi,
+                               meta_meat$vi,
+                               model_type = "fixed",
+                               selection_ratio = 1)
+pubbias_meat_1$stats
+```
+
+```{r, echo=FALSE}
+sr <- 4
+```
+
+assume a known selection ratio of `r sr` i.e., affirmative results are `r sr`
+times more likely to be published than nonaffirmative ones
+
+```{r}
+pubbias_meat_4 <- pubbias_meta(meta_meat$yi,
+                               meta_meat$vi,
+                               model_type = "fixed",
+                               selection_ratio = 4)
+pubbias_meat_4$stats
+```
+
+interpretation:
+
+If affirmative (i.e., significant and positive) studies were `r sr` times more
+likely to be published than nonaffirmative (i.e., nonsignificant or negative)
+studies, the meta-analytic point estimate corrected for publication bias would
+be `r pubbias_meat_4$stats$estimate` (95% CI [`r pubbias_meat_4$stats$ci_lower`, `r pubbias_meat_4$stats$ci_upper`]).
+
+<!-- TODO: add worst-case meta output once it's added to pubbias_meta() -->
+<!-- If there were worst-case publication bias (i.e., that favors affirmative results infinitely more than nonaffirmative results), the corrected meta-analytic point estimate would be -0.0071 (95% CI [-0.03, 0.016]). -->
+
+same selection ratio, but now account for heterogeneity and clustering via
+robust specification
+
+```{r}
+pubbias_meat_4 <- pubbias_meta(meta_meat$yi,
+                               meta_meat$vi,
+                               cluster = meta_meat$cluster,
+                               model_type = "robust",
+                               selection_ratio = 4)
+pubbias_meat_4$stats
+```
+
+interpretation:
+
+Accounting for heterogeneity and clustering via robust specification,
+if affirmative (i.e., significant and positive) studies were `r sr` times more
+likely to be published than nonaffirmative (i.e., nonsignificant or negative)
+studies, the meta-analytic point estimate corrected for publication bias would
+be `r pubbias_meat_4$stats$estimate` (95% CI [`r pubbias_meat_4$stats$ci_lower`, `r pubbias_meat_4$stats$ci_upper`]).
+
+by default assumes that publication bias favors positive results, if it should be negative then pass `favor_positive = FALSE`. (any other arguments to flag?)
+
+for additional arguments see `pubbias_meta()` (link)
+
+### Sensitivy analysis
+
+default: q = 0
+```{r}
+svalue_meat_0 <- pubbias_svalue(meta_meat$yi,
+                                meta_meat$vi,
+                                cluster = meta_meat$cluster)
+svalue_meat_0$stats
+```
+
+interpretation:
+
+Under this model of publication bias, there is no amount of publication bias that would shift the point estimate to 0.
+
+Under this model of publication bias, there is no amount of publication bias that would shift the CI bound to 0.
+
+```{r, echo=FALSE}
+qs <- 0.1
+```
+
+Changing q to `r qs`
+
+```{r}
+svalue_meat_01 <- pubbias_svalue(meta_meat$yi,
+                                 meta_meat$vi,
+                                 cluster = meta_meat$cluster,
+                                 q = 0.1)
+svalue_meat_01$stats
+
+```
+
+interpretation:
+
+For the point estimate corrected for publication bias to shift to `r qs`, affirmative studies would need to be `r svalue_meat_01$stats$sval_est` times more likely to be published than nonaffirmative studies.
+
+For the CI bound corrected for publication bias to shift to `r qs`, affirmative studies would need to be `r svalue_meat_01$stats$sval_ci` times more likely to be published than nonaffirmative studies.
+
+### Plots
+
+The estimate among only nonaffirmative studies (gray diamond) represents a
+corrected estimate under worst-case publication bias that favors affirmative
+results. If the gray diamond represents a negligible effect size or if it is
+much smaller than the pooled estimate among all studies (black diamond), this
+suggests that the meta-analysis may not be robust to extreme publication bias.
+
+```{r}
+significance_funnel(yi = meta_meat$yi, vi = meta_meat$vi)
+```
+
+Description of how to interpret/use these results, take-aways about publication bias
+
+
+## phacking
+
+Overview of what phacking is, how phacking + pubbias correction works, defining RTMA, mu, and tau
+
+unlike other funs, this one uses Stan (links)
+
+### Correction
+
+Fits right-truncated meta-analysis (RTMA), a bias correction for the joint
+effects of p-hacking (i.e., manipulation of results within studies to obtain
+significant, positive estimates) and traditional publication bias (i.e., the
+selective publication of studies with significant, positive results) in
+meta-analyses.
+
+```{r}
+phacking_meat <- phacking_meta(yi = meta_meat$yi, vi = meta_meat$vi, parallelize = FALSE)
+phacking_meat$stats
+```
+
+mode, median, mean represent posterior modes, medians, and means respectively
+
+we recommend using mode, so interpretation:
+accounting for potential phacking, the estimated mean effect is `mu`, `r phacking_meat$stats$mode[[1]]`
+and the estimated standard deviation of the effects is `tau`, `r phacking_meat$stats$mode[[2]]`.
+
+### Diagnostic plots
+
+To assess the fit of right-truncated meta-analysis and possible violations of
+its distributional assumptions, plots the fitted cumulative distribution
+function (CDF) of the published nonaffirmative estimates versus their
+empirical CDF. If the points do not adhere fairly closely to a 45-degree
+line, the right-truncated meta-analysis may not fit adequately.
+
+```{r}
+rtma_qqplot(phacking_meat)
+```
+
+Plots the Z-scores of all published point estimates. When p-hacking favors
+affirmative estimates over nonaffirmative estimates, as our methods and
+others assume, Z-scores may disproportionately concentrate just above the
+critical value (e.g., 1.96). Importantly, the presence of p-hacking does not
+*guarantee* a concentration of Z-scores just above the critical value,
+so it is prudent to proceed with the fitting RTMA even if no such
+concentration is apparent. In contrast, if Z-scores also concentrate just
+*below* the critical value, or if they also concentrate below the
+sign-reversed critical value (e.g., -1.96), this could indicate forms of
+p-hacking that violate the assumptions of RTMA.
+
+```{r}
+z_density(yi = meta_meat$yi, vi = meta_meat$vi)
+```
+
+## Multiple biases
+
+overview of publication bias + interval bias, how to choose bias_affirmative and
+bias_nonaffirmative
+
+### Correction
+
+publication bias (`selection ratio = 4`) without internal bias (`bias_affirmative = 0`, `bias_nonaffirmative = 0`)
+should be same as what `pubbias_meta` would give
+```{r}
+multi_meat_0 <- multibias_meta(yi = meta_meat$yi,
+                               vi = meta_meat$vi,
+                               selection_ratio = 4,
+                               bias_affirmative = 0,
+                               bias_nonaffirmative = 0)
+multi_meat_0$stats
+```
+
+interpretation:
+If affirmative studies were `r sr` times more likely to be published than nonaffirmative
+studies and studies did not have internal bias, the corrected meta-analytic point estimate would be
+`r multi_meat_0$stats$estimate` (95% CI [`r multi_meat_0$stats$ci_lower`, `r multi_meat_0$stats$ci_upper`]).
+
+publication bias and internal bias in the non-randomized studies
+```{r}
+multi_meat_1 <- multibias_meta(yi = meta_meat$yi,
+                               vi = meta_meat$vi,
+                               biased = !meta_meat$randomized,
+                               selection_ratio = 4,
+                               bias_affirmative = log(1.5),
+                               bias_nonaffirmative = log(1.1))
+multi_meat_1$stats
+```
+
+interpretation:
+If (1) affirmative studies were `r sr` times more likely to be published than nonaffirmative
+studies, (2) affirmative studies had a mean internal bias of `log(1.5)`, (3) nonaffirmative studies had a mean internal bias of `log(1.1)`, and (4) only non-randomized studies had internal bias, the corrected meta-analytic point estimate would be
+`r multi_meat_0$stats$estimate` (95% CI [`r multi_meat_0$stats$ci_lower`, `r multi_meat_0$stats$ci_upper`]).
+
+treat all studies as biased, not just non-randomized ones
+```{r}
+multi_meat_1 <- multibias_meta(yi = meta_meat$yi,
+                               vi = meta_meat$vi,
+                               biased = TRUE,
+                               selection_ratio = 4,
+                               bias_affirmative = log(1.5),
+                               bias_nonaffirmative = log(1.1))
+multi_meat_1$stats
+```
+
+interpretation: same as previous but without assumption 4
+
+### Sensitivy analysis
+
+default: q = 0
+```{r}
+evalue_meat <- multibias_evalue(yi = meta_meat$yi,
+                                vi = meta_meat$vi,
+                                biased = !meta_meat$randomized,
+                                selection_ratio = 4)
+evalue_meat$stats
+```
+
+interpretation: 
+
+Assuming affirmative studies as `r sr` more likely to get published than nonaffirmative studies,
+for the point estimate corrected for internal bias to shift to 0, non-randomized studies would need
+to have internal bias of `r evalue_meat$stats$bias_est`.
+
+For the CI bound corrected for internal bias to shift to 0, non-randomized studies would need
+to have internal bias of `r evalue_meat$stats$bias_ci`.
+
+Changing q to `r qs`
+
+```{r}
+evalue_meat_01 <- multibias_evalue(yi = meta_meat$yi,
+                                   vi = meta_meat$vi,
+                                   biased = !meta_meat$randomized,
+                                   selection_ratio = 4,
+                                   q = 0.1)
+evalue_meat_01$stats
+```
+
+interpretation: 
+
+Assuming affirmative studies as `r sr` more likely to get published than nonaffirmative studies,
+for the point estimate corrected for internal bias to shift to `r qs`, non-randomized studies would need
+to have internal bias of `r evalue_meat_01$stats$bias_est`.
+
+For the CI bound corrected for internal bias to shift to `r qs`, non-randomized studies would need
+to have internal bias of `r evalue_meat_01$stats$bias_ci`.
+
+explanation of types of bias, pointers to EValue package
+
+specify confounding as internal bias
+```{r}
+evalue_meat_conf <- multibias_evalue(yi = meta_meat$yi,
+                                     vi = meta_meat$vi,
+                                     biased = !meta_meat$randomized,
+                                     selection_ratio = 4,
+                                     assumed_bias_type = list(EValue::confounding()))
+evalue_meat_conf$stats
+```
+
+Assuming affirmative studies as `r sr` more likely to get published than nonaffirmative studies,
+for the point estimate corrected for internal bias to shift to 0, non-randomized studies would need
+to have confounding of `r evalue_meat_conf$stats$evalue_est`.
+
+For the CI bound corrected for internal bias to shift to `r qs`, non-randomized studies would need
+to have confounding bias of `r evalue_meat_conf$stats$evalue_ci`.

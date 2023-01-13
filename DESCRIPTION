@@ -18,6 +18,8 @@ Authors@R: c(
   person("Maya", "Mathur", email = "mmathur@stanford.edu", role = c("aut")))
 Maintainer: Mika Braginsky <mika.br@gmail.com>
 License: MIT + file LICENSE
+URL: https://github.com/mikabr/multibiasmeta,
+     http://mikabr.io/multibiasmeta/
 Encoding: UTF-8
 LazyData: true
 Depends:
@@ -33,12 +35,16 @@ Imports:
     robumeta
 Remotes:
     mikabr/metabias,
+    mikabr/phacking,
     mayamathur/PublicationBias
 RoxygenNote: 7.2.3
 RdMacros: Rdpack
 Suggests:
+    rmarkdown,
+    knitr,
+    phacking,
     PublicationBias,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Roxygen: list(markdown = TRUE)
-URL: http://mikabr.io/multibiasmeta/
+VignetteBuilder: knitr

@@ -9,6 +9,14 @@
     ]
   },
   "Packages": {
+    "BH": {
+      "Package": "BH",
+      "Version": "1.78.0-0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "4e348572ffcaa2fb1e610e7a941f6f3a",
+      "Requirements": []
+    },
     "EValue": {
       "Package": "EValue",
       "Version": "4.1.3",
@@ -62,14 +70,14 @@
       "Package": "PublicationBias",
       "Version": "2.2.0.9000",
       "Source": "GitHub",
-      "Remotes": "mikabr/metabias",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteRepo": "PublicationBias",
       "RemoteUsername": "mayamathur",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "32e68f2c0b7601e32ea140f68d10e700384e2805",
-      "Hash": "91ccc91d08cc0f3419ca12af9d93cf76",
+      "RemoteRepo": "PublicationBias",
+      "RemoteRef": "master",
+      "RemoteSha": "d8005e93df32c11259ae923e2b7c46c86c96beed",
+      "Remotes": "mikabr/metabias",
+      "Hash": "032e33c85edd32ad47c36cd46b353c5e",
       "Requirements": [
         "Rdpack",
         "dplyr",
@@ -97,6 +105,33 @@
       "Hash": "45f0398006e83a5b10b72a90663d8d8c",
       "Requirements": []
     },
+    "Rcpp": {
+      "Package": "Rcpp",
+      "Version": "1.0.8.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "32e79b908fda56ee57fe518a8d37b864",
+      "Requirements": []
+    },
+    "RcppEigen": {
+      "Package": "RcppEigen",
+      "Version": "0.3.3.9.2",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "4c86baed78388ceb06f88e3e9a1d87f5",
+      "Requirements": [
+        "Matrix",
+        "Rcpp"
+      ]
+    },
+    "RcppParallel": {
+      "Package": "RcppParallel",
+      "Version": "5.1.5",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "f3e94e34ff656a7c8336ce01207bc2b8",
+      "Requirements": []
+    },
     "Rdpack": {
       "Package": "Rdpack",
       "Version": "2.4",
@@ -105,6 +140,17 @@
       "Hash": "0ddbe51591ab1d3e7362e0da3727c837",
       "Requirements": [
         "rbibutils"
+      ]
+    },
+    "StanHeaders": {
+      "Package": "StanHeaders",
+      "Version": "2.21.0-7",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "0459d4dd7a8c239be18469a30c23dd4b",
+      "Requirements": [
+        "RcppEigen",
+        "RcppParallel"
       ]
     },
     "askpass": {
@@ -116,6 +162,14 @@
       "Requirements": [
         "sys"
       ]
+    },
+    "backports": {
+      "Package": "backports",
+      "Version": "1.4.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "c39fbec8a30d23e721980b8afb31984c",
+      "Requirements": []
     },
     "base64enc": {
       "Package": "base64enc",
@@ -177,12 +231,22 @@
         "processx"
       ]
     },
-    "cli": {
-      "Package": "cli",
-      "Version": "3.5.0",
+    "checkmate": {
+      "Package": "checkmate",
+      "Version": "2.1.0",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "eb9fc121ad9a1075c471107ef185be46",
+      "Hash": "147e4db6909d8814bb30f671b49d7e06",
+      "Requirements": [
+        "backports"
+      ]
+    },
+    "cli": {
+      "Package": "cli",
+      "Version": "3.6.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "3177a5a16c243adc199ba33117bd9657",
       "Requirements": []
     },
     "colorspace": {
@@ -372,6 +436,16 @@
       "Hash": "4f2596dfb05dac67b9dc558e5c6fba2e",
       "Requirements": []
     },
+    "gridExtra": {
+      "Package": "gridExtra",
+      "Version": "2.3",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "7d7f283939f563670a697165b2cf5560",
+      "Requirements": [
+        "gtable"
+      ]
+    },
     "gtable": {
       "Package": "gtable",
       "Version": "0.3.1",
@@ -416,6 +490,14 @@
         "mime",
         "openssl"
       ]
+    },
+    "inline": {
+      "Package": "inline",
+      "Version": "0.3.19",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "1deaf1de3eac7e1d3377954b3a283652",
+      "Requirements": []
     },
     "isoband": {
       "Package": "isoband",
@@ -485,6 +567,17 @@
         "rlang"
       ]
     },
+    "loo": {
+      "Package": "loo",
+      "Version": "2.5.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "31b53df2593afd03a4969ae028c437b1",
+      "Requirements": [
+        "checkmate",
+        "matrixStats"
+      ]
+    },
     "magrittr": {
       "Package": "magrittr",
       "Version": "2.0.3",
@@ -501,6 +594,14 @@
       "Hash": "87da6ccdcee6077a7d5719406bf3ae45",
       "Requirements": []
     },
+    "matrixStats": {
+      "Package": "matrixStats",
+      "Version": "0.62.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "36ad89a805c436c5316c22490079da67",
+      "Requirements": []
+    },
     "memoise": {
       "Package": "memoise",
       "Version": "2.0.1",
@@ -514,15 +615,15 @@
     },
     "metabias": {
       "Package": "metabias",
-      "Version": "0.0.1",
+      "Version": "0.1.0",
       "Source": "GitHub",
       "RemoteType": "github",
       "RemoteHost": "api.github.com",
-      "RemoteRepo": "metabias",
       "RemoteUsername": "mikabr",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "2689f22832e2084ec7aa78202acf7c4a74c74ca4",
-      "Hash": "34add8c990977e62ab7c839d305b1034",
+      "RemoteRepo": "metabias",
+      "RemoteRef": "main",
+      "RemoteSha": "37798fe9c54519e37af1c18094fce301ae51918e",
+      "Hash": "fd12a6fca3e31b9dbd22f512bf22d23e",
       "Requirements": [
         "Rdpack"
       ]
@@ -608,6 +709,36 @@
       "Hash": "77caedbd6227e10924d1ed2eaa3d53ce",
       "Requirements": []
     },
+    "phacking": {
+      "Package": "phacking",
+      "Version": "0.0.1",
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteUsername": "mikabr",
+      "RemoteRepo": "phacking",
+      "RemoteRef": "main",
+      "RemoteSha": "999e1212525831e878960d6bd5810e394d0d73b0",
+      "Remotes": "mikabr/metabias",
+      "Hash": "f6d908eac0f653816d390e6a68f6744d",
+      "Requirements": [
+        "BH",
+        "Rcpp",
+        "RcppEigen",
+        "RcppParallel",
+        "Rdpack",
+        "StanHeaders",
+        "dplyr",
+        "ggplot2",
+        "metabias",
+        "metafor",
+        "purrr",
+        "rlang",
+        "rstan",
+        "rstantools",
+        "truncnorm"
+      ]
+    },
     "pillar": {
       "Package": "pillar",
       "Version": "1.8.1",
@@ -622,6 +753,23 @@
         "rlang",
         "utf8",
         "vctrs"
+      ]
+    },
+    "pkgbuild": {
+      "Package": "pkgbuild",
+      "Version": "1.3.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "66d2adfed274daf81ccfe77d974c3b9b",
+      "Requirements": [
+        "R6",
+        "callr",
+        "cli",
+        "crayon",
+        "desc",
+        "prettyunits",
+        "rprojroot",
+        "withr"
       ]
     },
     "pkgconfig": {
@@ -686,6 +834,14 @@
       "Hash": "a555924add98c99d2f411e37e7d25e9f",
       "Requirements": []
     },
+    "prettyunits": {
+      "Package": "prettyunits",
+      "Version": "1.1.1",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "95ef9167b75dde9d2ccc3c7528393e7e",
+      "Requirements": []
+    },
     "processx": {
       "Package": "processx",
       "Version": "3.5.2",
@@ -737,10 +893,10 @@
     },
     "rbibutils": {
       "Package": "rbibutils",
-      "Version": "2.2.11",
+      "Version": "2.2.12",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "d7dce4b739dfd1a3824be3d3979783c1",
+      "Hash": "f81b59dc945117e30e5399ca60f43968",
       "Requirements": []
     },
     "rematch2": {
@@ -803,6 +959,37 @@
       "Repository": "CRAN",
       "Hash": "249d8cd1e74a8f6a26194a91b47f21d1",
       "Requirements": []
+    },
+    "rstan": {
+      "Package": "rstan",
+      "Version": "2.21.5",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "61f94b51fc49feea6637bb09e7ac81f3",
+      "Requirements": [
+        "BH",
+        "Rcpp",
+        "RcppEigen",
+        "RcppParallel",
+        "StanHeaders",
+        "ggplot2",
+        "gridExtra",
+        "inline",
+        "loo",
+        "pkgbuild"
+      ]
+    },
+    "rstantools": {
+      "Package": "rstantools",
+      "Version": "2.2.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "8b57bc9062c6e274845f253808a9cbf9",
+      "Requirements": [
+        "Rcpp",
+        "RcppParallel",
+        "desc"
+      ]
     },
     "sass": {
       "Package": "sass",
@@ -972,6 +1159,14 @@
       "Requirements": [
         "xfun"
       ]
+    },
+    "truncnorm": {
+      "Package": "truncnorm",
+      "Version": "1.0-8",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "cc8b5bfa01c930ccb56d3051e515fbd8",
+      "Requirements": []
     },
     "utf8": {
       "Package": "utf8",

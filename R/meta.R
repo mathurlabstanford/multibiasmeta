@@ -79,7 +79,7 @@ get_multibias_meta <- function(yi,
 
   # extract stats from meta analysis
   stats <- metabias::robu_ci(meta_multibias, ci_level) |>
-    select(-param) |>
+    select(-.data$param) |>
     mutate(model = model_label, .before = everything())
 
   fit <- list()
@@ -163,6 +163,7 @@ multibias_meta <- function(yi, # data
                                  small = small)
 
     worst_stats <- metabias::robu_ci(meta_worst, ci_level) |>
+      select(-.data$param) |>
       mutate(model = worst_label, .before = everything())
 
     meta_multibias$stats <- bind_rows(meta_multibias$stats, worst_stats)
