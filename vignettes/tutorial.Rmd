@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 )
 options(digits = 2)
 ```
-
+ 
 This is a tutorial on how to use the packages `PublicationBias`, `phacking`, and
 `multibiasmeta`. Each package provides functions for:
 
