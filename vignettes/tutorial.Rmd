@@ -135,7 +135,7 @@ for additional arguments see `pubbias_meta()` (link)
 
 ### Worst-case meta-analysis
 
-As a limiting case, we can conduct a meta-analysis of nonaffirmative results (MAN) that accounts for worst-case publication bias. That is, if affirmative studies were infinitely more likely to be published than nonaffirmative studies, we could obtain a corrected estimate by having nonaffirmative studies contribute infinitely more weight to the analysis than affirmative studies. This in fact corresponds to retaining only the nonaffirmative studies in analysis. Unlike standard publication bias methods, MAN can help assess robustness to other forms of selective reporting besides publication bias. In particular, MAN accommodates situations in which investigators manipulate or selectively report results \emph{within} studies, called ``$p$-hacking'' (cite).
+As a limiting case, we can conduct a meta-analysis of nonaffirmative results (MAN) that accounts for worst-case publication bias. That is, if affirmative studies were infinitely more likely to be published than nonaffirmative studies, we could obtain a corrected estimate by having nonaffirmative studies contribute infinitely more weight to the analysis than affirmative studies. This in fact corresponds to retaining only the nonaffirmative studies in analysis. Unlike standard publication bias methods, MAN can help assess robustness to other forms of selective reporting besides publication bias. In particular, MAN accommodates situations in which investigators manipulate or selectively report results \emph{within} studies, called ``$p$-hacking'' (cite SAPH).
 
 
 <!-- MM: Please add code for this -->
