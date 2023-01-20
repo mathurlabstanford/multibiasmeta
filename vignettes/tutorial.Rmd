@@ -25,11 +25,11 @@ knitr::opts_chunk$set(
 options(digits = 2) # round printed numbers to two digits
 
 refs <- list(
-  "SAPB" = "[Mathur & VanderWeele, 2020](https://osf.io/s9dp6/)",   # pubbias
-  "SAPB-E" = "[Mathur & VanderWeele, 2019](https://osf.io/p3xyd/)", # pubbias 
-  "SAPH" = "[Mathur, 2022](https://osf.io/ezjsx/)",                 # phacking
-  "MBMA" = "[Mathur, 2022](https://osf.io/u7vcb/)",                 # multibias
-  "meat" = "[Mathur et al, 2021](https://osf.io/bc2wy/)"
+  "SAPB" = "[Mathur & VanderWeele (2020)](https://osf.io/s9dp6/)",   # pubbias
+  "SAPB-E" = "[Mathur & VanderWeele (2019)](https://osf.io/p3xyd/)", # pubbias 
+  "SAPH" = "[Mathur (2022)](https://osf.io/ezjsx/)",                 # phacking
+  "MBMA" = "[Mathur (2022)](https://osf.io/u7vcb/)",                 # multibias
+  "meat" = "[Mathur et al (2021)](https://osf.io/bc2wy/)"
 )
 ```
  
@@ -105,7 +105,7 @@ pubbias_meat_4$stats
 
 This fixed-effects meta-analysis indicates that if affirmative (i.e., significant and positive) studies were `r sr` times more likely to be published than nonaffirmative (i.e., nonsignificant or negative) studies, the meta-analytic point estimate corrected for publication bias would be `r pubbias_meat_4$stats$estimate` (95% CI [`r pubbias_meat_4$stats$ci_lower`, `r pubbias_meat_4$stats$ci_upper`]).
 
-Now we will use the same selection ratio, but will use the robust random-effects specification to account for heterogeneity and for clustering of point estimates within papers.
+Now we will use the same selection ratio, but will use the robust random-effects specification to account for heterogeneity and for clustering of point estimates within papers (which is the default behavior of `pubbias_meta()`).
 
 ```{r}
 pubbias_meat_4 <- pubbias_meta(meta_meat$yi,
@@ -145,8 +145,6 @@ If there were worst-case publication bias (i.e., that favors affirmative results
 
 We can also calculate the S-value, defined as the severity of publication bias (i.e., the ratio by which affirmative studies are more likely to be published than nonaffirmative studies) that would be required to shift the pooled point estimate or its confidence interval limit to the null, or to any other value `q` (which defaults to 0, the null).
 
-<!-- MM: It looks like svalue is using the robust spec by default, whereas pubbias_meta doesn't have a default. Probably best to stick with one of them (maybe the robust default?). -->
-<!-- MB: pubbias_meta also defaults to robust -->
 ```{r}
 svalue_meat_0 <- pubbias_svalue(meta_meat$yi,
                                 meta_meat$vi,
@@ -214,12 +212,13 @@ To assess the fit of right-truncated meta-analysis and possible violations of it
 rtma_qqplot(phacking_meat)
 ```
 
+<!-- @maya: look into weird qqplot -->
+
 As another diagnostic plot, we can examine the Z-scores of all published point estimates. When _p_-hacking favors affirmative estimates over nonaffirmative estimates, as our methods and others assume, Z-scores may disproportionately concentrate just above the critical value (e.g., 1.96). Importantly, the presence of _p_-hacking does not *guarantee* a concentration of Z-scores just above the critical value, so it is prudent to proceed with the fitting RTMA even if no such concentration is apparent. In contrast, if Z-scores also concentrate just *below* the critical value, or if they also concentrate below the sign-reversed critical value (e.g., –1.96), this could indicate forms of _p_-hacking that violate the assumptions of RTMA.
 
 ```{r}
 z_density(yi = meta_meat$yi, vi = meta_meat$vi)
 ```
-
 
 ## Multiple biases
 
@@ -282,7 +281,7 @@ evalue_meat$stats
 
 These results indicate that if affirmative studies are `r sr` more likely to get published than nonaffirmative studies, for the point estimate corrected for internal bias to shift to 0, non-randomized studies would need to have an average internal bias of `r evalue_meat$stats$bias_est`. For the CI bound corrected for internal bias to shift to 0, non-randomized studies would need to have an average internal bias of `r evalue_meat$stats$bias_ci`.
 
-Now we consider shifting the point estimate and CI bound to _q = 0.10_ rather than to the null.
+Now we consider shifting the point estimate and CI bound to _q = 0.1_ rather than to the null.
 
 ```{r}
 evalue_meat_01 <- multibias_evalue(yi = meta_meat$yi,
@@ -294,10 +293,9 @@ evalue_meat_01$stats
 ```
 
 
-
 So far, we have worked with sensitivity parameters, `bias_affirmative` and `bias_nonaffirmative`, that simply summarize the additive internal bias across studies without making assumptions on its source. However, for certain types of bias in estimates of a causal parameter (e.g., a treatment effect), the bias can be reparameterized to more directly describe structural associations that involve latent variables, such as uncontrolled confounders, that are responsible for the bias. These reparameterizations apply if studies' unadjusted estimates are on the log risk ratio scale or have been approximately transformed to this scale via the usual approaches in meta-analysis. Then, the sensitivity parameters regarding the bias on the risk ratio (_RR_) scale can be expressed in terms of structural associations involving latent variables. See `r refs["MBMA"]` for more details.
 
-For example, for uncontrolled confounding, the bias on the _RR_ scale can be expressed in terms of the minimum strength of confounding associations that would need to be present on average across studies in order to produce the amount of bias indicated by [paramter name?]. For a given study, the two relevant confounding associations are defined as: (1) the _RR_ by which uncontrolled confounder(s) are associated with the exposure; and (2) the _RR_ by which uncontrolled confounder(s) are associated with the outcome. Both confounding associations are conditional on any controlled covariates. 
+For example, for uncontrolled confounding, the bias on the _RR_ scale can be expressed in terms of the minimum strength of confounding associations that would need to be present on average across studies in order to produce the amount of bias indicated by `bias_est` and `bias_ci`. For a given study, the two relevant confounding associations are defined as: (1) the _RR_ by which uncontrolled confounder(s) are associated with the exposure; and (2) the _RR_ by which uncontrolled confounder(s) are associated with the outcome. Both confounding associations are conditional on any controlled covariates.
 
 ```{r}
 evalue_meat_conf <- multibias_evalue(yi = meta_meat$yi,
@@ -308,4 +306,4 @@ evalue_meat_conf <- multibias_evalue(yi = meta_meat$yi,
 evalue_meat_conf$stats
 ```
 
-These results indicate that if affirmative studies as `r sr` more likely to get published than nonaffirmative studies, for the point estimate corrected for internal bias to shift to 0, non-randomized studies would need to have confounding associations of `r evalue_meat_conf$stats$evalue_est`. For the CI bound corrected for internal bias to shift to `r qs`, non-randomized studies would need to have confounding associations of `r evalue_meat_conf$stats$evalue_ci`.
+These results indicate that if affirmative studies as `r sr` more likely to get published than nonaffirmative studies, for the point estimate corrected for internal bias to shift to 0, non-randomized studies would need to have confounding associations of `r evalue_meat_conf$stats$evalue_est`. For the CI bound corrected for internal bias to shift to `r qs`, non-randomized studies would need to have confounding associations of `r evalue_meat_conf$stats$evalue_ci`. For more on the interpretation of these parameters, see `r refs["MBMA"]`.
