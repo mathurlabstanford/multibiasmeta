@@ -34,9 +34,7 @@ Imports:
     rlang,
     robumeta
 Remotes:
-    mikabr/metabias,
-    mikabr/phacking,
-    mayamathur/PublicationBias
+    mikabr/phacking
 RoxygenNote: 7.2.3
 RdMacros: Rdpack
 Suggests:
