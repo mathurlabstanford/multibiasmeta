@@ -4,19 +4,18 @@
 \name{multibiasmeta-package}
 \alias{multibiasmeta}
 \alias{multibiasmeta-package}
-\title{multibiasmeta: Sensitivity analysis for the interactive effects of internal bias and
-  publication bias in meta-analyses}
+\title{multibiasmeta: Sensitivity Analysis for the Interactive Effects of Internal Bias and
+  Publication Bias in Meta-Analyses}
 \description{
 Meta-analyses can be compromised by studies' internal biases (e.g.,
-  confounding in nonrandomized studies) as well as publication bias. This
+  confounding in nonrandomized studies) as well as by publication bias. This
   package conducts sensitivity analyses for the joint effects of these biases
-  [see Mathur MB (2022). "Sensitivity analysis for the interactive effects of
-  internal bias and publication bias in meta-analyses."
-  \doi{10.31219/osf.io/u7vcb}.] These sensitivity analyses address two
-  questions: (1) "For a given severity of internal bias across studies and of
-  publication bias, how much could the results change?"; and (2) "For a given
-  severity of publication bias, how severe would internal bias have to be,
-  hypothetically, to attenuate the results to the null or by a given amount?"
+  (per Mathur, 2022 [\doi{10.31219/osf.io/u7vcb}]). These sensitivity analyses 
+  address two questions: (1) For a given severity of internal bias across
+  studies and of publication bias, how much could the results change?; and
+  (2) For a given severity of publication bias, how severe would internal bias
+  have to be, hypothetically, to attenuate the results to the null or by a given
+  amount?
 }
 \references{
 \insertRef{mathur2022multibias}{metabias}

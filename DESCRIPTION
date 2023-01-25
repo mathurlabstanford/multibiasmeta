@@ -16,7 +16,7 @@ Authors@R: c(
   person("Mika", "Braginsky", email = "mika.br@gmail.com", role = c("aut", "cre")),
   person("Maya", "Mathur", email = "mmathur@stanford.edu", role = c("aut")))
 Maintainer: Mika Braginsky <mika.br@gmail.com>
-License: GPL (>= 3)
+License: MIT + file LICENSE
 URL: https://github.com/mikabr/multibiasmeta,
      http://mikabr.io/multibiasmeta/
 Encoding: UTF-8
@@ -32,8 +32,6 @@ Imports:
     Rdpack,
     rlang,
     robumeta
-Remotes:
-    mikabr/phacking
 RoxygenNote: 7.2.3
 RdMacros: Rdpack
 Suggests:
