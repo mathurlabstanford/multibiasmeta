@@ -9,7 +9,12 @@
 
 ## Installation
 
-You can install the development version of multibiasmeta from [GitHub](https://github.com/) with:
+You can install multimetabias from CRAN:
+``` r
+install.packages("multibiasmeta")
+```
+
+Or you can install the development version of multibiasmeta from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
