@@ -18,7 +18,7 @@ Meta-analyses can be compromised by studies' internal biases (e.g.,
   amount?
 }
 \references{
-\insertRef{mathur2022multibias}{metabias}
+\insertRef{mathur2022multibias}{multibiasmeta}
 
 \insertRef{ding2016}{metabias}
 

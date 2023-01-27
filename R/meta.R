@@ -114,7 +114,7 @@ get_multibias_meta <- function(yi,
 #'   \item{fit}{A list of fitted models.}
 #' }
 #'
-#' @references \insertRef{mathur2022multibias}{metabias}
+#' @references \insertRef{mathur2022multibias}{multibiasmeta}
 #'
 #' @export
 #' @example inst/examples/multibias_meta.R

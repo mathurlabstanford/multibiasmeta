@@ -102,7 +102,7 @@ multibias_evalue(yi = meta_meat$yi,
                  assumed_bias_type = list(EValue::confounding()))
 }
 \references{
-\insertRef{mathur2022multibias}{metabias}
+\insertRef{mathur2022multibias}{multibiasmeta}
 
 \insertRef{ding2016}{metabias}
 

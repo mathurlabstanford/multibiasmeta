@@ -24,7 +24,7 @@
 #'   `vignette("multiple-bias", package = "EValue")`
 #'
 #' @references
-#' \insertRef{mathur2022multibias}{metabias}
+#' \insertRef{mathur2022multibias}{multibiasmeta}
 #'
 #' \insertRef{ding2016}{metabias}
 #'

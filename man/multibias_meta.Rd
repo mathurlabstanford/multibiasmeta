@@ -108,5 +108,5 @@ multibias_meta(yi = meta_meat$yi,
                bias_nonaffirmative = log(1.1))
 }
 \references{
-\insertRef{mathur2022multibias}{metabias}
+\insertRef{mathur2022multibias}{multibiasmeta}
 }
