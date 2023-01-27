@@ -21,10 +21,22 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/tutorial.html">Metabias packages tutorial</a>
+  </div>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/mikabr/multibiasmeta/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -32,7 +44,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>E-value for meta-analysis with multiple biases</h1>
-      
+      <small class="dont-index">Source: <a href="https://github.com/mikabr/multibiasmeta/blob/HEAD/R/evalue.R" class="external-link"><code>R/evalue.R</code></a></small>
       <div class="d-none name"><code>multibias_evalue.Rd</code></div>
     </div>
 
@@ -180,57 +192,115 @@ use <code><a href="https://rdrr.io/pkg/EValue/man/convert_measures.html" class="
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">multibias_evalue</span><span class="op">(</span>yi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>,</span></span>
 <span class="r-in"><span>                 vi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">vi</span>,</span></span>
-<span class="r-in"><span>                 selection_ratio <span class="op">=</span> <span class="fl">4</span>,</span></span>
-<span class="r-in"><span>                 biased <span class="op">=</span> <span class="op">!</span><span class="va">meta_meat</span><span class="op">$</span><span class="va">randomized</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> List of 4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ data  : tibble [100 × 5] (S3: tbl_df/tbl/data.frame)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ yi     : num [1:100] -0.3883 0.00143 -0.07782 0.39513 0.1092 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ vi     : num [1:100] 0.11387 0.00818 0.01563 0.0567 0.006 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ sei    : num [1:100] 0.3374 0.0904 0.125 0.2381 0.0775 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ cluster: int [1:100] 1 2 3 4 5 6 7 8 9 10 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ biased : logi [1:100] TRUE TRUE TRUE FALSE FALSE FALSE ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ values:List of 7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ selection_ratio: num 4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ q              : num 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ favor_positive : logi TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ alpha_select   : num 0.05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ci_level       : num 0.95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ small          : logi TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ bias_max       : num 20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ stats : tibble [1 × 2] (S3: tbl_df/tbl/data.frame)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ bias_est: num 0.539</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ bias_ci : num 0.27</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ fits  : list()</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "class")= chr [1:2] "metabias" "list"</span>
+<span class="r-in"><span>                 biased <span class="op">=</span> <span class="op">!</span><span class="va">meta_meat</span><span class="op">$</span><span class="va">randomized</span>,</span></span>
+<span class="r-in"><span>                 selection_ratio <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 100 × 5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          yi      vi    sei cluster biased</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> -<span style="color: #BB0000;">0.388</span>   0.114   0.337        1 TRUE  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>  0.001<span style="text-decoration: underline;">43</span> 0.008<span style="text-decoration: underline;">18</span> 0.090<span style="text-decoration: underline;">4</span>       2 TRUE  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> -<span style="color: #BB0000;">0.077</span><span style="color: #BB0000; text-decoration: underline;">8</span>  0.015<span style="text-decoration: underline;">6</span>  0.125        3 TRUE  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>  0.395   0.056<span style="text-decoration: underline;">7</span>  0.238        4 FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>  0.109   0.006   0.077<span style="text-decoration: underline;">5</span>       5 FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>  0.071<span style="text-decoration: underline;">1</span>  0.001<span style="text-decoration: underline;">10</span> 0.033<span style="text-decoration: underline;">2</span>       6 FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>  0.177   0.006<span style="text-decoration: underline;">29</span> 0.079<span style="text-decoration: underline;">3</span>       7 FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>  0.123   0.016<span style="text-decoration: underline;">1</span>  0.127        8 FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  0.310   0.016<span style="text-decoration: underline;">9</span>  0.130        9 FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  0.229   0.015<span style="text-decoration: underline;">4</span>  0.124       10 FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 90 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$selection_ratio</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$q</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$favor_positive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$alpha_select</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$ci_level</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$small</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$bias_max</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $stats</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bias_est bias_ci</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>    0.539   0.270</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $fits</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> list()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "metabias" "list"    </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># specify confounding as internal bias</span></span></span>
 <span class="r-in"><span><span class="fu">multibias_evalue</span><span class="op">(</span>yi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>,</span></span>
 <span class="r-in"><span>                 vi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">vi</span>,</span></span>
-<span class="r-in"><span>                 selection_ratio <span class="op">=</span> <span class="fl">4</span>,</span></span>
 <span class="r-in"><span>                 biased <span class="op">=</span> <span class="op">!</span><span class="va">meta_meat</span><span class="op">$</span><span class="va">randomized</span>,</span></span>
+<span class="r-in"><span>                 selection_ratio <span class="op">=</span> <span class="fl">4</span>,</span></span>
 <span class="r-in"><span>                 assumed_bias_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">EValue</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/EValue/man/confounding.html" class="external-link">confounding</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> List of 4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ data  : tibble [100 × 5] (S3: tbl_df/tbl/data.frame)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ yi     : num [1:100] -0.3883 0.00143 -0.07782 0.39513 0.1092 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ vi     : num [1:100] 0.11387 0.00818 0.01563 0.0567 0.006 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ sei    : num [1:100] 0.3374 0.0904 0.125 0.2381 0.0775 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ cluster: int [1:100] 1 2 3 4 5 6 7 8 9 10 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ biased : logi [1:100] TRUE TRUE TRUE FALSE FALSE FALSE ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ values:List of 7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ selection_ratio: num 4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ q              : num 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ favor_positive : logi TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ alpha_select   : num 0.05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ci_level       : num 0.95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ small          : logi TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ bias_max       : num 20</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ stats : tibble [1 × 4] (S3: tbl_df/tbl/data.frame)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ bias_est  : num 0.539</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ bias_ci   : num 0.27</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ evalue_est: num 2.82</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ evalue_ci : num 1.95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ fits  : list()</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "class")= chr [1:2] "metabias" "list"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 100 × 5</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          yi      vi    sei cluster biased</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> -<span style="color: #BB0000;">0.388</span>   0.114   0.337        1 TRUE  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>  0.001<span style="text-decoration: underline;">43</span> 0.008<span style="text-decoration: underline;">18</span> 0.090<span style="text-decoration: underline;">4</span>       2 TRUE  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> -<span style="color: #BB0000;">0.077</span><span style="color: #BB0000; text-decoration: underline;">8</span>  0.015<span style="text-decoration: underline;">6</span>  0.125        3 TRUE  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>  0.395   0.056<span style="text-decoration: underline;">7</span>  0.238        4 FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>  0.109   0.006   0.077<span style="text-decoration: underline;">5</span>       5 FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>  0.071<span style="text-decoration: underline;">1</span>  0.001<span style="text-decoration: underline;">10</span> 0.033<span style="text-decoration: underline;">2</span>       6 FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>  0.177   0.006<span style="text-decoration: underline;">29</span> 0.079<span style="text-decoration: underline;">3</span>       7 FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>  0.123   0.016<span style="text-decoration: underline;">1</span>  0.127        8 FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  0.310   0.016<span style="text-decoration: underline;">9</span>  0.130        9 FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  0.229   0.015<span style="text-decoration: underline;">4</span>  0.124       10 FALSE </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 90 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$selection_ratio</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$q</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$favor_positive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$alpha_select</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$ci_level</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$small</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$bias_max</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $stats</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   bias_est bias_ci evalue_est evalue_ci</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>    0.539   0.270       2.82      1.95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $fits</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> list()</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "metabias" "list"    </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

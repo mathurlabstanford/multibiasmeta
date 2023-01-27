@@ -21,10 +21,22 @@
       <ul class="navbar-nav me-auto"><li class="active nav-item">
   <a class="nav-link" href="../reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="../articles/tutorial.html">Metabias packages tutorial</a>
+  </div>
+</li>
       </ul><form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="../search.json" id="search-input" placeholder="Search for" autocomplete="off"></form>
 
-      <ul class="navbar-nav"></ul></div>
+      <ul class="navbar-nav"><li class="nav-item">
+  <a class="external-link nav-link" href="https://github.com/mikabr/multibiasmeta/" aria-label="github">
+    <span class="fab fa fab fa-github fa-lg"></span>
+     
+  </a>
+</li>
+      </ul></div>
 
     
   </div>
@@ -32,7 +44,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Correction for meta-analysis with multiple biases</h1>
-      
+      <small class="dont-index">Source: <a href="https://github.com/mikabr/multibiasmeta/blob/HEAD/R/meta.R" class="external-link"><code>R/meta.R</code></a></small>
       <div class="d-none name"><code>multibias_meta.Rd</code></div>
     </div>
 
@@ -170,321 +182,69 @@ correcting for publication but not for confounding be returned.</p></dd>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># publication bias without internal bias</span></span></span>
 <span class="r-in"><span><span class="fu">multibias_meta</span><span class="op">(</span>yi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>,</span></span>
 <span class="r-in"><span>               vi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">vi</span>,</span></span>
-<span class="r-in"><span>               biased <span class="op">=</span> <span class="op">!</span><span class="va">meta_meat</span><span class="op">$</span><span class="va">randomized</span>,</span></span>
 <span class="r-in"><span>               selection_ratio <span class="op">=</span> <span class="fl">4</span>,</span></span>
 <span class="r-in"><span>               bias_affirmative <span class="op">=</span> <span class="fl">0</span>,</span></span>
 <span class="r-in"><span>               bias_nonaffirmative <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> List of 4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ data  : tibble [100 × 9] (S3: tbl_df/tbl/data.frame)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ yi         : num [1:100] -0.3883 0.00143 -0.07782 0.39513 0.1092 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ vi         : num [1:100] 0.11387 0.00818 0.01563 0.0567 0.006 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ sei        : num [1:100] 0.3374 0.0904 0.125 0.2381 0.0775 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ biased     : logi [1:100] TRUE TRUE TRUE FALSE FALSE FALSE ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ cluster    : int [1:100] 1 2 3 4 5 6 7 8 9 10 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ affirmative: logi [1:100] FALSE FALSE FALSE FALSE FALSE TRUE ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ yi_adj     : num [1:100] -0.3883 0.00143 -0.07782 0.39513 0.1092 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ weight     : num [1:100] 4 4 4 4 4 1 1 4 1 4 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ userweight : num [1:100] 26 83.5 72.2 41.5 87.5 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ values:List of 7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ selection_ratio    : num 4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ bias_affirmative   : num 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ bias_nonaffirmative: num 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ favor_positive     : logi TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ alpha_select       : num 0.05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ci_level           : num 0.95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ small              : logi TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ stats :'data.frame':	1 obs. of  6 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ model   : chr "multibias"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ estimate: num 0.129</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ se      : num 0.021</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ci_lower: num 0.0871</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ci_upper: num 0.172</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ p_value : num 1.34e-07</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ fits  :List of 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ multibias:List of 25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ data.full     :'data.frame':	100 obs. of  14 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ effect.size     : num [1:100] -0.3883 0.00143 -0.07782 0.39513 0.1092 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ var.eff.size    : num [1:100] 0.11387 0.00818 0.01563 0.0567 0.006 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ userweights     : num [1:100] 26 83.5 72.2 41.5 87.5 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ study           : num [1:100] 1 2 3 4 5 6 7 8 9 10 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ k               : int [1:100] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ avg.var.eff.size: num [1:100] 0.11387 0.00818 0.01563 0.0567 0.006 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ sd.eff.size     : num [1:100] 0.3374 0.0904 0.125 0.2381 0.0775 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ weights         : num [1:100] 8.78 122.29 63.99 17.64 166.67 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ pred            : num [1:100, 1] 0.2 0.2 0.2 0.2 0.2 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "dimnames")=List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : chr [1:100] "1" "2" "3" "4" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ e               : num [1:100, 1] -0.5887 -0.199 -0.2783 0.1947 -0.0912 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "dimnames")=List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : chr [1:100] "1" "2" "3" "4" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ r.weights       : num [1:100] 26 83.5 72.2 41.5 87.5 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ pred.r          : num [1:100, 1] 0.129 0.129 0.129 0.129 0.129 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "dimnames")=List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : chr [1:100] "1" "2" "3" "4" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ e.r             : num [1:100] -0.5177 -0.1279 -0.2072 0.2658 -0.0202 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ ImH             : num [1:100, 1:100] 0.99367 -0.00633 -0.00633 -0.00633 -0.00633 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "dimnames")=List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : chr [1:100] "1" "2" "3" "4" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ X.full        :'data.frame':	100 obs. of  2 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ study       : num [1:100] 1 2 3 4 5 6 7 8 9 10 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ X.Intercept.: num [1:100] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ reg_table     :'data.frame':	1 obs. of  9 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ labels: chr "X.Intercept."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ b.r   : num 0.129</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ SE    : num 0.021</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ t     : num 6.15</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ dfs   : num 49.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ prob  : num 1.34e-07</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ CI.L  : num 0.0871</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ CI.U  : num 0.172</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ sig   : chr "***"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ mod_label     : chr [1:2] "RVE: User Specified Weights" "with Small-Sample Corrections"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ mod_notice    : chr "Note: If df &lt; 4, do not trust the results"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ modelweights  : chr "CORR"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ mod_info      :List of 4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ k: int [1:100] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ N: num 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ p: num 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ M: int 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ user_weighting: logi TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ ml            : language yi_adj ~ 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ cl            : language robumeta::robu(formula = yi_adj ~ 1, data = dat, studynum = cluster, var.eff.size = dat$vi,      userweights = da| __truncated__</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ N             : num 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ M             : int 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ k             : int [1:100] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ k_list        :List of 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. [list output truncated]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ p             : num 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ X             :List of 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 1  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 2  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 3  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 4  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 5  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 6  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 7  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 8  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 9  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 10 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 11 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 12 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 13 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 14 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 15 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 16 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 17 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 18 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 19 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 20 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 21 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 22 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 23 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 24 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 25 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 26 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 27 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 28 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 29 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 30 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 31 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 32 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 33 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 34 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 35 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 36 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 37 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 38 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 39 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 40 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 41 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 42 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 43 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 44 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 45 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 46 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 47 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 48 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 49 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 50 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 51 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 52 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 53 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 54 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 55 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 56 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 57 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 58 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 59 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 60 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 61 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 62 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 63 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 64 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 65 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 66 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 67 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 68 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 69 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 70 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 71 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 72 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 73 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 74 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 75 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 76 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 77 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 78 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 79 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 80 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 81 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 82 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 83 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 84 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 85 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 86 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 87 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 88 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 89 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 90 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 91 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 92 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 93 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 94 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 95 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 96 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 97 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 98 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 99 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. [list output truncated]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ y             : 'by' num [1:100(1d)] -0.3883 0.00143 -0.07782 0.39513 0.1092 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "dimnames")=List of 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ data.full$study: chr [1:100] "1" "2" "3" "4" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "call")= language by.default(data = data.full$effect.size, INDICES = data.full$study, FUN = function(x) matrix(x))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ Xreg          : num [1:100, 1] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "dimnames")=List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ : chr [1:100] "1" "2" "3" "4" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ : chr "X.Intercept."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ b.r           : num [1, 1] 0.129</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ VR.r          : num [1, 1] 0.000442</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ dfs           : num 49.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ small         : logi TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ data          : tibble [100 × 9] (S3: tbl_df/tbl/data.frame)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ yi         : num [1:100] -0.3883 0.00143 -0.07782 0.39513 0.1092 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ vi         : num [1:100] 0.11387 0.00818 0.01563 0.0567 0.006 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ sei        : num [1:100] 0.3374 0.0904 0.125 0.2381 0.0775 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ biased     : logi [1:100] TRUE TRUE TRUE FALSE FALSE FALSE ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ cluster    : int [1:100] 1 2 3 4 5 6 7 8 9 10 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ affirmative: logi [1:100] FALSE FALSE FALSE FALSE FALSE TRUE ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ yi_adj     : num [1:100] -0.3883 0.00143 -0.07782 0.39513 0.1092 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ weight     : num [1:100] 4 4 4 4 4 1 1 4 1 4 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ userweight : num [1:100] 26 83.5 72.2 41.5 87.5 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ labels        : chr "X.Intercept."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ study_orig_id : int [1:100] 1 2 3 4 5 6 7 8 9 10 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..- attr(*, "class")= chr "robu"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "class")= chr [1:2] "metabias" "list"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 100 × 9</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          yi      vi    sei biased cluster affirmative   yi_adj weight userweight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> -<span style="color: #BB0000;">0.388</span>   0.114   0.337  TRUE         1 FALSE       -<span style="color: #BB0000;">0.388</span>        4       26.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>  0.001<span style="text-decoration: underline;">43</span> 0.008<span style="text-decoration: underline;">18</span> 0.090<span style="text-decoration: underline;">4</span> TRUE         2 FALSE        0.001<span style="text-decoration: underline;">43</span>      4       83.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> -<span style="color: #BB0000;">0.077</span><span style="color: #BB0000; text-decoration: underline;">8</span>  0.015<span style="text-decoration: underline;">6</span>  0.125  TRUE         3 FALSE       -<span style="color: #BB0000;">0.077</span><span style="color: #BB0000; text-decoration: underline;">8</span>       4       72.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>  0.395   0.056<span style="text-decoration: underline;">7</span>  0.238  TRUE         4 FALSE        0.395        4       41.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>  0.109   0.006   0.077<span style="text-decoration: underline;">5</span> TRUE         5 FALSE        0.109        4       87.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>  0.071<span style="text-decoration: underline;">1</span>  0.001<span style="text-decoration: underline;">10</span> 0.033<span style="text-decoration: underline;">2</span> TRUE         6 TRUE         0.071<span style="text-decoration: underline;">1</span>       1       24.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>  0.177   0.006<span style="text-decoration: underline;">29</span> 0.079<span style="text-decoration: underline;">3</span> TRUE         7 TRUE         0.177        1       21.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>  0.123   0.016<span style="text-decoration: underline;">1</span>  0.127  TRUE         8 FALSE        0.123        4       71.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  0.310   0.016<span style="text-decoration: underline;">9</span>  0.130  TRUE         9 TRUE         0.310        1       17.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  0.229   0.015<span style="text-decoration: underline;">4</span>  0.124  TRUE        10 FALSE        0.229        4       72.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 90 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$selection_ratio</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$bias_affirmative</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$bias_nonaffirmative</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$favor_positive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$alpha_select</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$ci_level</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$small</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $stats</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       model  estimate         se   ci_lower  ci_upper      p_value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 multibias 0.1293691 0.02103083 0.08711307 0.1716251 1.335523e-07</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $fits</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $fits$multibias</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> RVE: User Specified Weights with Small-Sample Corrections </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model: yi_adj ~ 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of studies = 100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of outcomes = 100 (min = 1 , mean = 1 , median = 1 , max = 1 )</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                Estimate StdErr t-value  dfs     P(|t|&gt;) 95% CI.L 95% CI.U Sig</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 X.Intercept.    0.129  0.021    6.15 49.3 0.000000134   0.0871    0.172 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes: &lt; .01 *** &lt; .05 ** &lt; .10 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Note: If df &lt; 4, do not trust the results</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "metabias" "list"    </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># publication bias and internal bias in the non-randomized studies</span></span></span>
 <span class="r-in"><span><span class="fu">multibias_meta</span><span class="op">(</span>yi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>,</span></span>
@@ -493,317 +253,66 @@ correcting for publication but not for confounding be returned.</p></dd>
 <span class="r-in"><span>               selection_ratio <span class="op">=</span> <span class="fl">4</span>,</span></span>
 <span class="r-in"><span>               bias_affirmative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fl">1.5</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>               bias_nonaffirmative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> List of 4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ data  : tibble [100 × 9] (S3: tbl_df/tbl/data.frame)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ yi         : num [1:100] -0.3883 0.00143 -0.07782 0.39513 0.1092 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ vi         : num [1:100] 0.11387 0.00818 0.01563 0.0567 0.006 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ sei        : num [1:100] 0.3374 0.0904 0.125 0.2381 0.0775 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ biased     : logi [1:100] TRUE TRUE TRUE FALSE FALSE FALSE ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ cluster    : int [1:100] 1 2 3 4 5 6 7 8 9 10 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ affirmative: logi [1:100] FALSE FALSE FALSE FALSE FALSE TRUE ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ yi_adj     : num [1:100] -0.514 -0.124 -0.204 0.395 0.109 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ weight     : num [1:100] 4 4 4 4 4 1 1 4 1 4 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ userweight : num [1:100] 25.4 77.1 67.4 39.8 80.5 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ values:List of 7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ selection_ratio    : num 4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ bias_affirmative   : num 0.405</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ bias_nonaffirmative: num 0.0953</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ favor_positive     : logi TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ alpha_select       : num 0.05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ci_level           : num 0.95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ small              : logi TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ stats :'data.frame':	1 obs. of  6 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ model   : chr "multibias"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ estimate: num 0.0949</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ se      : num 0.0241</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ci_lower: num 0.0466</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ci_upper: num 0.143</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ p_value : num 0.000245</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ fits  :List of 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ multibias:List of 25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ data.full     :'data.frame':	100 obs. of  14 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ effect.size     : num [1:100] -0.514 -0.124 -0.204 0.395 0.109 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ var.eff.size    : num [1:100] 0.11387 0.00818 0.01563 0.0567 0.006 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ userweights     : num [1:100] 25.4 77.1 67.4 39.8 80.5 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ study           : num [1:100] 1 2 3 4 5 6 7 8 9 10 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ k               : int [1:100] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ avg.var.eff.size: num [1:100] 0.11387 0.00818 0.01563 0.0567 0.006 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ sd.eff.size     : num [1:100] 0.3374 0.0904 0.125 0.2381 0.0775 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ weights         : num [1:100] 8.78 122.29 63.99 17.64 166.67 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ pred            : num [1:100, 1] 0.156 0.156 0.156 0.156 0.156 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "dimnames")=List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : chr [1:100] "1" "2" "3" "4" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ e               : num [1:100, 1] -0.6698 -0.28 -0.3593 0.2396 -0.0464 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "dimnames")=List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : chr [1:100] "1" "2" "3" "4" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ r.weights       : num [1:100] 25.4 77.1 67.4 39.8 80.5 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ pred.r          : num [1:100, 1] 0.0949 0.0949 0.0949 0.0949 0.0949 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "dimnames")=List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : chr [1:100] "1" "2" "3" "4" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ e.r             : num [1:100] -0.6091 -0.2194 -0.2986 0.3002 0.0143 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ ImH             : num [1:100, 1:100] 0.99345 -0.00655 -0.00655 -0.00655 -0.00655 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "dimnames")=List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : chr [1:100] "1" "2" "3" "4" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ X.full        :'data.frame':	100 obs. of  2 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ study       : num [1:100] 1 2 3 4 5 6 7 8 9 10 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ X.Intercept.: num [1:100] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ reg_table     :'data.frame':	1 obs. of  9 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ labels: chr "X.Intercept."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ b.r   : num 0.0949</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ SE    : num 0.0241</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ t     : num 3.95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ dfs   : num 50.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ prob  : num 0.000245</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ CI.L  : num 0.0466</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ CI.U  : num 0.143</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ sig   : chr "***"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ mod_label     : chr [1:2] "RVE: User Specified Weights" "with Small-Sample Corrections"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ mod_notice    : chr "Note: If df &lt; 4, do not trust the results"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ modelweights  : chr "CORR"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ mod_info      :List of 4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ k: int [1:100] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ N: num 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ p: num 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ M: int 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ user_weighting: logi TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ ml            : language yi_adj ~ 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ cl            : language robumeta::robu(formula = yi_adj ~ 1, data = dat, studynum = cluster, var.eff.size = dat$vi,      userweights = da| __truncated__</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ N             : num 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ M             : int 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ k             : int [1:100] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ k_list        :List of 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. [list output truncated]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ p             : num 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ X             :List of 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 1  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 2  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 3  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 4  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 5  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 6  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 7  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 8  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 9  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 10 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 11 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 12 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 13 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 14 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 15 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 16 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 17 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 18 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 19 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 20 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 21 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 22 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 23 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 24 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 25 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 26 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 27 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 28 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 29 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 30 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 31 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 32 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 33 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 34 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 35 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 36 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 37 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 38 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 39 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 40 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 41 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 42 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 43 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 44 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 45 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 46 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 47 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 48 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 49 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 50 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 51 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 52 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 53 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 54 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 55 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 56 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 57 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 58 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 59 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 60 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 61 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 62 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 63 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 64 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 65 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 66 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 67 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 68 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 69 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 70 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 71 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 72 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 73 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 74 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 75 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 76 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 77 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 78 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 79 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 80 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 81 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 82 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 83 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 84 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 85 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 86 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 87 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 88 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 89 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 90 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 91 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 92 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 93 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 94 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 95 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 96 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 97 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 98 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 99 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. [list output truncated]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ y             : 'by' num [1:100(1d)] -0.514 -0.124 -0.204 0.395 0.109 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "dimnames")=List of 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ data.full$study: chr [1:100] "1" "2" "3" "4" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "call")= language by.default(data = data.full$effect.size, INDICES = data.full$study, FUN = function(x) matrix(x))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ Xreg          : num [1:100, 1] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "dimnames")=List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ : chr [1:100] "1" "2" "3" "4" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ : chr "X.Intercept."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ b.r           : num [1, 1] 0.0949</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ VR.r          : num [1, 1] 0.000578</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ dfs           : num 50.6</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ small         : logi TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ data          : tibble [100 × 9] (S3: tbl_df/tbl/data.frame)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ yi         : num [1:100] -0.3883 0.00143 -0.07782 0.39513 0.1092 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ vi         : num [1:100] 0.11387 0.00818 0.01563 0.0567 0.006 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ sei        : num [1:100] 0.3374 0.0904 0.125 0.2381 0.0775 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ biased     : logi [1:100] TRUE TRUE TRUE FALSE FALSE FALSE ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ cluster    : int [1:100] 1 2 3 4 5 6 7 8 9 10 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ affirmative: logi [1:100] FALSE FALSE FALSE FALSE FALSE TRUE ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ yi_adj     : num [1:100] -0.514 -0.124 -0.204 0.395 0.109 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ weight     : num [1:100] 4 4 4 4 4 1 1 4 1 4 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ userweight : num [1:100] 25.4 77.1 67.4 39.8 80.5 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ labels        : chr "X.Intercept."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ study_orig_id : int [1:100] 1 2 3 4 5 6 7 8 9 10 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..- attr(*, "class")= chr "robu"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "class")= chr [1:2] "metabias" "list"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 100 × 9</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          yi      vi    sei biased cluster affirmative  yi_adj weight userweight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> -<span style="color: #BB0000;">0.388</span>   0.114   0.337  TRUE         1 FALSE       -<span style="color: #BB0000;">0.514</span>       4       25.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>  0.001<span style="text-decoration: underline;">43</span> 0.008<span style="text-decoration: underline;">18</span> 0.090<span style="text-decoration: underline;">4</span> TRUE         2 FALSE       -<span style="color: #BB0000;">0.124</span>       4       77.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> -<span style="color: #BB0000;">0.077</span><span style="color: #BB0000; text-decoration: underline;">8</span>  0.015<span style="text-decoration: underline;">6</span>  0.125  TRUE         3 FALSE       -<span style="color: #BB0000;">0.204</span>       4       67.4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>  0.395   0.056<span style="text-decoration: underline;">7</span>  0.238  FALSE        4 FALSE        0.395       4       39.8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>  0.109   0.006   0.077<span style="text-decoration: underline;">5</span> FALSE        5 FALSE        0.109       4       80.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>  0.071<span style="text-decoration: underline;">1</span>  0.001<span style="text-decoration: underline;">10</span> 0.033<span style="text-decoration: underline;">2</span> FALSE        6 TRUE         0.071<span style="text-decoration: underline;">1</span>      1       22.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>  0.177   0.006<span style="text-decoration: underline;">29</span> 0.079<span style="text-decoration: underline;">3</span> FALSE        7 TRUE         0.177       1       20.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>  0.123   0.016<span style="text-decoration: underline;">1</span>  0.127  FALSE        8 FALSE        0.123       4       66.9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  0.310   0.016<span style="text-decoration: underline;">9</span>  0.130  FALSE        9 TRUE         0.310       1       16.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  0.229   0.015<span style="text-decoration: underline;">4</span>  0.124  FALSE       10 FALSE        0.229       4       67.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 90 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$selection_ratio</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$bias_affirmative</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4054651</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$bias_nonaffirmative</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.09531018</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$favor_positive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$alpha_select</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$ci_level</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$small</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $stats</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       model   estimate         se   ci_lower  ci_upper      p_value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 multibias 0.09491905 0.02405073 0.04662505 0.1432131 0.0002453537</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $fits</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $fits$multibias</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> RVE: User Specified Weights with Small-Sample Corrections </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model: yi_adj ~ 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of studies = 100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of outcomes = 100 (min = 1 , mean = 1 , median = 1 , max = 1 )</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                Estimate StdErr t-value  dfs  P(|t|&gt;) 95% CI.L 95% CI.U Sig</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 X.Intercept.   0.0949 0.0241    3.95 50.6 0.000245   0.0466    0.143 ***</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes: &lt; .01 *** &lt; .05 ** &lt; .10 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Note: If df &lt; 4, do not trust the results</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "metabias" "list"    </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># treat all studies as biased, not just non-randomized ones</span></span></span>
 <span class="r-in"><span><span class="fu">multibias_meta</span><span class="op">(</span>yi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>,</span></span>
@@ -812,317 +321,66 @@ correcting for publication but not for confounding be returned.</p></dd>
 <span class="r-in"><span>               selection_ratio <span class="op">=</span> <span class="fl">4</span>,</span></span>
 <span class="r-in"><span>               bias_affirmative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fl">1.5</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>               bias_nonaffirmative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> List of 4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ data  : tibble [100 × 9] (S3: tbl_df/tbl/data.frame)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ yi         : num [1:100] -0.3883 0.00143 -0.07782 0.39513 0.1092 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ vi         : num [1:100] 0.11387 0.00818 0.01563 0.0567 0.006 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ sei        : num [1:100] 0.3374 0.0904 0.125 0.2381 0.0775 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ biased     : logi [1:100] TRUE TRUE TRUE TRUE TRUE TRUE ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ cluster    : int [1:100] 1 2 3 4 5 6 7 8 9 10 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ affirmative: logi [1:100] FALSE FALSE FALSE FALSE FALSE TRUE ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ yi_adj     : num [1:100] -0.50747 -0.11774 -0.19699 0.27596 -0.00997 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ weight     : num [1:100] 4 4 4 4 4 1 1 4 1 4 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ userweight : num [1:100] 26 83.5 72.2 41.5 87.5 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ values:List of 7</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ selection_ratio    : num 4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ bias_affirmative   : num 0.405</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ bias_nonaffirmative: num 0.0953</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ favor_positive     : logi TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ alpha_select       : num 0.05</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ci_level           : num 0.95</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ small              : logi TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ stats :'data.frame':	1 obs. of  6 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ model   : chr "multibias"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ estimate: num 0.0102</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ se      : num 0.021</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ci_lower: num -0.0321</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ci_upper: num 0.0525</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ p_value : num 0.63</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  $ fits  :List of 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ multibias:List of 25</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ data.full     :'data.frame':	100 obs. of  14 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ effect.size     : num [1:100] -0.50747 -0.11774 -0.19699 0.27596 -0.00997 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ var.eff.size    : num [1:100] 0.11387 0.00818 0.01563 0.0567 0.006 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ userweights     : num [1:100] 26 83.5 72.2 41.5 87.5 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ study           : num [1:100] 1 2 3 4 5 6 7 8 9 10 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ k               : int [1:100] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ avg.var.eff.size: num [1:100] 0.11387 0.00818 0.01563 0.0567 0.006 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ sd.eff.size     : num [1:100] 0.3374 0.0904 0.125 0.2381 0.0775 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ weights         : num [1:100] 8.78 122.29 63.99 17.64 166.67 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ pred            : num [1:100, 1] 0.0813 0.0813 0.0813 0.0813 0.0813 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "dimnames")=List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : chr [1:100] "1" "2" "3" "4" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ e               : num [1:100, 1] -0.5887 -0.199 -0.2783 0.1947 -0.0912 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "dimnames")=List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : chr [1:100] "1" "2" "3" "4" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ r.weights       : num [1:100] 26 83.5 72.2 41.5 87.5 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ pred.r          : num [1:100, 1] 0.0102 0.0102 0.0102 0.0102 0.0102 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "dimnames")=List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : chr [1:100] "1" "2" "3" "4" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ e.r             : num [1:100] -0.5177 -0.1279 -0.2072 0.2658 -0.0202 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ ImH             : num [1:100, 1:100] 0.99367 -0.00633 -0.00633 -0.00633 -0.00633 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..- attr(*, "dimnames")=List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : chr [1:100] "1" "2" "3" "4" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. .. ..$ : NULL</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ X.full        :'data.frame':	100 obs. of  2 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ study       : num [1:100] 1 2 3 4 5 6 7 8 9 10 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ X.Intercept.: num [1:100] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ reg_table     :'data.frame':	1 obs. of  9 variables:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ labels: chr "X.Intercept."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ b.r   : num 0.0102</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ SE    : num 0.021</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ t     : num 0.485</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ dfs   : num 49.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ prob  : num 0.63</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ CI.L  : num -0.0321</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ CI.U  : num 0.0525</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ sig   : chr ""</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ mod_label     : chr [1:2] "RVE: User Specified Weights" "with Small-Sample Corrections"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ mod_notice    : chr "Note: If df &lt; 4, do not trust the results"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ modelweights  : chr "CORR"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ mod_info      :List of 4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ k: int [1:100] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ N: num 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ p: num 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ M: int 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ user_weighting: logi TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ ml            : language yi_adj ~ 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ cl            : language robumeta::robu(formula = yi_adj ~ 1, data = dat, studynum = cluster, var.eff.size = dat$vi,      userweights = da| __truncated__</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ N             : num 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ M             : int 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ k             : int [1:100] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ k_list        :List of 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ : int 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. [list output truncated]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ p             : num 0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ X             :List of 100</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 1  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 2  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 3  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 4  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 5  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 6  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 7  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 8  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 9  : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 10 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 11 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 12 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 13 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 14 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 15 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 16 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 17 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 18 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 19 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 20 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 21 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 22 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 23 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 24 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 25 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 26 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 27 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 28 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 29 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 30 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 31 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 32 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 33 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 34 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 35 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 36 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 37 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 38 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 39 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 40 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 41 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 42 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 43 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 44 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 45 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 46 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 47 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 48 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 49 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 50 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 51 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 52 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 53 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 54 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 55 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 56 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 57 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 58 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 59 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 60 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 61 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 62 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 63 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 64 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 65 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 66 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 67 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 68 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 69 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 70 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 71 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 72 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 73 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 74 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 75 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 76 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 77 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 78 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 79 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 80 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 81 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 82 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 83 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 84 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 85 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 86 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 87 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 88 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 89 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 90 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 91 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 92 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 93 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 94 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 95 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 96 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 97 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 98 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ 99 : num [1, 1] 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. [list output truncated]</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ y             : 'by' num [1:100(1d)] -0.50747 -0.11774 -0.19699 0.27596 -0.00997 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "dimnames")=List of 1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ data.full$study: chr [1:100] "1" "2" "3" "4" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "call")= language by.default(data = data.full$effect.size, INDICES = data.full$study, FUN = function(x) matrix(x))</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ Xreg          : num [1:100, 1] 1 1 1 1 1 1 1 1 1 1 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..- attr(*, "dimnames")=List of 2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ : chr [1:100] "1" "2" "3" "4" ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. .. ..$ : chr "X.Intercept."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ b.r           : num [1, 1] 0.0102</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ VR.r          : num [1, 1] 0.000442</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ dfs           : num 49.3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ small         : logi TRUE</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ data          : tibble [100 × 9] (S3: tbl_df/tbl/data.frame)</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ yi         : num [1:100] -0.3883 0.00143 -0.07782 0.39513 0.1092 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ vi         : num [1:100] 0.11387 0.00818 0.01563 0.0567 0.006 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ sei        : num [1:100] 0.3374 0.0904 0.125 0.2381 0.0775 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ biased     : logi [1:100] TRUE TRUE TRUE TRUE TRUE TRUE ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ cluster    : int [1:100] 1 2 3 4 5 6 7 8 9 10 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ affirmative: logi [1:100] FALSE FALSE FALSE FALSE FALSE TRUE ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ yi_adj     : num [1:100] -0.50747 -0.11774 -0.19699 0.27596 -0.00997 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ weight     : num [1:100] 4 4 4 4 4 1 1 4 1 4 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. .. ..$ userweight : num [1:100] 26 83.5 72.2 41.5 87.5 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ labels        : chr "X.Intercept."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..$ study_orig_id : int [1:100] 1 2 3 4 5 6 7 8 9 10 ...</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   .. ..- attr(*, "class")= chr "robu"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  - attr(*, "class")= chr [1:2] "metabias" "list"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $data</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 100 × 9</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          yi      vi    sei biased cluster affirmative   yi_adj weight userweight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span> -<span style="color: #BB0000;">0.388</span>   0.114   0.337  TRUE         1 FALSE       -<span style="color: #BB0000;">0.507</span>        4       26.0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>  0.001<span style="text-decoration: underline;">43</span> 0.008<span style="text-decoration: underline;">18</span> 0.090<span style="text-decoration: underline;">4</span> TRUE         2 FALSE       -<span style="color: #BB0000;">0.118</span>        4       83.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span> -<span style="color: #BB0000;">0.077</span><span style="color: #BB0000; text-decoration: underline;">8</span>  0.015<span style="text-decoration: underline;">6</span>  0.125  TRUE         3 FALSE       -<span style="color: #BB0000;">0.197</span>        4       72.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>  0.395   0.056<span style="text-decoration: underline;">7</span>  0.238  TRUE         4 FALSE        0.276        4       41.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>  0.109   0.006   0.077<span style="text-decoration: underline;">5</span> TRUE         5 FALSE       -<span style="color: #BB0000;">0.009</span><span style="color: #BB0000; text-decoration: underline;">97</span>      4       87.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>  0.071<span style="text-decoration: underline;">1</span>  0.001<span style="text-decoration: underline;">10</span> 0.033<span style="text-decoration: underline;">2</span> TRUE         6 TRUE        -<span style="color: #BB0000;">0.048</span><span style="color: #BB0000; text-decoration: underline;">0</span>       1       24.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>  0.177   0.006<span style="text-decoration: underline;">29</span> 0.079<span style="text-decoration: underline;">3</span> TRUE         7 TRUE         0.057<span style="text-decoration: underline;">4</span>       1       21.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>  0.123   0.016<span style="text-decoration: underline;">1</span>  0.127  TRUE         8 FALSE        0.004<span style="text-decoration: underline;">28</span>      4       71.6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>  0.310   0.016<span style="text-decoration: underline;">9</span>  0.130  TRUE         9 TRUE         0.191        1       17.7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>  0.229   0.015<span style="text-decoration: underline;">4</span>  0.124  TRUE        10 FALSE        0.109        4       72.5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 90 more rows</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$selection_ratio</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$bias_affirmative</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.4054651</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$bias_nonaffirmative</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.09531018</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$favor_positive</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$alpha_select</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.05</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$ci_level</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.95</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $values$small</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $stats</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       model   estimate         se    ci_lower  ci_upper   p_value</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 multibias 0.01020086 0.02103083 -0.03205518 0.0524569 0.6297933</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $fits</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $fits$multibias</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> RVE: User Specified Weights with Small-Sample Corrections </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Model: yi_adj ~ 1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of studies = 100 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Number of outcomes = 100 (min = 1 , mean = 1 , median = 1 , max = 1 )</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                Estimate StdErr t-value  dfs P(|t|&gt;) 95% CI.L 95% CI.U Sig</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1 X.Intercept.   0.0102  0.021   0.485 49.3    0.63  -0.0321   0.0525    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Signif. codes: &lt; .01 *** &lt; .05 ** &lt; .10 *</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ---</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Note: If df &lt; 4, do not trust the results</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "metabias" "list"    </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
