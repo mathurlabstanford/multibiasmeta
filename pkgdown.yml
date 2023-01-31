@@ -3,7 +3,7 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   tutorial: tutorial.html
-last_built: 2023-01-31T23:07Z
+last_built: 2023-01-31T23:40Z
 urls:
   reference: http://mikabr.io/multibiasmeta/reference
   article: http://mikabr.io/multibiasmeta/articles
