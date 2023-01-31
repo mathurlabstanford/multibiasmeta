@@ -392,7 +392,7 @@ analyses (via <code><a href="https://mayamathur.github.io/PublicationBias/refere
 precise quantitative conclusions.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://mayamathur.github.io/PublicationBias/reference/significance_funnel.html" class="external-link">significance_funnel</a></span><span class="op">(</span>yi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>, vi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">vi</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-13-1.png" width="576"></p>
+<p><img src="tutorial_files/figure-html/significance_funnel-1.png" width="576"></p>
 </div>
 </div>
 <div class="section level2">
@@ -421,7 +421,7 @@ estimating the underlying meta-analytic mean by fitting “right-truncated
 meta-analysis” (RTMA) to the published nonaffirmative estimates, which
 are unhacked.</p>
 <p>Unlike the other packages, the <code>phacking</code> package uses <a href="https://mc-stan.org/" class="external-link">Stan</a> to fit models and as such requires
-Stan and <a href="http://mc-stan.org/rstan/" class="external-link">RStan</a> to be
+Stan and <a href="http://mc-stan.org/rstan/index.html" class="external-link">RStan</a> to be
 installed.</p>
 <div class="section level3">
 <h3 id="correction-for-p-hacking">Correction for <em>p</em>-hacking<a class="anchor" aria-label="anchor" href="#correction-for-p-hacking"></a>
@@ -437,8 +437,8 @@ results) in meta-analyses.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; SAMPLING FOR MODEL 'phacking_rtma' NOW (CHAIN 1).</span></span>
 <span><span class="co">#&gt; Chain 1: </span></span>
-<span><span class="co">#&gt; Chain 1: Gradient evaluation took 0.000316 seconds</span></span>
-<span><span class="co">#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.16 seconds.</span></span>
+<span><span class="co">#&gt; Chain 1: Gradient evaluation took 0.000307 seconds</span></span>
+<span><span class="co">#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.07 seconds.</span></span>
 <span><span class="co">#&gt; Chain 1: Adjust your expectations accordingly!</span></span>
 <span><span class="co">#&gt; Chain 1: </span></span>
 <span><span class="co">#&gt; Chain 1: </span></span>
@@ -455,15 +455,15 @@ results) in meta-analyses.</p>
 <span><span class="co">#&gt; Chain 1: Iteration: 1800 / 2000 [ 90%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 1: </span></span>
-<span><span class="co">#&gt; Chain 1:  Elapsed Time: 2.22336 seconds (Warm-up)</span></span>
-<span><span class="co">#&gt; Chain 1:                2.03881 seconds (Sampling)</span></span>
-<span><span class="co">#&gt; Chain 1:                4.26216 seconds (Total)</span></span>
+<span><span class="co">#&gt; Chain 1:  Elapsed Time: 1.91987 seconds (Warm-up)</span></span>
+<span><span class="co">#&gt; Chain 1:                1.68808 seconds (Sampling)</span></span>
+<span><span class="co">#&gt; Chain 1:                3.60794 seconds (Total)</span></span>
 <span><span class="co">#&gt; Chain 1: </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; SAMPLING FOR MODEL 'phacking_rtma' NOW (CHAIN 2).</span></span>
 <span><span class="co">#&gt; Chain 2: </span></span>
-<span><span class="co">#&gt; Chain 2: Gradient evaluation took 0.000122 seconds</span></span>
-<span><span class="co">#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 1.22 seconds.</span></span>
+<span><span class="co">#&gt; Chain 2: Gradient evaluation took 0.00012 seconds</span></span>
+<span><span class="co">#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 1.2 seconds.</span></span>
 <span><span class="co">#&gt; Chain 2: Adjust your expectations accordingly!</span></span>
 <span><span class="co">#&gt; Chain 2: </span></span>
 <span><span class="co">#&gt; Chain 2: </span></span>
@@ -480,15 +480,15 @@ results) in meta-analyses.</p>
 <span><span class="co">#&gt; Chain 2: Iteration: 1800 / 2000 [ 90%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 2: </span></span>
-<span><span class="co">#&gt; Chain 2:  Elapsed Time: 1.95713 seconds (Warm-up)</span></span>
-<span><span class="co">#&gt; Chain 2:                1.81842 seconds (Sampling)</span></span>
-<span><span class="co">#&gt; Chain 2:                3.77555 seconds (Total)</span></span>
+<span><span class="co">#&gt; Chain 2:  Elapsed Time: 1.97895 seconds (Warm-up)</span></span>
+<span><span class="co">#&gt; Chain 2:                1.70514 seconds (Sampling)</span></span>
+<span><span class="co">#&gt; Chain 2:                3.68409 seconds (Total)</span></span>
 <span><span class="co">#&gt; Chain 2: </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; SAMPLING FOR MODEL 'phacking_rtma' NOW (CHAIN 3).</span></span>
 <span><span class="co">#&gt; Chain 3: </span></span>
-<span><span class="co">#&gt; Chain 3: Gradient evaluation took 0.000121 seconds</span></span>
-<span><span class="co">#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 1.21 seconds.</span></span>
+<span><span class="co">#&gt; Chain 3: Gradient evaluation took 0.000123 seconds</span></span>
+<span><span class="co">#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 1.23 seconds.</span></span>
 <span><span class="co">#&gt; Chain 3: Adjust your expectations accordingly!</span></span>
 <span><span class="co">#&gt; Chain 3: </span></span>
 <span><span class="co">#&gt; Chain 3: </span></span>
@@ -505,15 +505,15 @@ results) in meta-analyses.</p>
 <span><span class="co">#&gt; Chain 3: Iteration: 1800 / 2000 [ 90%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 3: </span></span>
-<span><span class="co">#&gt; Chain 3:  Elapsed Time: 2.07947 seconds (Warm-up)</span></span>
-<span><span class="co">#&gt; Chain 3:                1.70537 seconds (Sampling)</span></span>
-<span><span class="co">#&gt; Chain 3:                3.78484 seconds (Total)</span></span>
+<span><span class="co">#&gt; Chain 3:  Elapsed Time: 1.91073 seconds (Warm-up)</span></span>
+<span><span class="co">#&gt; Chain 3:                1.63778 seconds (Sampling)</span></span>
+<span><span class="co">#&gt; Chain 3:                3.54851 seconds (Total)</span></span>
 <span><span class="co">#&gt; Chain 3: </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; SAMPLING FOR MODEL 'phacking_rtma' NOW (CHAIN 4).</span></span>
 <span><span class="co">#&gt; Chain 4: </span></span>
-<span><span class="co">#&gt; Chain 4: Gradient evaluation took 0.000121 seconds</span></span>
-<span><span class="co">#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 1.21 seconds.</span></span>
+<span><span class="co">#&gt; Chain 4: Gradient evaluation took 0.000119 seconds</span></span>
+<span><span class="co">#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 1.19 seconds.</span></span>
 <span><span class="co">#&gt; Chain 4: Adjust your expectations accordingly!</span></span>
 <span><span class="co">#&gt; Chain 4: </span></span>
 <span><span class="co">#&gt; Chain 4: </span></span>
@@ -530,17 +530,17 @@ results) in meta-analyses.</p>
 <span><span class="co">#&gt; Chain 4: Iteration: 1800 / 2000 [ 90%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 4: </span></span>
-<span><span class="co">#&gt; Chain 4:  Elapsed Time: 2.03139 seconds (Warm-up)</span></span>
-<span><span class="co">#&gt; Chain 4:                1.73471 seconds (Sampling)</span></span>
-<span><span class="co">#&gt; Chain 4:                3.7661 seconds (Total)</span></span>
+<span><span class="co">#&gt; Chain 4:  Elapsed Time: 1.88957 seconds (Warm-up)</span></span>
+<span><span class="co">#&gt; Chain 4:                1.90152 seconds (Sampling)</span></span>
+<span><span class="co">#&gt; Chain 4:                3.7911 seconds (Total)</span></span>
 <span><span class="co">#&gt; Chain 4:</span></span>
 <span></span>
 <span><span class="va">phacking_meat</span><span class="op">$</span><span class="va">stats</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 9</span></span></span>
 <span><span class="co">#&gt;   param  mode median  mean      se ci_lower ci_upper n_eff r_hat</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> mu    0.209  0.257 0.284 0.005<span style="text-decoration: underline;">18</span>   0.112     0.610  644.  1.01</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> tau   0.142  0.178 0.185 0.002<span style="text-decoration: underline;">83</span>   0.053<span style="text-decoration: underline;">2</span>    0.357  746.  1.01</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> mu    0.209  0.265 0.296 0.005<span style="text-decoration: underline;">67</span>   0.113     0.680  680.  1.00</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> tau   0.142  0.183 0.191 0.002<span style="text-decoration: underline;">99</span>   0.057<span style="text-decoration: underline;">2</span>    0.371  747.  1.01</span></span></code></pre></div>
 <p>In these results, <code>mode</code>, <code>median</code>, and
 <code>mean</code> represent posterior modes, medians, and means
 respectively. We recommend reporting the mode (<a href="https://osf.io/ezjsx/" class="external-link">Mathur (2022)</a>). These results indicate
@@ -560,8 +560,7 @@ closely to a 45-degree line, the right-truncated meta-analysis may not
 fit adequately.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/phacking/man/rtma_qqplot.html" class="external-link">rtma_qqplot</a></span><span class="op">(</span><span class="va">phacking_meat</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-15-1.png" width="288"></p>
-<!-- @maya: look into weird qqplot -->
+<p><img src="tutorial_files/figure-html/rtma_qqplot-1.png" width="288"></p>
 <p>As another diagnostic plot, we can examine the Z-scores of all
 published point estimates. When <em>p</em>-hacking favors affirmative
 estimates over nonaffirmative estimates, as our methods and others
@@ -576,7 +575,7 @@ if they also concentrate below the sign-reversed critical value (e.g.,
 assumptions of RTMA.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/phacking/man/z_density.html" class="external-link">z_density</a></span><span class="op">(</span>yi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>, vi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">vi</span><span class="op">)</span></span></code></pre></div>
-<p><img src="tutorial_files/figure-html/unnamed-chunk-16-1.png" width="576"></p>
+<p><img src="tutorial_files/figure-html/z_density-1.png" width="576"></p>
 </div>
 </div>
 <div class="section level2">
