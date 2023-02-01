@@ -1,7 +1,7 @@
 # multibiasmeta
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/mikabr/multibiasmeta/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mikabr/multibiasmeta/actions/workflows/R-CMD-check.yaml)
+[![R-CMD-check](https://github.com/mathurlabstanford/multibiasmeta/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/mathurlabstanford/multibiasmeta/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 `multibiasmeta` is an R package that provides bias correction and sensitivity analysis for the joint effects of within-study and across-study biases in meta-analysis (per [Mathur, 2022](https://osf.io/u7vcb/)).
@@ -18,7 +18,7 @@ Or you can install the development version of multibiasmeta from [GitHub](https:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("mikabr/multibiasmeta")
+devtools::install_github("mathurlabstanford/multibiasmeta")
 ```
 
 ## Example

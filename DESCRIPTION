@@ -17,8 +17,9 @@ Authors@R: c(
   person("Maya", "Mathur", email = "mmathur@stanford.edu", role = c("aut")))
 Maintainer: Mika Braginsky <mika.br@gmail.com>
 License: MIT + file LICENSE
-URL: https://github.com/mikabr/multibiasmeta,
-     http://mikabr.io/multibiasmeta/
+URL: https://github.com/mathurlabstanford/multibiasmeta,
+     http://mathurlabstanford.github.io/multibiasmeta/
+BugReports: https://github.com/mathurlabstanford/multibiasmeta/issues
 Encoding: UTF-8
 LazyData: true
 Depends:
