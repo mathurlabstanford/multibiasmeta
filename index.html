@@ -69,7 +69,7 @@
 
       <ul class="navbar-nav">
 <li class="nav-item">
-  <a class="external-link nav-link" href="https://github.com/mikabr/multibiasmeta/" aria-label="github">
+  <a class="external-link nav-link" href="https://github.com/mathurlabstanford/multibiasmeta/" aria-label="github">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -96,14 +96,14 @@
 <p>Or you can install the development version of multibiasmeta from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("devtools")</span></span>
-<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mikabr/multibiasmeta"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"mathurlabstanford/multibiasmeta"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
 </h2>
 <p>Calculate the meta-analytic effect size estimate, correcting for 1) publication bias with an assumed selection ratio of 4 (i.e., affirmative results are 4x more likely to be published than nonaffirmative ones); 2) internal biases with assumed mean values (on the same scale as <code>yi</code> values).</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mikabr/multibiasmeta" class="external-link">multibiasmeta</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mathurlabstanford/multibiasmeta" class="external-link">multibiasmeta</a></span><span class="op">)</span></span>
 <span><span class="fu"><a href="reference/multibias_meta.html">multibias_meta</a></span><span class="op">(</span>yi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>, vi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">vi</span>, biased <span class="op">=</span> <span class="cn">TRUE</span>, selection_ratio <span class="op">=</span> <span class="fl">4</span>,</span>
 <span>               bias_affirmative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fl">1.5</span><span class="op">)</span>, bias_nonaffirmative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Calculate how high mean internal bias would need to be to attenuate the effect size estimate to the null, assuming a selection ratio of 4.</p>
@@ -115,7 +115,8 @@
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/mikabr/multibiasmeta/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/mathurlabstanford/multibiasmeta/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/mathurlabstanford/multibiasmeta/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
@@ -146,7 +147,7 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/mikabr/multibiasmeta/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/mikabr/multibiasmeta/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://github.com/mathurlabstanford/multibiasmeta/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/mathurlabstanford/multibiasmeta/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
 
