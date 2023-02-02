@@ -23,7 +23,7 @@ Meta-analyses can be compromised by studies' internal biases (e.g., confounding 
 Useful links:
 \itemize{
   \item \url{https://github.com/mathurlabstanford/multibiasmeta}
-  \item \url{http://mathurlabstanford.github.io/multibiasmeta/}
+  \item \url{https://mathurlabstanford.github.io/multibiasmeta/}
   \item Report bugs at \url{https://github.com/mathurlabstanford/multibiasmeta/issues}
 }
 
