@@ -84,13 +84,13 @@ two types of sensitivity analysis:</p>
 <ol style="list-style-type: decimal">
 <li>A meta-analysis that is corrected for one or more within-study or
 across-study biases, for user-specified sensitivity parameters:
-<code><a href="https://mayamathur.github.io/PublicationBias/reference/pubbias_meta.html" class="external-link">PublicationBias::pubbias_meta()</a></code>,
+<code><a href="https://rdrr.io/pkg/PublicationBias/man/pubbias_meta.html" class="external-link">PublicationBias::pubbias_meta()</a></code>,
 <code><a href="https://rdrr.io/pkg/phacking/man/phacking_meta.html" class="external-link">phacking::phacking_meta()</a></code>,
 <code><a href="../reference/multibias_meta.html">multibiasmeta::multibias_meta()</a></code>
 </li>
 <li>The minimum severity of the bias under consideration that would be
 required to “explain away” the results of the meta-analysis:
-<code><a href="https://mayamathur.github.io/PublicationBias/reference/pubbias_svalue.html" class="external-link">PublicationBias::svalue()</a></code>,
+<code><a href="https://rdrr.io/pkg/PublicationBias/man/pubbias_svalue.html" class="external-link">PublicationBias::svalue()</a></code>,
 <code>multibiasmeta::evalue()</code>
 </li>
 </ol>
@@ -222,7 +222,7 @@ independent, and robust clustered specifications.</p>
 published), passing <code>selection_ratio = 1</code> recovers the
 uncorrected point estimate that we obtained above.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pubbias_meat_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mayamathur.github.io/PublicationBias/reference/pubbias_meta.html" class="external-link">pubbias_meta</a></span><span class="op">(</span><span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>,</span>
+<code class="sourceCode R"><span><span class="va">pubbias_meat_1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/PublicationBias/man/pubbias_meta.html" class="external-link">pubbias_meta</a></span><span class="op">(</span><span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>,</span>
 <span>                               <span class="va">meta_meat</span><span class="op">$</span><span class="va">vi</span>,</span>
 <span>                               model_type <span class="op">=</span> <span class="st">"fixed"</span>,</span>
 <span>                               selection_ratio <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
@@ -236,7 +236,7 @@ uncorrected point estimate that we obtained above.</p>
 will consider publication bias such that affirmative results are 4 times
 more likely to be published than nonaffirmative results.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pubbias_meat_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mayamathur.github.io/PublicationBias/reference/pubbias_meta.html" class="external-link">pubbias_meta</a></span><span class="op">(</span><span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>,</span>
+<code class="sourceCode R"><span><span class="va">pubbias_meat_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/PublicationBias/man/pubbias_meta.html" class="external-link">pubbias_meta</a></span><span class="op">(</span><span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>,</span>
 <span>                               <span class="va">meta_meat</span><span class="op">$</span><span class="va">vi</span>,</span>
 <span>                               model_type <span class="op">=</span> <span class="st">"fixed"</span>,</span>
 <span>                               selection_ratio <span class="op">=</span> <span class="va">sr</span><span class="op">)</span></span>
@@ -253,9 +253,9 @@ would be 0.12 (95% CI [0.09, 0.15]).</p>
 <p>Now we will use the same selection ratio, but will use the robust
 random-effects specification to account for heterogeneity and for
 clustering of point estimates within papers (which is the default
-behavior of <code><a href="https://mayamathur.github.io/PublicationBias/reference/pubbias_meta.html" class="external-link">pubbias_meta()</a></code>).</p>
+behavior of <code><a href="https://rdrr.io/pkg/PublicationBias/man/pubbias_meta.html" class="external-link">pubbias_meta()</a></code>).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pubbias_meat_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mayamathur.github.io/PublicationBias/reference/pubbias_meta.html" class="external-link">pubbias_meta</a></span><span class="op">(</span><span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>,</span>
+<code class="sourceCode R"><span><span class="va">pubbias_meat_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/PublicationBias/man/pubbias_meta.html" class="external-link">pubbias_meta</a></span><span class="op">(</span><span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>,</span>
 <span>                               <span class="va">meta_meat</span><span class="op">$</span><span class="va">vi</span>,</span>
 <span>                               cluster <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">cluster</span>,</span>
 <span>                               selection_ratio <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
@@ -306,7 +306,7 @@ reporting besides publication bias. In particular, MAN accommodates
 situations in which investigators manipulate or selectively report
 results <em>within</em> studies, called “<em>p</em>-hacking” (<a href="https://osf.io/ezjsx/" class="external-link">Mathur (2022)</a>).</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pubbias_meat_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mayamathur.github.io/PublicationBias/reference/pubbias_meta.html" class="external-link">pubbias_meta</a></span><span class="op">(</span><span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>,</span>
+<code class="sourceCode R"><span><span class="va">pubbias_meat_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/PublicationBias/man/pubbias_meta.html" class="external-link">pubbias_meta</a></span><span class="op">(</span><span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>,</span>
 <span>                               <span class="va">meta_meat</span><span class="op">$</span><span class="va">vi</span>,</span>
 <span>                               cluster <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">cluster</span>,</span>
 <span>                               selection_ratio <span class="op">=</span> <span class="fl">4</span>,</span>
@@ -331,7 +331,7 @@ required to shift the pooled point estimate or its confidence interval
 limit to the null, or to any other value <code>q</code> (which defaults
 to 0, the null).</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">svalue_meat_0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mayamathur.github.io/PublicationBias/reference/pubbias_svalue.html" class="external-link">pubbias_svalue</a></span><span class="op">(</span><span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>,</span>
+<code class="sourceCode R"><span><span class="va">svalue_meat_0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/PublicationBias/man/pubbias_svalue.html" class="external-link">pubbias_svalue</a></span><span class="op">(</span><span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>,</span>
 <span>                                <span class="va">meta_meat</span><span class="op">$</span><span class="va">vi</span>,</span>
 <span>                                cluster <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">cluster</span><span class="op">)</span></span>
 <span><span class="va">svalue_meat_0</span><span class="op">$</span><span class="va">stats</span></span>
@@ -347,7 +347,7 @@ would shift the CI bound to 0.</p>
 shift the point estimate or its CI bound to <code>q = 0.1</code> rather
 than to the null.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">svalue_meat_01</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://mayamathur.github.io/PublicationBias/reference/pubbias_svalue.html" class="external-link">pubbias_svalue</a></span><span class="op">(</span><span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>,</span>
+<code class="sourceCode R"><span><span class="va">svalue_meat_01</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/PublicationBias/man/pubbias_svalue.html" class="external-link">pubbias_svalue</a></span><span class="op">(</span><span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>,</span>
 <span>                                 <span class="va">meta_meat</span><span class="op">$</span><span class="va">vi</span>,</span>
 <span>                                 cluster <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">cluster</span>,</span>
 <span>                                 q <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span></span>
@@ -387,11 +387,11 @@ under worst-case publication bias. If the gray diamond represents a
 negligible effect size or if it is much smaller than the pooled estimate
 among all studies (black diamond), this suggests that the meta-analysis
 may not be robust to extreme publication bias. Numerical sensitivity
-analyses (via <code><a href="https://mayamathur.github.io/PublicationBias/reference/pubbias_svalue.html" class="external-link">pubbias_svalue()</a></code> or
-<code><a href="https://mayamathur.github.io/PublicationBias/reference/pubbias_meta.html" class="external-link">pubbias_meta()</a></code>) should still be carried out for more
+analyses (via <code><a href="https://rdrr.io/pkg/PublicationBias/man/pubbias_svalue.html" class="external-link">pubbias_svalue()</a></code> or
+<code><a href="https://rdrr.io/pkg/PublicationBias/man/pubbias_meta.html" class="external-link">pubbias_meta()</a></code>) should still be carried out for more
 precise quantitative conclusions.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://mayamathur.github.io/PublicationBias/reference/significance_funnel.html" class="external-link">significance_funnel</a></span><span class="op">(</span>yi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>, vi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">vi</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/pkg/PublicationBias/man/significance_funnel.html" class="external-link">significance_funnel</a></span><span class="op">(</span>yi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>, vi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">vi</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tutorial_files/figure-html/significance_funnel-1.png" width="576"></p>
 </div>
 </div>
@@ -437,8 +437,8 @@ results) in meta-analyses.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; SAMPLING FOR MODEL 'phacking_rtma' NOW (CHAIN 1).</span></span>
 <span><span class="co">#&gt; Chain 1: </span></span>
-<span><span class="co">#&gt; Chain 1: Gradient evaluation took 0.000434 seconds</span></span>
-<span><span class="co">#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 4.34 seconds.</span></span>
+<span><span class="co">#&gt; Chain 1: Gradient evaluation took 0.000414 seconds</span></span>
+<span><span class="co">#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 4.14 seconds.</span></span>
 <span><span class="co">#&gt; Chain 1: Adjust your expectations accordingly!</span></span>
 <span><span class="co">#&gt; Chain 1: </span></span>
 <span><span class="co">#&gt; Chain 1: </span></span>
@@ -455,15 +455,15 @@ results) in meta-analyses.</p>
 <span><span class="co">#&gt; Chain 1: Iteration: 1800 / 2000 [ 90%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 1: </span></span>
-<span><span class="co">#&gt; Chain 1:  Elapsed Time: 2.54237 seconds (Warm-up)</span></span>
-<span><span class="co">#&gt; Chain 1:                2.40612 seconds (Sampling)</span></span>
-<span><span class="co">#&gt; Chain 1:                4.94849 seconds (Total)</span></span>
+<span><span class="co">#&gt; Chain 1:  Elapsed Time: 2.37124 seconds (Warm-up)</span></span>
+<span><span class="co">#&gt; Chain 1:                2.13349 seconds (Sampling)</span></span>
+<span><span class="co">#&gt; Chain 1:                4.50472 seconds (Total)</span></span>
 <span><span class="co">#&gt; Chain 1: </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; SAMPLING FOR MODEL 'phacking_rtma' NOW (CHAIN 2).</span></span>
 <span><span class="co">#&gt; Chain 2: </span></span>
-<span><span class="co">#&gt; Chain 2: Gradient evaluation took 0.000148 seconds</span></span>
-<span><span class="co">#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 1.48 seconds.</span></span>
+<span><span class="co">#&gt; Chain 2: Gradient evaluation took 0.000143 seconds</span></span>
+<span><span class="co">#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 1.43 seconds.</span></span>
 <span><span class="co">#&gt; Chain 2: Adjust your expectations accordingly!</span></span>
 <span><span class="co">#&gt; Chain 2: </span></span>
 <span><span class="co">#&gt; Chain 2: </span></span>
@@ -480,15 +480,15 @@ results) in meta-analyses.</p>
 <span><span class="co">#&gt; Chain 2: Iteration: 1800 / 2000 [ 90%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 2: </span></span>
-<span><span class="co">#&gt; Chain 2:  Elapsed Time: 2.70767 seconds (Warm-up)</span></span>
-<span><span class="co">#&gt; Chain 2:                2.37804 seconds (Sampling)</span></span>
-<span><span class="co">#&gt; Chain 2:                5.08571 seconds (Total)</span></span>
+<span><span class="co">#&gt; Chain 2:  Elapsed Time: 2.22149 seconds (Warm-up)</span></span>
+<span><span class="co">#&gt; Chain 2:                1.90464 seconds (Sampling)</span></span>
+<span><span class="co">#&gt; Chain 2:                4.12613 seconds (Total)</span></span>
 <span><span class="co">#&gt; Chain 2: </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; SAMPLING FOR MODEL 'phacking_rtma' NOW (CHAIN 3).</span></span>
 <span><span class="co">#&gt; Chain 3: </span></span>
-<span><span class="co">#&gt; Chain 3: Gradient evaluation took 0.000149 seconds</span></span>
-<span><span class="co">#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 1.49 seconds.</span></span>
+<span><span class="co">#&gt; Chain 3: Gradient evaluation took 0.000142 seconds</span></span>
+<span><span class="co">#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 1.42 seconds.</span></span>
 <span><span class="co">#&gt; Chain 3: Adjust your expectations accordingly!</span></span>
 <span><span class="co">#&gt; Chain 3: </span></span>
 <span><span class="co">#&gt; Chain 3: </span></span>
@@ -505,15 +505,15 @@ results) in meta-analyses.</p>
 <span><span class="co">#&gt; Chain 3: Iteration: 1800 / 2000 [ 90%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 3: </span></span>
-<span><span class="co">#&gt; Chain 3:  Elapsed Time: 2.86161 seconds (Warm-up)</span></span>
-<span><span class="co">#&gt; Chain 3:                1.89463 seconds (Sampling)</span></span>
-<span><span class="co">#&gt; Chain 3:                4.75624 seconds (Total)</span></span>
+<span><span class="co">#&gt; Chain 3:  Elapsed Time: 2.3574 seconds (Warm-up)</span></span>
+<span><span class="co">#&gt; Chain 3:                1.84645 seconds (Sampling)</span></span>
+<span><span class="co">#&gt; Chain 3:                4.20385 seconds (Total)</span></span>
 <span><span class="co">#&gt; Chain 3: </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; SAMPLING FOR MODEL 'phacking_rtma' NOW (CHAIN 4).</span></span>
 <span><span class="co">#&gt; Chain 4: </span></span>
-<span><span class="co">#&gt; Chain 4: Gradient evaluation took 0.000161 seconds</span></span>
-<span><span class="co">#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 1.61 seconds.</span></span>
+<span><span class="co">#&gt; Chain 4: Gradient evaluation took 0.000142 seconds</span></span>
+<span><span class="co">#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 1.42 seconds.</span></span>
 <span><span class="co">#&gt; Chain 4: Adjust your expectations accordingly!</span></span>
 <span><span class="co">#&gt; Chain 4: </span></span>
 <span><span class="co">#&gt; Chain 4: </span></span>
@@ -530,17 +530,17 @@ results) in meta-analyses.</p>
 <span><span class="co">#&gt; Chain 4: Iteration: 1800 / 2000 [ 90%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 4: </span></span>
-<span><span class="co">#&gt; Chain 4:  Elapsed Time: 2.21559 seconds (Warm-up)</span></span>
-<span><span class="co">#&gt; Chain 4:                2.01909 seconds (Sampling)</span></span>
-<span><span class="co">#&gt; Chain 4:                4.23467 seconds (Total)</span></span>
+<span><span class="co">#&gt; Chain 4:  Elapsed Time: 2.22411 seconds (Warm-up)</span></span>
+<span><span class="co">#&gt; Chain 4:                1.98519 seconds (Sampling)</span></span>
+<span><span class="co">#&gt; Chain 4:                4.2093 seconds (Total)</span></span>
 <span><span class="co">#&gt; Chain 4:</span></span>
 <span></span>
 <span><span class="va">phacking_meat</span><span class="op">$</span><span class="va">stats</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 9</span></span></span>
 <span><span class="co">#&gt;   param  mode median  mean      se ci_lower ci_upper n_eff r_hat</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> mu    0.209  0.269 0.293 0.004<span style="text-decoration: underline;">82</span>   0.111     0.621  738.  1.01</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> tau   0.142  0.186 0.190 0.002<span style="text-decoration: underline;">70</span>   0.056<span style="text-decoration: underline;">2</span>    0.352  780.  1.01</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> mu    0.209  0.259 0.282 0.004<span style="text-decoration: underline;">99</span>   0.106     0.612  683.  1.00</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> tau   0.142  0.177 0.182 0.002<span style="text-decoration: underline;">74</span>   0.044<span style="text-decoration: underline;">3</span>    0.344  789.  1.00</span></span></code></pre></div>
 <p>In these results, <code>mode</code>, <code>median</code>, and
 <code>mean</code> represent posterior modes, medians, and means
 respectively. We recommend reporting the mode (<a href="https://osf.io/ezjsx/" class="external-link">Mathur (2022)</a>). These results indicate
