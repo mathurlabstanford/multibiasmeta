@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">multibiasmeta</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.1</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -190,28 +190,22 @@ use <code><a href="https://rdrr.io/pkg/EValue/man/convert_measures.html" class="
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># specify confounding as internal bias</span></span></span>
-<span class="r-in"><span><span class="va">evalues</span> <span class="op">&lt;-</span> <span class="fu">multibias_evalue</span><span class="op">(</span>yi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>,</span></span>
-<span class="r-in"><span>                            vi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">vi</span>,</span></span>
-<span class="r-in"><span>                            biased <span class="op">=</span> <span class="op">!</span><span class="va">meta_meat</span><span class="op">$</span><span class="va">randomized</span>,</span></span>
-<span class="r-in"><span>                            selection_ratio <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">evalues</span><span class="op">$</span><span class="va">stats</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 2</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   bias_est bias_ci</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>    0.539   0.270</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span>  <span class="co"># specify confounding as internal bias</span></span></span>
+<span class="r-in"><span>  <span class="va">evalues</span> <span class="op">&lt;-</span> <span class="fu">multibias_evalue</span><span class="op">(</span>yi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>,</span></span>
+<span class="r-in"><span>                              vi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">vi</span>,</span></span>
+<span class="r-in"><span>                              biased <span class="op">=</span> <span class="op">!</span><span class="va">meta_meat</span><span class="op">$</span><span class="va">randomized</span>,</span></span>
+<span class="r-in"><span>                              selection_ratio <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">evalues</span><span class="op">$</span><span class="va">stats</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># specify confounding as internal bias</span></span></span>
-<span class="r-in"><span><span class="va">evalues_confounding</span> <span class="op">&lt;-</span> <span class="fu">multibias_evalue</span><span class="op">(</span>yi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>,</span></span>
-<span class="r-in"><span>                                        vi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">vi</span>,</span></span>
-<span class="r-in"><span>                                        biased <span class="op">=</span> <span class="op">!</span><span class="va">meta_meat</span><span class="op">$</span><span class="va">randomized</span>,</span></span>
-<span class="r-in"><span>                                        selection_ratio <span class="op">=</span> <span class="fl">4</span>,</span></span>
-<span class="r-in"><span>                                        assumed_bias_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">EValue</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/EValue/man/confounding.html" class="external-link">confounding</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">evalues_confounding</span><span class="op">$</span><span class="va">stats</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 1 × 4</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   bias_est bias_ci evalue_est evalue_ci</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>    0.539   0.270       2.82      1.95</span>
+<span class="r-in"><span>  <span class="co"># specify confounding as internal bias</span></span></span>
+<span class="r-in"><span>  <span class="va">evalues_confounding</span> <span class="op">&lt;-</span> <span class="fu">multibias_evalue</span><span class="op">(</span>yi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>,</span></span>
+<span class="r-in"><span>                                          vi <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">vi</span>,</span></span>
+<span class="r-in"><span>                                          biased <span class="op">=</span> <span class="op">!</span><span class="va">meta_meat</span><span class="op">$</span><span class="va">randomized</span>,</span></span>
+<span class="r-in"><span>                                          selection_ratio <span class="op">=</span> <span class="fl">4</span>,</span></span>
+<span class="r-in"><span>                                          assumed_bias_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu">EValue</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/EValue/man/confounding.html" class="external-link">confounding</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="va">evalues_confounding</span><span class="op">$</span><span class="va">stats</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
