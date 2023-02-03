@@ -81,7 +81,7 @@ However, in practice, we do not know exactly how severe publication bias is. In 
 
 For a chosen ratio of publication probabilities, `selection_ratio`, we can estimate a publication bias-corrected pooled point estimate and confidence interval per `r refs["SAPB"]`. Model options include fixed-effects (a.k.a. "common-effect"), robust independent, and robust clustered specifications.
 
-Since a selection ratio of 1 corresponds to no publication bias (i.e., affirmative and nonaffirmative studies are equally likely to be published), passing `selection_ratio = 1` recovers the uncorrected point estimate that we obtained above.
+Since a selection ratio of 1 corresponds to no publication bias (i.e., affirmative and nonaffirmative studies are equally likely to be published), passing `selection_ratio = 1` recovers the uncorrected, fixed-effects point estimate that we obtained above.
 ```{r pubbias_meat_1}
 pubbias_meat_1 <- pubbias_meta(meta_meat$yi,
                                meta_meat$vi,
@@ -205,7 +205,7 @@ In these results, `mode`, `median`, and `mean` represent posterior modes, median
 
 ### Diagnostic plots
 
-To assess the fit of right-truncated meta-analysis and possible violations of its distributional assumptions, we can plot the fitted cumulative distribution function (CDF) of the published nonaffirmative estimates versus their empirical CDF. If the points do not adhere fairly closely to a 45-degree line, the right-truncated meta-analysis may not fit adequately.
+To assess the fit of right-truncated meta-analysis and possible violations of its distributional assumptions, we can plot the fitted cumulative distribution function (CDF) of the published nonaffirmative estimates versus their empirical CDF. If the points do not adhere fairly closely to a 45-degree line, the right-truncated meta-analysis may not fit adequately. Here, the fit is a bit questionable because the points toward the right-hand side of the plot do not adhere very closely to the line.
 
 ```{r tcrit, include = FALSE}
 # temporary workaround for bug in released version of phacking
@@ -216,7 +216,7 @@ phacking_meat$values$tcrit <- qnorm(0.975)
 rtma_qqplot(phacking_meat)
 ```
 
-As another diagnostic plot, we can examine the Z-scores of all published point estimates. When _p_-hacking favors affirmative estimates over nonaffirmative estimates, as our methods and others assume, Z-scores may disproportionately concentrate just above the critical value (e.g., 1.96). Importantly, the presence of _p_-hacking does not *guarantee* a concentration of Z-scores just above the critical value, so it is prudent to proceed with the fitting RTMA even if no such concentration is apparent. In contrast, if Z-scores also concentrate just *below* the critical value, or if they also concentrate below the sign-reversed critical value (e.g., –1.96), this could indicate forms of _p_-hacking that violate the assumptions of RTMA.
+As another diagnostic plot, we can examine the Z-scores of all published point estimates. When _p_-hacking favors affirmative estimates over nonaffirmative estimates, as our methods and others assume, Z-scores may disproportionately concentrate just above the critical value (e.g., 1.96). Importantly, the presence of _p_-hacking does not *guarantee* a concentration of Z-scores just above the critical value, so it is prudent to proceed with the fitting RTMA even if no such concentration is apparent. In contrast, if Z-scores also concentrate just *below* the critical value, or if they also concentrate below the sign-reversed critical value (e.g., –1.96), this could indicate forms of _p_-hacking that violate the assumptions of RTMA. This plot does not suggest a concentration of Z-scores just below 1.96.
 
 ```{r z_density}
 z_density(yi = meta_meat$yi, vi = meta_meat$vi)
