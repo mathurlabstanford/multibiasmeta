@@ -123,7 +123,7 @@ functions.</p>
 <p>The example dataset <code>meta_meat</code> is from a meta-analysis
 that assessed the effectiveness of educational behavior interventions
 that attempt to reduce meat consumption by appealing to animal welfare
-(<a href="https://osf.io/bc2wy/" class="external-link">Mathur et al (2021)</a>). The
+(<a href="https://osf.io/bc2wy/" class="external-link">Mathur et al, 2021</a>). The
 meta-analysis included 100 studies (from 34 articles) that measured
 behavioral or self-reported outcomes related to meat consumption or
 purchasing. Point estimates (<code>yi</code>) are on the log relative
@@ -178,8 +178,8 @@ for any potential biases.</p>
 <span><span class="co">#&gt; Number of studies = 34 </span></span>
 <span><span class="co">#&gt; Number of outcomes = 100 (min = 1 , mean = 2.94 , median = 2 , max = 17 )</span></span>
 <span><span class="co">#&gt; Rho = 0.8 </span></span>
-<span><span class="co">#&gt; I.sq = 69 </span></span>
-<span><span class="co">#&gt; Tau.sq = 0.029 </span></span>
+<span><span class="co">#&gt; I.sq = 68.59531 </span></span>
+<span><span class="co">#&gt; Tau.sq = 0.02858774 </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;                Estimate StdErr t-value  dfs  P(|t|&gt;) 95% CI.L 95% CI.U Sig</span></span>
 <span><span class="co">#&gt; 1 X.Intercept.    0.164 0.0398    4.11 27.6 0.000317   0.0822    0.245 ***</span></span>
@@ -195,7 +195,7 @@ publication bias in which affirmative studies (i.e., those with
 statistically significant estimates in the desired direction) are more
 likely to be published than nonaffirmative studies (i.e., those with
 nonsignificant estimates or estimates in the undesired direction) by a
-certain ratio, called selection_ratio (<a href="https://osf.io/s9dp6/" class="external-link">Mathur &amp; VanderWeele (2020)</a>). To
+certain ratio, called selection_ratio (<a href="https://osf.io/s9dp6/" class="external-link">Mathur &amp; VanderWeele, 2020</a>). To
 provide intuition, suppose we knew that affirmative studies were twice
 as likely to be published as nonaffirmative studies. We could then
 correct the meta-analytic estimate by having each <em>published</em>
@@ -260,13 +260,13 @@ behavior of <code><a href="https://rdrr.io/pkg/PublicationBias/man/pubbias_meta.
 <span>                               cluster <span class="op">=</span> <span class="va">meta_meat</span><span class="op">$</span><span class="va">cluster</span>,</span>
 <span>                               selection_ratio <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span>
 <span><span class="va">pubbias_meat_4</span><span class="op">$</span><span class="va">stats</span></span>
-<span><span class="co">#&gt;     model estimate    se ci_lower ci_upper p_value</span></span>
-<span><span class="co">#&gt; 1 pubbias     0.13 0.032    0.062      0.2 0.00079</span></span></code></pre></div>
+<span><span class="co">#&gt;     model  estimate         se   ci_lower  ci_upper      p_value</span></span>
+<span><span class="co">#&gt; 1 pubbias 0.1293691 0.03194793 0.06212993 0.1966083 0.0007856887</span></span></code></pre></div>
 <p>This random-effects meta-analysis indicates that, if affirmative
 (i.e., significant and positive) studies were 4 times more likely to be
 published than nonaffirmative (i.e., nonsignificant or negative)
 studies, the meta-analytic point estimate corrected for publication bias
-would be 0.13 (95% CI [0.06, 0.2]).</p>
+would be 0.13 (95% CI [0.06, 0.20]).</p>
 <p><code>pubbias_meta</code> has a number of arguments that can be used
 to change the model of publication bias. By default,
 <code>pubbias_meta</code> assumes that publication bias favors
@@ -304,7 +304,7 @@ nonaffirmative studies in analysis. Unlike standard publication bias
 methods, MAN can help assess robustness to other forms of selective
 reporting besides publication bias. In particular, MAN accommodates
 situations in which investigators manipulate or selectively report
-results <em>within</em> studies, called “<em>p</em>-hacking” (<a href="https://osf.io/ezjsx/" class="external-link">Mathur (2022)</a>).</p>
+results <em>within</em> studies, called “<em>p</em>-hacking” (<a href="https://osf.io/ezjsx/" class="external-link">Mathur, 2022</a>).</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pubbias_meat_4</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/PublicationBias/man/pubbias_meta.html" class="external-link">pubbias_meta</a></span><span class="op">(</span><span class="va">meta_meat</span><span class="op">$</span><span class="va">yi</span>,</span>
 <span>                               <span class="va">meta_meat</span><span class="op">$</span><span class="va">vi</span>,</span>
@@ -313,9 +313,9 @@ results <em>within</em> studies, called “<em>p</em>-hacking” (<a href="https
 <span>                               return_worst_meta <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">pubbias_meat_4</span><span class="op">$</span><span class="va">stats</span></span>
-<span><span class="co">#&gt;        model estimate    se ci_lower ci_upper p_value</span></span>
-<span><span class="co">#&gt; 1    pubbias    0.129 0.032    0.062     0.20 0.00079</span></span>
-<span><span class="co">#&gt; 2 worst_case    0.093 0.030    0.029     0.16 0.00733</span></span></code></pre></div>
+<span><span class="co">#&gt;        model  estimate         se   ci_lower  ci_upper      p_value</span></span>
+<span><span class="co">#&gt; 1    pubbias 0.1293691 0.03194793 0.06212993 0.1966083 0.0007856887</span></span>
+<span><span class="co">#&gt; 2 worst_case 0.0931093 0.03049443 0.02865793 0.1575607 0.0073343486</span></span></code></pre></div>
 <p>If there were worst-case publication bias (i.e., that favors
 affirmative results infinitely more than nonaffirmative results), the
 corrected meta-analytic point estimate would be 0.09 (95% CI [0.03,
@@ -357,16 +357,16 @@ than to the null.</p>
 <span><span class="co">#&gt;      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     23.2    1.48</span></span></code></pre></div>
 <p>These results indicate that, for the point estimate corrected for
-publication bias to shift to 0.1, affirmative studies would need to be
+publication bias to shift to 0.10, affirmative studies would need to be
 23.19 times more likely to be published than nonaffirmative studies.
 Additionally, for the CI bound corrected for publication bias to shift
-to 0.1, affirmative studies would need to be 1.48 times more likely to
+to 0.10, affirmative studies would need to be 1.48 times more likely to
 be published than nonaffirmative studies.</p>
 <p>In general, if the S-value is small enough that it represents a
 plausible amount of publication bias (see the empirical benchmarks
-provided in (<a href="https://osf.io/p3xyd/" class="external-link">Mathur &amp; VanderWeele
-(2019)</a>), then the meta-analysis may be considered relatively
-sensitive to publication bias. In contrast, if the S-value represents an
+provided in (<a href="https://osf.io/p3xyd/" class="external-link">Mathur &amp; VanderWeele,
+2019</a>), then the meta-analysis may be considered relatively sensitive
+to publication bias. In contrast, if the S-value represents an
 implausibly large amount of publication bias, then one might consider
 the meta-analysis to be relatively robust. These methods can sometimes
 indicate that no amount of publication bias under the assumed model
@@ -407,12 +407,10 @@ reporting <em>within</em> studies. For example, investigators may
 affirmative results among these analyses, or by fitting multiple models
 to the same dataset in an attempt to obtain an affirmative estimate.
 Standard methods for publication bias can be biased in either direction
-when there is <em>p</em>-hacking (<a href="https://osf.io/ezjsx/" class="external-link">Mathur
-(2022)</a>). However, meta-analysis of nonaffirmative results (MAN,
-described above) MAN still provides a conservative estimate (i.e.,
-biased toward the null) if there is <em>p</em>-hacking that favors
-affirmative results (<a href="https://osf.io/ezjsx/" class="external-link">Mathur
-(2022)</a>).</p>
+when there is <em>p</em>-hacking (<a href="https://osf.io/ezjsx/" class="external-link">Mathur, 2022</a>). However, meta-analysis
+of nonaffirmative results (MAN, described above) MAN still provides a
+conservative estimate (i.e., biased toward the null) if there is
+<em>p</em>-hacking that favors affirmative results (<a href="https://osf.io/ezjsx/" class="external-link">Mathur, 2022</a>).</p>
 <p>Additional sensitivity analyses for joint publication bias and
 <em>p</em>-hacking can be conducted. Assuming that published, hacked
 studies never have nonaffirmative estimates (e.g., their investigators
@@ -437,8 +435,8 @@ results) in meta-analyses.</p>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; SAMPLING FOR MODEL 'phacking_rtma' NOW (CHAIN 1).</span></span>
 <span><span class="co">#&gt; Chain 1: </span></span>
-<span><span class="co">#&gt; Chain 1: Gradient evaluation took 0.000374 seconds</span></span>
-<span><span class="co">#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.74 seconds.</span></span>
+<span><span class="co">#&gt; Chain 1: Gradient evaluation took 0.000328 seconds</span></span>
+<span><span class="co">#&gt; Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 3.28 seconds.</span></span>
 <span><span class="co">#&gt; Chain 1: Adjust your expectations accordingly!</span></span>
 <span><span class="co">#&gt; Chain 1: </span></span>
 <span><span class="co">#&gt; Chain 1: </span></span>
@@ -455,15 +453,15 @@ results) in meta-analyses.</p>
 <span><span class="co">#&gt; Chain 1: Iteration: 1800 / 2000 [ 90%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 1: Iteration: 2000 / 2000 [100%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 1: </span></span>
-<span><span class="co">#&gt; Chain 1:  Elapsed Time: 1.7585 seconds (Warm-up)</span></span>
-<span><span class="co">#&gt; Chain 1:                1.6928 seconds (Sampling)</span></span>
-<span><span class="co">#&gt; Chain 1:                3.4513 seconds (Total)</span></span>
+<span><span class="co">#&gt; Chain 1:  Elapsed Time: 1.69124 seconds (Warm-up)</span></span>
+<span><span class="co">#&gt; Chain 1:                1.54177 seconds (Sampling)</span></span>
+<span><span class="co">#&gt; Chain 1:                3.23301 seconds (Total)</span></span>
 <span><span class="co">#&gt; Chain 1: </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; SAMPLING FOR MODEL 'phacking_rtma' NOW (CHAIN 2).</span></span>
 <span><span class="co">#&gt; Chain 2: </span></span>
-<span><span class="co">#&gt; Chain 2: Gradient evaluation took 0.000124 seconds</span></span>
-<span><span class="co">#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 1.24 seconds.</span></span>
+<span><span class="co">#&gt; Chain 2: Gradient evaluation took 0.000108 seconds</span></span>
+<span><span class="co">#&gt; Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 1.08 seconds.</span></span>
 <span><span class="co">#&gt; Chain 2: Adjust your expectations accordingly!</span></span>
 <span><span class="co">#&gt; Chain 2: </span></span>
 <span><span class="co">#&gt; Chain 2: </span></span>
@@ -480,15 +478,15 @@ results) in meta-analyses.</p>
 <span><span class="co">#&gt; Chain 2: Iteration: 1800 / 2000 [ 90%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 2: Iteration: 2000 / 2000 [100%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 2: </span></span>
-<span><span class="co">#&gt; Chain 2:  Elapsed Time: 1.83605 seconds (Warm-up)</span></span>
-<span><span class="co">#&gt; Chain 2:                1.62356 seconds (Sampling)</span></span>
-<span><span class="co">#&gt; Chain 2:                3.45962 seconds (Total)</span></span>
+<span><span class="co">#&gt; Chain 2:  Elapsed Time: 1.61638 seconds (Warm-up)</span></span>
+<span><span class="co">#&gt; Chain 2:                1.35422 seconds (Sampling)</span></span>
+<span><span class="co">#&gt; Chain 2:                2.9706 seconds (Total)</span></span>
 <span><span class="co">#&gt; Chain 2: </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; SAMPLING FOR MODEL 'phacking_rtma' NOW (CHAIN 3).</span></span>
 <span><span class="co">#&gt; Chain 3: </span></span>
-<span><span class="co">#&gt; Chain 3: Gradient evaluation took 0.000122 seconds</span></span>
-<span><span class="co">#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 1.22 seconds.</span></span>
+<span><span class="co">#&gt; Chain 3: Gradient evaluation took 0.000109 seconds</span></span>
+<span><span class="co">#&gt; Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 1.09 seconds.</span></span>
 <span><span class="co">#&gt; Chain 3: Adjust your expectations accordingly!</span></span>
 <span><span class="co">#&gt; Chain 3: </span></span>
 <span><span class="co">#&gt; Chain 3: </span></span>
@@ -505,15 +503,15 @@ results) in meta-analyses.</p>
 <span><span class="co">#&gt; Chain 3: Iteration: 1800 / 2000 [ 90%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 3: Iteration: 2000 / 2000 [100%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 3: </span></span>
-<span><span class="co">#&gt; Chain 3:  Elapsed Time: 2.00401 seconds (Warm-up)</span></span>
-<span><span class="co">#&gt; Chain 3:                1.67956 seconds (Sampling)</span></span>
-<span><span class="co">#&gt; Chain 3:                3.68358 seconds (Total)</span></span>
+<span><span class="co">#&gt; Chain 3:  Elapsed Time: 1.56408 seconds (Warm-up)</span></span>
+<span><span class="co">#&gt; Chain 3:                1.33354 seconds (Sampling)</span></span>
+<span><span class="co">#&gt; Chain 3:                2.89762 seconds (Total)</span></span>
 <span><span class="co">#&gt; Chain 3: </span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; SAMPLING FOR MODEL 'phacking_rtma' NOW (CHAIN 4).</span></span>
 <span><span class="co">#&gt; Chain 4: </span></span>
-<span><span class="co">#&gt; Chain 4: Gradient evaluation took 0.000121 seconds</span></span>
-<span><span class="co">#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 1.21 seconds.</span></span>
+<span><span class="co">#&gt; Chain 4: Gradient evaluation took 0.000108 seconds</span></span>
+<span><span class="co">#&gt; Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 1.08 seconds.</span></span>
 <span><span class="co">#&gt; Chain 4: Adjust your expectations accordingly!</span></span>
 <span><span class="co">#&gt; Chain 4: </span></span>
 <span><span class="co">#&gt; Chain 4: </span></span>
@@ -530,20 +528,20 @@ results) in meta-analyses.</p>
 <span><span class="co">#&gt; Chain 4: Iteration: 1800 / 2000 [ 90%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 4: Iteration: 2000 / 2000 [100%]  (Sampling)</span></span>
 <span><span class="co">#&gt; Chain 4: </span></span>
-<span><span class="co">#&gt; Chain 4:  Elapsed Time: 1.78774 seconds (Warm-up)</span></span>
-<span><span class="co">#&gt; Chain 4:                1.30157 seconds (Sampling)</span></span>
-<span><span class="co">#&gt; Chain 4:                3.08931 seconds (Total)</span></span>
+<span><span class="co">#&gt; Chain 4:  Elapsed Time: 1.57631 seconds (Warm-up)</span></span>
+<span><span class="co">#&gt; Chain 4:                1.59692 seconds (Sampling)</span></span>
+<span><span class="co">#&gt; Chain 4:                3.17323 seconds (Total)</span></span>
 <span><span class="co">#&gt; Chain 4:</span></span>
 <span></span>
 <span><span class="va">phacking_meat</span><span class="op">$</span><span class="va">stats</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2 × 9</span></span></span>
 <span><span class="co">#&gt;   param  mode median  mean      se ci_lower ci_upper n_eff r_hat</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> mu    0.209  0.257 0.282 0.004<span style="text-decoration: underline;">56</span>   0.112     0.596  826.  1.00</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> tau   0.142  0.177 0.182 0.002<span style="text-decoration: underline;">62</span>   0.052<span style="text-decoration: underline;">1</span>    0.341  836.  1.00</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> mu    0.209  0.261 0.291 0.004<span style="text-decoration: underline;">83</span>   0.117     0.646  815.  1.00</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> tau   0.143  0.182 0.189 0.002<span style="text-decoration: underline;">67</span>   0.065<span style="text-decoration: underline;">8</span>    0.361  825.  1.00</span></span></code></pre></div>
 <p>In these results, <code>mode</code>, <code>median</code>, and
 <code>mean</code> represent posterior modes, medians, and means
-respectively. We recommend reporting the mode (<a href="https://osf.io/ezjsx/" class="external-link">Mathur (2022)</a>). These results indicate
+respectively. We recommend reporting the mode (<a href="https://osf.io/ezjsx/" class="external-link">Mathur, 2022</a>). These results indicate
 that, accounting for potential <em>p</em>-hacking and publication bias
 that favor affirmative results, the estimated meta-analytic mean,
 <code>mu</code>, is 0.21 and the estimated standard deviation of the
@@ -623,8 +621,8 @@ those of <code>pubbias_meta</code>.</p>
 <span>                               bias_affirmative <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>                               bias_nonaffirmative <span class="op">=</span> <span class="fl">0</span><span class="op">)</span></span>
 <span><span class="va">multi_meat_0</span><span class="op">$</span><span class="va">stats</span></span>
-<span><span class="co">#&gt;       model estimate    se ci_lower ci_upper p_value</span></span>
-<span><span class="co">#&gt; 1 multibias     0.13 0.021    0.087     0.17 1.3e-07</span></span></code></pre></div>
+<span><span class="co">#&gt;       model  estimate         se   ci_lower  ci_upper      p_value</span></span>
+<span><span class="co">#&gt; 1 multibias 0.1293691 0.02103083 0.08711307 0.1716251 1.335523e-07</span></span></code></pre></div>
 <p>These results indicate that if affirmative studies were 4 times more
 likely to be published than nonaffirmative studies and studies did not
 have internal bias, the corrected meta-analytic point estimate would be
@@ -642,8 +640,8 @@ the values of the latter sensitivity parameters, see <a href="https://osf.io/u7v
 <span>                               bias_affirmative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fl">1.5</span><span class="op">)</span>,</span>
 <span>                               bias_nonaffirmative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">multi_meat_1</span><span class="op">$</span><span class="va">stats</span></span>
-<span><span class="co">#&gt;       model estimate    se ci_lower ci_upper p_value</span></span>
-<span><span class="co">#&gt; 1 multibias    0.095 0.024    0.047     0.14 0.00025</span></span></code></pre></div>
+<span><span class="co">#&gt;       model   estimate         se   ci_lower  ci_upper      p_value</span></span>
+<span><span class="co">#&gt; 1 multibias 0.09491905 0.02405073 0.04662505 0.1432131 0.0002453537</span></span></code></pre></div>
 <p>These results indicate that if (1) affirmative studies were 4 times
 more likely to be published than nonaffirmative studies; (2)
 affirmative, nonrandomized studies had a mean internal bias of
@@ -661,8 +659,8 @@ internally biased (not just nonrandomized studies).</p>
 <span>                               bias_affirmative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fl">1.5</span><span class="op">)</span>,</span>
 <span>                               bias_nonaffirmative <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log</a></span><span class="op">(</span><span class="fl">1.1</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">multi_meat_1</span><span class="op">$</span><span class="va">stats</span></span>
-<span><span class="co">#&gt;       model estimate    se ci_lower ci_upper p_value</span></span>
-<span><span class="co">#&gt; 1 multibias     0.01 0.021   -0.032    0.052    0.63</span></span></code></pre></div>
+<span><span class="co">#&gt;       model   estimate         se    ci_lower  ci_upper   p_value</span></span>
+<span><span class="co">#&gt; 1 multibias 0.01020086 0.02103083 -0.03205518 0.0524569 0.6297933</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="bias-required-to-explain-away-the-results">Bias required to explain away the results<a class="anchor" aria-label="anchor" href="#bias-required-to-explain-away-the-results"></a>
@@ -739,7 +737,7 @@ conditional on any controlled covariates.</p>
 to get published than nonaffirmative studies, for the point estimate
 corrected for internal bias to shift to 0, non-randomized studies would
 need to have confounding associations of 2.82. For the CI bound
-corrected for internal bias to shift to 0.1, non-randomized studies
+corrected for internal bias to shift to 0.10, non-randomized studies
 would need to have confounding associations of 1.95. For more on the
 interpretation of these parameters, see <a href="https://osf.io/u7vcb/" class="external-link">Mathur (2022)</a>.</p>
 </div>
