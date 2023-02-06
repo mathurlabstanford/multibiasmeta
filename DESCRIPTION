@@ -1,11 +1,10 @@
 Package: multibiasmeta
 Type: Package
-Title: Sensitivity Analysis for the Interactive Effects of Internal Bias and
-  Publication Bias in Meta-Analyses
+Title: Sensitivity Analysis for Multiple Biases in Meta-Analyses
 Description: Meta-analyses can be compromised by studies' internal biases (e.g.,
   confounding in nonrandomized studies) as well as by publication bias. This
   package conducts sensitivity analyses for the joint effects of these biases
-  (per Mathur, 2022 [<doi:10.31219/osf.io/u7vcb>]). These sensitivity analyses 
+  (per Mathur (2022) <doi:10.31219/osf.io/u7vcb>). These sensitivity analyses 
   address two questions: (1) For a given severity of internal bias across
   studies and of publication bias, how much could the results change?; and
   (2) For a given severity of publication bias, how severe would internal bias
@@ -36,10 +35,11 @@ Imports:
 RoxygenNote: 7.2.3
 RdMacros: Rdpack
 Suggests:
-    rmarkdown,
+    glue,
     knitr,
     phacking,
     PublicationBias (>= 2.3.0),
+    rmarkdown,
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Roxygen: list(markdown = TRUE)

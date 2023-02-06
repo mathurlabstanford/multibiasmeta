@@ -89,7 +89,7 @@ For more on the functions passed as \code{assumed_bias_type}, see the
 \code{vignette("multiple-bias", package = "EValue")}
 }
 \examples{
-\dontrun{
+\donttest{
   # specify confounding as internal bias
   evalues <- multibias_evalue(yi = meta_meat$yi,
                               vi = meta_meat$vi,
