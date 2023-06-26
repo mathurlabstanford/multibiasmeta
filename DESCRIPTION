@@ -12,8 +12,9 @@ Description: Meta-analyses can be compromised by studies' internal biases (e.g.,
   amount?
 Version: 0.1.1
 Authors@R: c(
-  person("Mika", "Braginsky", email = "mika.br@gmail.com", role = c("aut", "cre")),
-  person("Maya", "Mathur", email = "mmathur@stanford.edu", role = c("aut")))
+  person("Maya", "Mathur", email = "mmathur@stanford.edu", role = c("aut", "cre")),
+  person("Mika", "Braginsky", email = "mika.br@gmail.com", role = c("aut"))
+  )
 Maintainer: Mika Braginsky <mika.br@gmail.com>
 License: MIT + file LICENSE
 URL: https://github.com/mathurlabstanford/multibiasmeta,
