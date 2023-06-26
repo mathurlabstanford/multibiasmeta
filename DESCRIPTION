@@ -10,7 +10,7 @@ Description: Meta-analyses can be compromised by studies' internal biases (e.g.,
   (2) For a given severity of publication bias, how severe would internal bias
   have to be, hypothetically, to attenuate the results to the null or by a given
   amount?
-Version: 0.1.0.9000
+Version: 0.1.1
 Authors@R: c(
   person("Mika", "Braginsky", email = "mika.br@gmail.com", role = c("aut", "cre")),
   person("Maya", "Mathur", email = "mmathur@stanford.edu", role = c("aut")))
