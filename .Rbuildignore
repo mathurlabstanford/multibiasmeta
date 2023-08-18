@@ -11,3 +11,4 @@
 ^CRAN-SUBMISSION$
 ^RELEASE\.R$
 ^_tmp$
+^check\.sh$
