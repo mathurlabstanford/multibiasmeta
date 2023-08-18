@@ -10,12 +10,12 @@ Description: Meta-analyses can be compromised by studies' internal biases (e.g.,
   (2) For a given severity of publication bias, how severe would internal bias
   have to be, hypothetically, to attenuate the results to the null or by a given
   amount?
-Version: 0.1.1
+Version: 0.2.0
 Authors@R: c(
-  person("Maya", "Mathur", email = "mmathur@stanford.edu", role = c("aut", "cre")),
+  person("Peter", "Solymos", email = "peter@analythium.io", role = c("cre", "ctb"), comment = c(ORCID = "0000-0001-7337-1740")),
+  person("Maya", "Mathur", email = "mmathur@stanford.edu", role = c("aut")),
   person("Mika", "Braginsky", email = "mika.br@gmail.com", role = c("aut"))
   )
-Maintainer: Mika Braginsky <mika.br@gmail.com>
 License: MIT + file LICENSE
 URL: https://github.com/mathurlabstanford/multibiasmeta,
      https://mathurlabstanford.github.io/multibiasmeta/
