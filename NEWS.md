@@ -1,6 +1,6 @@
 # multibiasmeta 0.2.0
 
-* New packahe maintainer: Peter Solymos.
+* New package maintainer: Peter Solymos.
 * CRAN release after archival.
 # multibiasmeta 0.1.0
 

@@ -1,10 +1,8 @@
-## R CMD check results
-
 ## Test environments
 
 The package was tested with `R CMD check --as-cran` on the following platforms:
 
-* Ubuntu Linux GCC (release, devel),
+* Ubuntu Linux GCC (oldrel, release, devel),
 * Windows x86_64  (oldrel, release, devel),
 * MacOS (release).
 
