@@ -1,3 +1,6 @@
+# multibiasmeta 0.2.1
+
+* Make vignette code evaluation conditional on the availability of suggested packages.
 # multibiasmeta 0.2.0
 
 * New package maintainer: Peter Solymos.
