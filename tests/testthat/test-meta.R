@@ -19,7 +19,7 @@ test_that("compare with direct calculation", {
   expect_equal(meta_estimate, calculated_estimate)
 })
 
-
+if (requireNamespace("PublicationBias")) {
 test_that("compare to to pubbias", {
   # multibiasmeta should agree with SAPB when there's no confounding
   # line 205 of analyze_applied_mbma.R
@@ -43,6 +43,7 @@ test_that("compare to to pubbias", {
   expect_equal(meta$stats$p_value, meta_pubbias$stats$p_value)
 
 })
+}
 
 test_that("compare estimate to evalue for all confounded", {
   # if all studies are confounded, E-value for estimate should just be equal to

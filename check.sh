@@ -39,6 +39,7 @@ R CMD build $PKG
 cp $PKG_*.tar.gz $TMP
 
 echo $(date) - Running checks >> $FILE
-R_CHECK_DONTTEST_EXAMPLES=false R CMD check --no-manual --as-cran --output=$TMP $PKG_*.tar.gz
+# R_CHECK_DONTTEST_EXAMPLES=false R CMD check --no-manual --as-cran --output=$TMP $PKG_*.tar.gz
+_R_CHECK_DEPENDS_ONLY_=true R CMD check --no-manual --as-cran --output=$TMP $PKG_*.tar.gz
 
 echo $(date) - Done >> $FILE
