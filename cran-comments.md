@@ -14,22 +14,34 @@ There were no ERRORs or WARNINGs. The following NOTE was displayed:
 ```
 Maintainer: ‘Peter Solymos <peter@analythium.io>’
 
-New submission
-
-Package was archived on CRAN
-
-CRAN repository db overrides:
-  X-CRAN-Comment: Archived on 2023-06-10 as issues were not corrected
-    in time.
+Days since last update: 1
 ```
 
-The package has new maintainer and is being submitted after archival.
-
-The package was previously removed from CRAN because one of its dependencies, phacking, was archived.
+I am submitting an update because of the following follow up email from CRAN:
 
 ```
-Error: processing vignette ‘tutorial.Rmd’ failed with diagnostics:
-    there is no package called 'phacking'
+Dear maintainer,
+
+Please see the problems shown on
+<https://cran.r-project.org/web/checks/check_results_multibiasmeta.html>.
+
+Please correct before 2023-09-02 to safely retain your package on CRAN.
+
+Packages in Suggests should be used conditionally: see 'Writing R Extensions'.
+This needs to be corrected even if the missing package(s) become available.
+It can be tested by checking with _R_CHECK_DEPENDS_ONLY_=true.
+
+The CRAN Team
 ```
 
-The phacking package is back on CRAN, thus the issues are resolved.
+The check results indicated ERROR on Fedora:
+
+```
+Version: 0.2.0
+Check: package dependencies
+Result: NOTE
+    Package suggested but not available for checking: ‘phacking’
+Flavors: r-devel-linux-x86_64-fedora-clang, r-devel-linux-x86_64-fedora-gcc
+```
+
+The phacking package is not yet available on Fedora, therefore we made the tests and tutorial that depend on phacking conditional on the package being present. We tested the new package with the `_R_CHECK_DEPENDS_ONLY_=true` setting as suggested.
