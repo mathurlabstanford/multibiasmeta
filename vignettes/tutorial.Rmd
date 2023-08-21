@@ -11,6 +11,7 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
+suggest_ok <- requireNamespace("phacking") && requireNamespace("PublicationBias")
 knitr::opts_chunk$set(
   error = FALSE,
   warning = FALSE,
@@ -20,7 +21,7 @@ knitr::opts_chunk$set(
   fig.width = 6,
   fig.height = 3,
   fig.dpi = 300,
-  eval = requireNamespace("phacking") && requireNamespace("PublicationBias")
+  eval = suggest_ok
 )
 
 # round printed numbers to 2 digits without changing options()
@@ -57,6 +58,19 @@ ref <- function(key, mode = "p") {
   if (mode == "t") glue::glue("[{r[1]} ({r[2]})]({r[3]})") # [author, year](link)
   else if (mode == "p") glue::glue("[{r[1]}, {r[2]}]({r[3]})") # [author (year)](link)
 }
+
+# when PublicationBias or phacking are missing
+# we use dummy versions of these model objects
+# that are reference in the text, i.e. it is not enought
+# to make eval=FALSE for the code chunks
+if (!suggest_ok) {
+  sr <- 4
+  multi_meat_0 <- pubbias_meat_4 <- list(stats=list(estimate=NA, ci_lower=NA, ci_upper=NA))
+  qs <- 0.1
+  svalue_meat_01 <- list(stats=list(sval_ci=NA))
+  phacking_meat <- list(stats=list(mode=list(NA, NA)))
+  evalue_meat <- evalue_meat_conf <- list(stats=list(bias_est=NA,bias_ci=NA))
+}
 ```
  
 This is a tutorial on how to use the packages `PublicationBias`, `phacking`, and `multibiasmeta`. Each package provides functions to conduct two types of sensitivity analysis:
@@ -78,6 +92,12 @@ This vignette goes through examples of how to use each of these functions.
 library(PublicationBias)
 library(phacking)
 library(multibiasmeta)
+```
+
+```{r setup2,eval=!suggest_ok,echo=FALSE}
+# this message is shown when PublicationBias or phacking are missing
+message("NOTE: Suggested packages PublicationBias or phacking are not installed")
+message("Please install these packages and run the code from this tutorial")
 ```
 
 The example dataset `meta_meat` is from a meta-analysis that assessed the effectiveness of educational behavior interventions that attempt to reduce meat consumption by appealing to animal welfare (`r ref("meat")`). The meta-analysis included 100 studies (from 34 articles) that measured behavioral or self-reported outcomes related to meat consumption or purchasing. Point estimates (`yi`) are on the log relative risk (RR) scale. The variable `cluster` corresponds to the paper that contributed the point estimate, and `randomized` is a boolean indicating whether the study was randomized.
