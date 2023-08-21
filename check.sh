@@ -23,8 +23,10 @@ echo $(date) - Script started > $FILE
 
 echo $(date) - Installing package dependencies >> $FILE
 apt update -qq && apt install --yes --no-install-recommends pandoc devscripts qpdf
-R -q -e "install.packages(c('codetools','roxygen2'))"
-R -q -e "remotes::install_deps('$PKG', upgrade='never', dependencies=TRUE)"
+# R -q -e "install.packages(c('codetools','roxygen2'))"
+# R -q -e "remotes::install_deps('$PKG', upgrade='never', dependencies=TRUE)"
+R -q -e "install.packages(c('codetools','roxygen2','rmarkdown','knitr'))"
+R -q -e "remotes::install_deps('$PKG', upgrade='never', dependencies=NA)"
 # R CMD build $PKG
 # cp $PKG_*.tar.gz $TMP
 
